@@ -28,6 +28,9 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
+        // lanza a buscar la posición
+        // Options: throw an error if no update is received every 30 seconds.
+            var watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 1000 });
     },
 
     // Update DOM on a Received Event
@@ -44,3 +47,16 @@ var app = {
 };
 
 app.initialize();
+
+function onPosSuccess(position) {
+     var element = document.getElementById('geolocation');
+        element.innerHTML = 'Latitude: '  + position.coords.latitude      + '<br />' +
+                            'Longitude: ' + position.coords.longitude     + '<br />' +
+                            '<hr />'      + element.innerHTML;
+}
+
+function onPosError(error) {
+    var element = document.getElementById('geolocation');
+        element.innerHTML = 'Code: '  + error.code + '<br />' +
+                            'Message: ' + error.message.longitude     +  element.innerHTML;
+}
