@@ -58,5 +58,5 @@ function onPosSuccess(position) {
 function onPosError(error) {
     var element = document.getElementById('geolocation');
         element.innerHTML = 'Code: '  + error.code + '<br />' +
-                            'Message: ' + error.message.longitude     +  element.innerHTML;
+                            'Message: ' + error.message  + '<br />' +  element.innerHTML;
 }
