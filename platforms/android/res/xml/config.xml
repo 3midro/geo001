@@ -59,6 +59,6 @@
     <allow-intent href="market:*" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="100" />
+    <preference name="SplashScreenDelay" value="3000" />
     <preference name="SplashMaintainAspectRatio" value="true" />
 </widget>

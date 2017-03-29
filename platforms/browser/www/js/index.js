@@ -30,7 +30,7 @@ var app = {
         this.receivedEvent('deviceready');
         // lanza a buscar la posición
         // Options: throw an error if no update is received every 30 seconds.
-            var watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 1000 });
+            //var watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 1000 });
     },
 
     // Update DOM on a Received Event
@@ -43,6 +43,8 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+        //welcomeScreen
+        welcomeScreen();
     }
 };
 
@@ -60,3 +62,45 @@ function onPosError(error) {
         element.innerHTML = 'Code: '  + error.code + '<br />' +
                             'Message: ' + error.message  + '<br />' +  element.innerHTML;
 }
+
+var welcomeScreen = function(){
+    var myapp = new Framework7();
+    var welcomescreen_slides = [
+          {
+            id: '0',
+            //picture: '<div class="tutorialicon">♥ <i class="material-icons">person<sup>add</sup></i></div>',
+            picture: '<div class="tutorialicon"><img src="img/logo_main_small.png"></div>',
+            text: 'Bienvenido a Brindix!.<br> <br> Te guiaremos a través de esta guia para que puedas utilizar la app.'
+          },
+          {
+            id: '1',
+           // picture: '<div class="tutorialicon">✲</div>',
+              picture: '<div class="tutorialicon"><i class="material-icons md-200">directions_walk</i></div>',
+            text: 'Encuentra los lugares más cercanos a ti'
+          },
+          {
+            id: '2',
+            //picture: '<div class="tutorialicon">♫</div>',
+              picture: '<div class="tutorialicon"><i class="material-icons md-200">audio_track</i> <i class="material-icons md-200">local_drink</i> </div>',
+            text: 'Ubica los lugares donde puedes <strong>CONSUMIR</strong> bebidas alcoholicas'
+          },
+          {
+            id: '3',
+           // picture: '<div class="tutorialicon">☆</div>',
+              picture: '<div class="tutorialicon"><i class="material-icons md-200">audio_track</i> <i class="material-icons md-200">local_drink</i> </div>',
+            text: 'Ubica los lugares donde puedes <strong>COMPRAR</strong> bebidas alcoholicas'
+          },
+          {
+            id: '4',
+           // picture: '<div class="tutorialicon">☆</div>',
+              picture: '<div class="tutorialicon"><i class="material-icons md-250">account_circle</i></div>',
+            text: 'Thanks for reading! Enjoy this app.<br><br><a id="tutorial-close-btn" href="#">End Tutorial</a>'
+          }
+        ];
+    
+    var options = {
+      'bgcolor': '#6A1B9A',
+      'fontcolor': '#fff'
+    }
+    var welcomescreen = myapp.welcomescreen(welcomescreen_slides, options);
+};
