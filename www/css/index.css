@@ -122,3 +122,34 @@ h1 {
 .material-icons.md-200 { font-size: 200px; }
 .material-icons.md-250 { font-size: 250px; }
 .material-icons.md-150 { font-size: 150px; }
+.material-icons.md-100 { font-size: 100px; }
+
+.flex-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  
+  -webkit-flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.flex-item {
+  /*background: tomato;*/
+  padding: 5px;
+  width: 100px;
+  height: 100px;
+  margin-top: 30px;
+  
+  line-height: 100px;
+  color: white;
+  font-weight: bold;
+  font-size: 3em;
+  text-align: center;
+}
+

@@ -28,7 +28,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ws: 'unsafe-inline' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -57,7 +57,7 @@
         <link rel="stylesheet" href="css/welcomescreen.css">
         
         
-        <title>Hello World</title>
+        <title>Brindix Beta 1.0.0</title>
     </head>
     <body>
         
@@ -69,7 +69,7 @@
           <div data-page="panel-left" class="page">
             <div class="navbar">
               <div class="navbar-inner">
-                <div class="center">Left Panel</div>
+                <div class="center">[Usuario]</div>
               </div>
             </div>
             <div class="page-content">
@@ -78,8 +78,16 @@
               </div>
               <div class="content-block-title">Posiciones registradas</div>
                <div class="content-block" id="geolocation"></div>
-                <!--<div class="list-block">
+                <div class="list-block">
                 <ul>
+                <li><a href="color-themes.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Color Themes</div>
+                        </div>
+                      </div></a>
+                </li>
                   <li><a href="forms.html" class="item-link close-panel">
                       <div class="item-content">
                         <div class="item-media"><i class="icon icon-f7"></i></div>
@@ -197,13 +205,99 @@
     <div class="views">
       <div class="view view-main">
         <div class="pages navbar-fixed">
-          <div data-page="index" class="page">
+          <div data-page="index" class="page tabbar-labels-fixed">
             <div class="navbar">
               <div class="navbar-inner">
-                <div class="center">Framework7</div>
-                <div class="right"><a href="#" class="open-panel link icon-only"><i class="icon icon-bars"></i></a></div>
+                <div class="left"><a href="#" class="open-panel link icon-only"><i class="icon icon-bars"></i></a></div>
+                  <div class="center">Brindix</div>
+                <!--<div class="right"><a href="#" class="open-panel link icon-only"><i class="icon icon-bars"></i></a></div>-->
               </div>
             </div>
+            <!-- <div class="toolbar tabbar tabbar-scrollable">
+    <div class="toolbar-inner"><a href="#tab-1" class="tab-link active"><i class="icon material-icons">map</i><span class="tabbar-label">Mapa</span></a><a href="#tab-2" class="tab-link"><i class="icon material-icons">today</i><span class="tabbar-label">Calendar</span></a><a href="#tab-3" class="tab-link"><i class="icon material-icons">store</i><span class="tabbar-label">Directorio</span></a><a href="#tab-4" class="tab-link"><i class="icon material-icons">file_upload</i><span class="tabbar-label">Otro</span></a><a href="#tab-5" class="tab-link"><i class="icon material-icons">file_upload</i><span class="tabbar-label">Upload</span></a><a href="#tab-6" class="tab-link"><i class="icon material-icons">file_upload</i><span class="tabbar-label">Upload</span></a><a href="#tab-7" class="tab-link"><i class="icon material-icons">file_upload</i><span class="tabbar-label">Upload</span></a></div>
+  </div>  -->
+              
+               <div class="toolbar tabbar tabbar-scrollable toolbar-bottom">
+    <div class="toolbar-inner"><a href="#tab-1" class="tab-link active"><i class="icon material-icons">map</i></a><a href="#tab-1a" class="tab-link"><i class="icon material-icons">store</i></a><a href="#tab-2" class="tab-link"><i class="icon material-icons">email</i></a><a href="#tab-3" class="tab-link"><i class="icon material-icons">local_pizza</i></a><a href="#tab-4" class="tab-link"><i class="icon material-icons">chat</i></a><a href="#tab-5" class="tab-link"><i class="icon material-icons">account_balance_wallet</i></a><a href="#tab-6" class="tab-link"><i class="icon material-icons">help</i></a><a href="#tab-7" class="tab-link"><i class="icon material-icons">today</i></a><a href="#tab-8" class="tab-link"><i class="icon material-icons">share</i></a></div>
+  </div>  
+              
+              
+              
+              
+              <div class="page-content">
+                   
+    <div class="tabs">
+      <div id="tab-1" class="tab active"> 
+        <div class="content-block">
+            <p><div class="content-block-title">Welcome To Framework7</div>
+              <a href="about.html" class="button button-raised">About Framework7</a></p>
+          <p>This is tab 1 content</p>
+          <p>texto sadsajdasjdasjlas</p>
+        </div>
+      </div>
+        <div id="tab-1a" class="tab">
+        <div class="content-block">
+          <p>This is tab 2 content</p>
+          <p>Ut ac lobortis lacus, non pellentesque arcu. Quisque sodales sapien malesuada, condimentum nunc at, viverra lacus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus eu pulvinar turpis, id tristique quam. Aenean venenatis molestie diam, sit amet condimentum nisl pretium id. Donec diam tortor, mollis in vehicula id, vehicula consectetur nulla. Quisque posuere rutrum mauris, eu rutrum turpis blandit at. Proin volutpat tortor sit amet metus porttitor accumsan. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut dapibus posuere dictum.</p>
+          <p>Fusce luctus turpis nunc, id porta orci blandit eget. Aenean sodales quam nec diam varius, in ornare ipsum condimentum. Aenean eleifend, nulla sit amet volutpat adipiscing, ligula nulla pharetra risus, vitae consequat leo tortor eu nunc. Vivamus at fringilla metus. Duis neque lectus, sagittis in volutpat a, pretium vel turpis. Nam accumsan auctor libero, quis sodales felis faucibus quis. Etiam vestibulum sed nisl vel aliquet. Aliquam pellentesque leo a lacus ultricies scelerisque. Vestibulum vestibulum fermentum tincidunt. Proin eleifend metus non quam pretium, eu vehicula ipsum egestas. Nam eget nibh enim. Etiam sem leo, pellentesque a elit vel, egestas rhoncus enim. Morbi ultricies adipiscing tortor, vitae condimentum lacus hendrerit nec. Phasellus laoreet leo quis purus elementum, ut fringilla justo eleifend. Nunc ultricies a sapien vitae auctor. Aliquam id erat elementum, laoreet est et, dapibus ligula.</p>
+          <p>Ut ac lobortis lacus, non pellentesque arcu. Quisque sodales sapien malesuada, condimentum nunc at, viverra lacus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus eu pulvinar turpis, id tristique quam. Aenean venenatis molestie diam, sit amet condimentum nisl pretium id. Donec diam tortor, mollis in vehicula id, vehicula consectetur nulla. Quisque posuere rutrum mauris, eu rutrum turpis blandit at. Proin volutpat tortor sit amet metus porttitor accumsan. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut dapibus posuere dictum.</p>
+        </div>
+      </div>
+      <div id="tab-2" class="tab">
+        <div class="content-block">
+          <p>This is tab 2 content</p>
+          <p>Ut ac lobortis lacus, non pellentesque arcu. Quisque sodales sapien malesuada, condimentum nunc at, viverra lacus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus eu pulvinar turpis, id tristique quam. Aenean venenatis molestie diam, sit amet condimentum nisl pretium id. Donec diam tortor, mollis in vehicula id, vehicula consectetur nulla. Quisque posuere rutrum mauris, eu rutrum turpis blandit at. Proin volutpat tortor sit amet metus porttitor accumsan. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut dapibus posuere dictum.</p>
+          <p>Fusce luctus turpis nunc, id porta orci blandit eget. Aenean sodales quam nec diam varius, in ornare ipsum condimentum. Aenean eleifend, nulla sit amet volutpat adipiscing, ligula nulla pharetra risus, vitae consequat leo tortor eu nunc. Vivamus at fringilla metus. Duis neque lectus, sagittis in volutpat a, pretium vel turpis. Nam accumsan auctor libero, quis sodales felis faucibus quis. Etiam vestibulum sed nisl vel aliquet. Aliquam pellentesque leo a lacus ultricies scelerisque. Vestibulum vestibulum fermentum tincidunt. Proin eleifend metus non quam pretium, eu vehicula ipsum egestas. Nam eget nibh enim. Etiam sem leo, pellentesque a elit vel, egestas rhoncus enim. Morbi ultricies adipiscing tortor, vitae condimentum lacus hendrerit nec. Phasellus laoreet leo quis purus elementum, ut fringilla justo eleifend. Nunc ultricies a sapien vitae auctor. Aliquam id erat elementum, laoreet est et, dapibus ligula.</p>
+          <p>Ut ac lobortis lacus, non pellentesque arcu. Quisque sodales sapien malesuada, condimentum nunc at, viverra lacus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus eu pulvinar turpis, id tristique quam. Aenean venenatis molestie diam, sit amet condimentum nisl pretium id. Donec diam tortor, mollis in vehicula id, vehicula consectetur nulla. Quisque posuere rutrum mauris, eu rutrum turpis blandit at. Proin volutpat tortor sit amet metus porttitor accumsan. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut dapibus posuere dictum.</p>
+        </div>
+      </div>
+        
+      <div id="tab-3" class="tab"> 
+        <div class="content-block">
+          <p>This is tab 3 content</p>
+          <p>Nulla gravida libero eget lobortis iaculis. In sed elit eu nibh adipiscing faucibus. Sed ac accumsan lacus. In ut diam quis turpis fringilla volutpat. In ultrices dignissim consequat. Cras pretium tortor et lorem condimentum posuere. Nulla facilisi. Suspendisse pretium egestas lacus ac laoreet. Mauris rhoncus quis ipsum quis tristique. Vivamus ultricies urna quis nunc egestas, in euismod turpis fringilla. Nam tellus massa, vehicula eu sapien non, dapibus tempor lorem. Fusce placerat orci arcu, eu dignissim enim porttitor vel. Nullam porttitor vel dolor sed feugiat. Suspendisse potenti. Maecenas ac mattis odio. Sed vel ultricies lacus, sed posuere libero.</p>
+          <p>Nulla gravida libero eget lobortis iaculis. In sed elit eu nibh adipiscing faucibus. Sed ac accumsan lacus. In ut diam quis turpis fringilla volutpat. In ultrices dignissim consequat. Cras pretium tortor et lorem condimentum posuere. Nulla facilisi. Suspendisse pretium egestas lacus ac laoreet. Mauris rhoncus quis ipsum quis tristique. Vivamus ultricies urna quis nunc egestas, in euismod turpis fringilla. Nam tellus massa, vehicula eu sapien non, dapibus tempor lorem. Fusce placerat orci arcu, eu dignissim enim porttitor vel. Nullam porttitor vel dolor sed feugiat. Suspendisse potenti. Maecenas ac mattis odio. Sed vel ultricies lacus, sed posuere libero.</p>
+          <p>Nulla gravida libero eget lobortis iaculis. In sed elit eu nibh adipiscing faucibus. Sed ac accumsan lacus. In ut diam quis turpis fringilla volutpat. In ultrices dignissim consequat. Cras pretium tortor et lorem condimentum posuere. Nulla facilisi. Suspendisse pretium egestas lacus ac laoreet. Mauris rhoncus quis ipsum quis tristique. Vivamus ultricies urna quis nunc egestas, in euismod turpis fringilla. Nam tellus massa, vehicula eu sapien non, dapibus tempor lorem. Fusce placerat orci arcu, eu dignissim enim porttitor vel. Nullam porttitor vel dolor sed feugiat. Suspendisse potenti. Maecenas ac mattis odio. Sed vel ultricies lacus, sed posuere libero.</p>
+        </div>
+      </div>
+        <div id="tab-4" class="tab"> 
+        <div class="content-block">
+          <p>This is tab 3 content</p>
+          <p>Nulla gravida libero eget lobortis iaculis. In sed elit eu nibh adipiscing faucibus. Sed ac accumsan lacus. In ut diam quis turpis fringilla volutpat. In ultrices dignissim consequat. Cras pretium tortor et lorem condimentum posuere. Nulla facilisi. Suspendisse pretium egestas lacus ac laoreet. Mauris rhoncus quis ipsum quis tristique. Vivamus ultricies urna quis nunc egestas, in euismod turpis fringilla. Nam tellus massa, vehicula eu sapien non, dapibus tempor lorem. Fusce placerat orci arcu, eu dignissim enim porttitor vel. Nullam porttitor vel dolor sed feugiat. Suspendisse potenti. Maecenas ac mattis odio. Sed vel ultricies lacus, sed posuere libero.</p>
+          <p>Nulla gravida libero eget lobortis iaculis. In sed elit eu nibh adipiscing faucibus. Sed ac accumsan lacus. In ut diam quis turpis fringilla volutpat. In ultrices dignissim consequat. Cras pretium tortor et lorem condimentum posuere. Nulla facilisi. Suspendisse pretium egestas lacus ac laoreet. Mauris rhoncus quis ipsum quis tristique. Vivamus ultricies urna quis nunc egestas, in euismod turpis fringilla. Nam tellus massa, vehicula eu sapien non, dapibus tempor lorem. Fusce placerat orci arcu, eu dignissim enim porttitor vel. Nullam porttitor vel dolor sed feugiat. Suspendisse potenti. Maecenas ac mattis odio. Sed vel ultricies lacus, sed posuere libero.</p>
+          <p>Nulla gravida libero eget lobortis iaculis. In sed elit eu nibh adipiscing faucibus. Sed ac accumsan lacus. In ut diam quis turpis fringilla volutpat. In ultrices dignissim consequat. Cras pretium tortor et lorem condimentum posuere. Nulla facilisi. Suspendisse pretium egestas lacus ac laoreet. Mauris rhoncus quis ipsum quis tristique. Vivamus ultricies urna quis nunc egestas, in euismod turpis fringilla. Nam tellus massa, vehicula eu sapien non, dapibus tempor lorem. Fusce placerat orci arcu, eu dignissim enim porttitor vel. Nullam porttitor vel dolor sed feugiat. Suspendisse potenti. Maecenas ac mattis odio. Sed vel ultricies lacus, sed posuere libero.</p>
+        </div>
+      </div>
+         <div id="tab-5" class="tab"> 
+        <div class="content-block">
+          <p>This is tab 5 content</p>
+          <p>texto sadsajdasjdasjlas</p>
+        </div>
+      </div>
+         <div id="tab-6" class="tab"> 
+        <div class="content-block">
+          <p>This is tab 6 content</p>
+          <p>texto sadsajdasjdasjlas</p>
+        </div>
+      </div>
+         <div id="tab-7" class="tab"> 
+        <div class="content-block">
+          <p>This is tab 7 content</p>
+          <p>texto sadsajdasjdasjlas</p>
+        </div>
+      </div>
+        <div id="tab-8" class="tab"> 
+        <div class="content-block">
+          <p>Share</p>
+          <p>Lista los contactos</p>
+        </div>
+      </div>
+    </div>
+  </div>
+              
+              
+              
+              
             <div class="page-content">
               <div class="content-block-title">Welcome To Framework7</div>
               <div class="content-block"><a href="about.html" class="button button-raised">About Framework7</a></div>

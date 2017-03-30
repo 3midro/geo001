@@ -1059,7 +1059,8 @@ p {
 .navbar,
 .toolbar,
 .subnavbar {
-  background: #2196f3;
+  /*background: #2196f3;*/
+    background: #6A1B9A;
 }
 .navbar a.link,
 .toolbar a.link,

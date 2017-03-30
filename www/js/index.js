@@ -70,37 +70,24 @@ var welcomeScreen = function(){
             id: '0',
             //picture: '<div class="tutorialicon">♥ <i class="material-icons">person<sup>add</sup></i></div>',
             picture: '<div class="tutorialicon"><img src="img/logo_main_small.png"></div>',
-            text: 'Bienvenido a Brindix!.<br> <br> Te guiaremos a través de esta guia para que puedas utilizar la app.'
+            text: 'Bienvenido a Brindix<br> <br> Descubre todo lo que puedes hacer con esta increible app.'
           },
           {
             id: '1',
-           // picture: '<div class="tutorialicon">✲</div>',
-              picture: '<div class="tutorialicon"><i class="material-icons md-200">directions_walk</i></div>',
-            text: 'Encuentra los lugares más cercanos a ti'
-          },
-          {
+           picture: '<ul class="flex-container"><li class="flex-item"><i class="material-icons md-100">audiotrack</i></li><li class="flex-item"><i class="material-icons md-100">local_bar</i></li></ul>',
+            text: '<div class="content-block-title">Lugares de consumo</div><div class="content-block">ubica todos los antros, discos y bares</div>'
+            },
+         {
             id: '2',
-            //picture: '<div class="tutorialicon">♫</div>',
-              picture: '<div class="tutorialicon"><i class="material-icons md-200">audio_track</i> <i class="material-icons md-200">local_drink</i> </div>',
-            text: 'Ubica los lugares donde puedes <strong>CONSUMIR</strong> bebidas alcoholicas'
-          },
-          {
-            id: '3',
-           // picture: '<div class="tutorialicon">☆</div>',
-              picture: '<div class="tutorialicon"><i class="material-icons md-200">audio_track</i> <i class="material-icons md-200">local_drink</i> </div>',
-            text: 'Ubica los lugares donde puedes <strong>COMPRAR</strong> bebidas alcoholicas'
-          },
-          {
-            id: '4',
-           // picture: '<div class="tutorialicon">☆</div>',
-              picture: '<div class="tutorialicon"><i class="material-icons md-250">account_circle</i></div>',
-            text: 'Thanks for reading! Enjoy this app.<br><br><a id="tutorial-close-btn" href="#">End Tutorial</a>'
-          }
+           picture: '<ul class="flex-container"><li class="flex-item"><i class="material-icons md-100">local_drink</i></li><li class="flex-item"><i class="material-icons md-100">store</i></li></ul>',
+            text: '<div class="content-block-title">Lugares de adquisición</div><div class="content-block">ubica todas las vinaterias, modeloramas y abarrotes con venta de bebidas alcoholicas<br><br><a class="button button-big button-fill button-raised color-purple close-welcomescreen" href="#">COMENZAR</a></div>'
+            }
         ];
     
     var options = {
       'bgcolor': '#6A1B9A',
-      'fontcolor': '#fff'
+      'fontcolor': '#fff',
+        'closeButtonText': 'Omitir'
     }
     var welcomescreen = myapp.welcomescreen(welcomescreen_slides, options);
 };
