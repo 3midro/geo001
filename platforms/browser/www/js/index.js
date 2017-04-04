@@ -64,7 +64,7 @@ function onPosError(error) {
 }
 
 var welcomeScreen = function(){
-    var myapp = new Framework7();
+    var myapp_ = new Framework7();
     var welcomescreen_slides = [
           {
             id: '0',
@@ -89,5 +89,5 @@ var welcomeScreen = function(){
       'fontcolor': '#fff',
         'closeButtonText': 'Omitir'
     }
-    var welcomescreen = myapp.welcomescreen(welcomescreen_slides, options);
+  //  var welcomescreen = myapp_.welcomescreen(welcomescreen_slides, options);
 };
