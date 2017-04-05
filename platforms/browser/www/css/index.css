@@ -162,3 +162,11 @@ h1 {
     text-justify: inter-word;
 }
 
+.left{
+    text-align: left;
+}
+
+.right{
+    text-align: right;
+}
+
