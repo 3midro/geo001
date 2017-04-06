@@ -56,7 +56,9 @@
         <!--css welcome screen -->
         <link rel="stylesheet" href="css/welcomescreen.css">
         
-        
+        <!--leaflet -->
+        <link rel="stylesheet" href="bower_components/leaflet/leaflet.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <title>Brindix Beta 1.0.0</title>
     </head>
     <body>
@@ -116,6 +118,13 @@
                                       <div class="item-title">Reportes</div>
                                     </div>
                                   </div></a></li>
+                             <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">headset_mic</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Gu&iacute;a</div><!--usuario-->
+                                    </div>
+                                  </div></a></li> 
                         </ul>
                     </div>
                 </div>
@@ -173,6 +182,13 @@
                                       <div class="item-title">Reportes</div>
                                     </div>
                                   </div></a></li>
+                            <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">headset_mic</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Gu&iacute;a</div><!--cliente-->
+                                    </div>
+                                  </div></a></li> 
                             
                         </ul>
                     </div>
@@ -217,6 +233,13 @@
                                       <div class="item-title">Reportes</div>
                                     </div>
                                   </div></a></li>
+                             <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">headset_mic</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Gu&iacute;a</div><!--ERP-->
+                                    </div>
+                                  </div></a></li> 
                            
                         </ul>
                     </div>
@@ -288,13 +311,20 @@
                      <div class="content-block-title">Ayuda</div>
                     <div class="list-block">
                         <ul>
+                            <li><a href="guia-seguridad.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">security<sup>check</sup></i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Seguridad</div>
+                                    </div>
+                                  </div></a></li>
                               <li><a href="color-themes.html" class="item-link"> 
                                   <div class="item-content">
                                     <div class="item-media"><i class="material-icons">headset_mic</i></div>
                                     <div class="item-inner"> 
                                       <div class="item-title">Soporte</div>
                                     </div>
-                                  </div></a></li> 
+                          
                           <li><a href="color-themes.html" class="item-link"> 
                                   <div class="item-content">
                                     <div class="item-media"><i class="material-icons">help</i></div>
@@ -324,23 +354,30 @@
                     <div class="content-block-title">Informaci&oacute;n</div>
                     <div class="list-block">
                         <ul>
-                            <li><a href="color-themes.html" class="item-link"> 
+                            <li><a href="about.html" class="item-link"> 
                                   <div class="item-content">
-                                    <div class="item-media"><i class="material-icons">apps</i></div>
+                                    <div class="item-media"><i class="material-icons">business<sup>check</sup></i></div>
                                     <div class="item-inner"> 
-                                      <div class="item-title">Acerca de</div>
+                                      <div class="item-title">Nosotros</div>
                                     </div>
                                   </div></a></li>
                               <li><a href="legal.html" class="item-link"> 
                                   <div class="item-content">
-                                    <div class="item-media"><i class="material-icons">gavel</i></div>
+                                    <div class="item-media"><i class="material-icons">gavel<sup>check</sup></i></div>
                                     <div class="item-inner"> 
-                                      <div class="item-title">Legal</div><!-- condiciones de uso | aviso privacidad-->
+                                      <div class="item-title">Legal</div><!-- condiciones de uso -->
+                                    </div>
+                                  </div></a></li> 
+                            <li><a href="privacidad.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">screen_lock_portrait<sup>check</sup></i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Privacidad</div><!--  aviso privacidad-->
                                     </div>
                                   </div></a></li> 
                           <li><a href="version.html" class="item-link"> 
                                   <div class="item-content">
-                                    <div class="item-media"><i class="material-icons">smartphone</i></div>
+                                    <div class="item-media"><i class="material-icons">smartphone<sup>check</sup></i></div>
                                     <div class="item-inner"> 
                                       <div class="item-title">Versi&oacute;n</div>
                                     </div>
@@ -402,10 +439,12 @@
         </div>
       </div>
     </div>
-    <div class="views">
+      
+          
+     <div class="views">
       <div class="view view-main">
         <div class="pages navbar-fixed">
-          <div data-page="index" class="page tabbar-labels-fixed">
+          <div data-page="index" class="page">
             <div class="navbar">
               <div class="navbar-inner">
                 <div class="left"><a href="#" class="open-panel link icon-only"><i class="icon icon-bars"></i></a></div>
@@ -413,96 +452,12 @@
                 <div class="right"><a href="#" data-panel="right" class="open-panel link icon-only"><i class="icon material-icons">search</i></a></div>
               </div>
             </div>
-            <!-- <div class="toolbar tabbar tabbar-scrollable">
-    <div class="toolbar-inner"><a href="#tab-1" class="tab-link active"><i class="icon material-icons">map</i><span class="tabbar-label">Mapa</span></a><a href="#tab-2" class="tab-link"><i class="icon material-icons">today</i><span class="tabbar-label">Calendar</span></a><a href="#tab-3" class="tab-link"><i class="icon material-icons">store</i><span class="tabbar-label">Directorio</span></a><a href="#tab-4" class="tab-link"><i class="icon material-icons">file_upload</i><span class="tabbar-label">Otro</span></a><a href="#tab-5" class="tab-link"><i class="icon material-icons">file_upload</i><span class="tabbar-label">Upload</span></a><a href="#tab-6" class="tab-link"><i class="icon material-icons">file_upload</i><span class="tabbar-label">Upload</span></a><a href="#tab-7" class="tab-link"><i class="icon material-icons">file_upload</i><span class="tabbar-label">Upload</span></a></div>
-  </div>  -->
-              
-               <div class="toolbar tabbar tabbar-scrollable toolbar-bottom">
-    <div class="toolbar-inner"><a href="#tab-1" class="tab-link active"><i class="icon material-icons">map</i></a><a href="#tab-1a" class="tab-link"><i class="icon material-icons">store</i></a><a href="#tab-2" class="tab-link"><i class="icon material-icons">email</i></a><a href="#tab-3" class="tab-link"><i class="icon material-icons">local_pizza</i></a><a href="#tab-4" class="tab-link"><i class="icon material-icons">chat</i></a><a href="#tab-5" class="tab-link"><i class="icon material-icons">account_balance_wallet</i></a><a href="#tab-6" class="tab-link"><i class="icon material-icons">help</i></a><a href="#tab-7" class="tab-link"><i class="icon material-icons">today</i></a><a href="#tab-8" class="tab-link"><i class="icon material-icons">share</i></a></div>
-  </div>  
-              
-              
-              
-              
-              <div class="page-content">
-                   
-    <div class="tabs">
-      <div id="tab-1" class="tab active"> 
-        <div class="content-block">
-            <p><div class="content-block-title">Welcome To Framework7</div>
-              <a href="about.html" class="button button-raised">About Framework7</a></p>
-          <p>This is tab 1 content</p>
-          <p>texto sadsajdasjdasjlas</p>
-        </div>
-      </div>
-        <div id="tab-1a" class="tab">
-        <div class="content-block">
-          <p>This is tab 2 content</p>
-          <p>Ut ac lobortis lacus, non pellentesque arcu. Quisque sodales sapien malesuada, condimentum nunc at, viverra lacus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus eu pulvinar turpis, id tristique quam. Aenean venenatis molestie diam, sit amet condimentum nisl pretium id. Donec diam tortor, mollis in vehicula id, vehicula consectetur nulla. Quisque posuere rutrum mauris, eu rutrum turpis blandit at. Proin volutpat tortor sit amet metus porttitor accumsan. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut dapibus posuere dictum.</p>
-          <p>Fusce luctus turpis nunc, id porta orci blandit eget. Aenean sodales quam nec diam varius, in ornare ipsum condimentum. Aenean eleifend, nulla sit amet volutpat adipiscing, ligula nulla pharetra risus, vitae consequat leo tortor eu nunc. Vivamus at fringilla metus. Duis neque lectus, sagittis in volutpat a, pretium vel turpis. Nam accumsan auctor libero, quis sodales felis faucibus quis. Etiam vestibulum sed nisl vel aliquet. Aliquam pellentesque leo a lacus ultricies scelerisque. Vestibulum vestibulum fermentum tincidunt. Proin eleifend metus non quam pretium, eu vehicula ipsum egestas. Nam eget nibh enim. Etiam sem leo, pellentesque a elit vel, egestas rhoncus enim. Morbi ultricies adipiscing tortor, vitae condimentum lacus hendrerit nec. Phasellus laoreet leo quis purus elementum, ut fringilla justo eleifend. Nunc ultricies a sapien vitae auctor. Aliquam id erat elementum, laoreet est et, dapibus ligula.</p>
-          <p>Ut ac lobortis lacus, non pellentesque arcu. Quisque sodales sapien malesuada, condimentum nunc at, viverra lacus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus eu pulvinar turpis, id tristique quam. Aenean venenatis molestie diam, sit amet condimentum nisl pretium id. Donec diam tortor, mollis in vehicula id, vehicula consectetur nulla. Quisque posuere rutrum mauris, eu rutrum turpis blandit at. Proin volutpat tortor sit amet metus porttitor accumsan. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut dapibus posuere dictum.</p>
-        </div>
-      </div>
-      <div id="tab-2" class="tab">
-        <div class="content-block">
-          <p>This is tab 2 content</p>
-          <p>Ut ac lobortis lacus, non pellentesque arcu. Quisque sodales sapien malesuada, condimentum nunc at, viverra lacus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus eu pulvinar turpis, id tristique quam. Aenean venenatis molestie diam, sit amet condimentum nisl pretium id. Donec diam tortor, mollis in vehicula id, vehicula consectetur nulla. Quisque posuere rutrum mauris, eu rutrum turpis blandit at. Proin volutpat tortor sit amet metus porttitor accumsan. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut dapibus posuere dictum.</p>
-          <p>Fusce luctus turpis nunc, id porta orci blandit eget. Aenean sodales quam nec diam varius, in ornare ipsum condimentum. Aenean eleifend, nulla sit amet volutpat adipiscing, ligula nulla pharetra risus, vitae consequat leo tortor eu nunc. Vivamus at fringilla metus. Duis neque lectus, sagittis in volutpat a, pretium vel turpis. Nam accumsan auctor libero, quis sodales felis faucibus quis. Etiam vestibulum sed nisl vel aliquet. Aliquam pellentesque leo a lacus ultricies scelerisque. Vestibulum vestibulum fermentum tincidunt. Proin eleifend metus non quam pretium, eu vehicula ipsum egestas. Nam eget nibh enim. Etiam sem leo, pellentesque a elit vel, egestas rhoncus enim. Morbi ultricies adipiscing tortor, vitae condimentum lacus hendrerit nec. Phasellus laoreet leo quis purus elementum, ut fringilla justo eleifend. Nunc ultricies a sapien vitae auctor. Aliquam id erat elementum, laoreet est et, dapibus ligula.</p>
-          <p>Ut ac lobortis lacus, non pellentesque arcu. Quisque sodales sapien malesuada, condimentum nunc at, viverra lacus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus eu pulvinar turpis, id tristique quam. Aenean venenatis molestie diam, sit amet condimentum nisl pretium id. Donec diam tortor, mollis in vehicula id, vehicula consectetur nulla. Quisque posuere rutrum mauris, eu rutrum turpis blandit at. Proin volutpat tortor sit amet metus porttitor accumsan. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut dapibus posuere dictum.</p>
-        </div>
-      </div>
-        
-      <div id="tab-3" class="tab"> 
-        <div class="content-block">
-          <p>This is tab 3 content</p>
-          <p>Nulla gravida libero eget lobortis iaculis. In sed elit eu nibh adipiscing faucibus. Sed ac accumsan lacus. In ut diam quis turpis fringilla volutpat. In ultrices dignissim consequat. Cras pretium tortor et lorem condimentum posuere. Nulla facilisi. Suspendisse pretium egestas lacus ac laoreet. Mauris rhoncus quis ipsum quis tristique. Vivamus ultricies urna quis nunc egestas, in euismod turpis fringilla. Nam tellus massa, vehicula eu sapien non, dapibus tempor lorem. Fusce placerat orci arcu, eu dignissim enim porttitor vel. Nullam porttitor vel dolor sed feugiat. Suspendisse potenti. Maecenas ac mattis odio. Sed vel ultricies lacus, sed posuere libero.</p>
-          <p>Nulla gravida libero eget lobortis iaculis. In sed elit eu nibh adipiscing faucibus. Sed ac accumsan lacus. In ut diam quis turpis fringilla volutpat. In ultrices dignissim consequat. Cras pretium tortor et lorem condimentum posuere. Nulla facilisi. Suspendisse pretium egestas lacus ac laoreet. Mauris rhoncus quis ipsum quis tristique. Vivamus ultricies urna quis nunc egestas, in euismod turpis fringilla. Nam tellus massa, vehicula eu sapien non, dapibus tempor lorem. Fusce placerat orci arcu, eu dignissim enim porttitor vel. Nullam porttitor vel dolor sed feugiat. Suspendisse potenti. Maecenas ac mattis odio. Sed vel ultricies lacus, sed posuere libero.</p>
-          <p>Nulla gravida libero eget lobortis iaculis. In sed elit eu nibh adipiscing faucibus. Sed ac accumsan lacus. In ut diam quis turpis fringilla volutpat. In ultrices dignissim consequat. Cras pretium tortor et lorem condimentum posuere. Nulla facilisi. Suspendisse pretium egestas lacus ac laoreet. Mauris rhoncus quis ipsum quis tristique. Vivamus ultricies urna quis nunc egestas, in euismod turpis fringilla. Nam tellus massa, vehicula eu sapien non, dapibus tempor lorem. Fusce placerat orci arcu, eu dignissim enim porttitor vel. Nullam porttitor vel dolor sed feugiat. Suspendisse potenti. Maecenas ac mattis odio. Sed vel ultricies lacus, sed posuere libero.</p>
-        </div>
-      </div>
-        <div id="tab-4" class="tab"> 
-        <div class="content-block">
-          <p>This is tab 3 content</p>
-          <p>Nulla gravida libero eget lobortis iaculis. In sed elit eu nibh adipiscing faucibus. Sed ac accumsan lacus. In ut diam quis turpis fringilla volutpat. In ultrices dignissim consequat. Cras pretium tortor et lorem condimentum posuere. Nulla facilisi. Suspendisse pretium egestas lacus ac laoreet. Mauris rhoncus quis ipsum quis tristique. Vivamus ultricies urna quis nunc egestas, in euismod turpis fringilla. Nam tellus massa, vehicula eu sapien non, dapibus tempor lorem. Fusce placerat orci arcu, eu dignissim enim porttitor vel. Nullam porttitor vel dolor sed feugiat. Suspendisse potenti. Maecenas ac mattis odio. Sed vel ultricies lacus, sed posuere libero.</p>
-          <p>Nulla gravida libero eget lobortis iaculis. In sed elit eu nibh adipiscing faucibus. Sed ac accumsan lacus. In ut diam quis turpis fringilla volutpat. In ultrices dignissim consequat. Cras pretium tortor et lorem condimentum posuere. Nulla facilisi. Suspendisse pretium egestas lacus ac laoreet. Mauris rhoncus quis ipsum quis tristique. Vivamus ultricies urna quis nunc egestas, in euismod turpis fringilla. Nam tellus massa, vehicula eu sapien non, dapibus tempor lorem. Fusce placerat orci arcu, eu dignissim enim porttitor vel. Nullam porttitor vel dolor sed feugiat. Suspendisse potenti. Maecenas ac mattis odio. Sed vel ultricies lacus, sed posuere libero.</p>
-          <p>Nulla gravida libero eget lobortis iaculis. In sed elit eu nibh adipiscing faucibus. Sed ac accumsan lacus. In ut diam quis turpis fringilla volutpat. In ultrices dignissim consequat. Cras pretium tortor et lorem condimentum posuere. Nulla facilisi. Suspendisse pretium egestas lacus ac laoreet. Mauris rhoncus quis ipsum quis tristique. Vivamus ultricies urna quis nunc egestas, in euismod turpis fringilla. Nam tellus massa, vehicula eu sapien non, dapibus tempor lorem. Fusce placerat orci arcu, eu dignissim enim porttitor vel. Nullam porttitor vel dolor sed feugiat. Suspendisse potenti. Maecenas ac mattis odio. Sed vel ultricies lacus, sed posuere libero.</p>
-        </div>
-      </div>
-         <div id="tab-5" class="tab"> 
-        <div class="content-block">
-          <p>This is tab 5 content</p>
-          <p>texto sadsajdasjdasjlas</p>
-        </div>
-      </div>
-         <div id="tab-6" class="tab"> 
-        <div class="content-block">
-          <p>This is tab 6 content</p>
-          <p>texto sadsajdasjdasjlas</p>
-        </div>
-      </div>
-         <div id="tab-7" class="tab"> 
-        <div class="content-block">
-          <p>This is tab 7 content</p>
-          <p>texto sadsajdasjdasjlas</p>
-        </div>
-      </div>
-        <div id="tab-8" class="tab"> 
-        <div class="content-block">
-          <p>Share</p>
-          <p>Lista los contactos</p>
-        </div>
-      </div>
-    </div>
-  </div>
-              
-              
-              
-              
             <div class="page-content">
+            <div id="map"></div>
               <div class="content-block-title">Welcome To Framework7</div>
               <div class="content-block"><a href="about.html" class="button button-raised">About Framework7</a></div>
-             <!-- <div class="content-block-title">Framework7 Kitchen Sink</div>
-              <div class="list-block">
+              <div class="content-block-title">Framework7 Kitchen Sink</div>
+              <!--<div class="list-block">
                 <ul>
                   <li><a href="accordion.html" class="item-link">
                       <div class="item-content">
@@ -781,163 +736,8 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="popup demo-popup">
-      <div class="view navbar-fixed">
-        <div class="pages">
-          <div class="page">
-            <div class="navbar">
-              <div class="navbar-inner">
-                <div class="center">Popup Title</div>
-                <div class="right"><a href="#" class="link close-popup">Done</a></div>
-              </div>
-            </div>
-            <div class="page-content">
-              <div class="content-block">
-                <p>Here comes popup. You can put here anything, even independent view with its own navigation. Also not, that by default popup looks a bit different on iPhone/iPod and iPad, on iPhone it is fullscreen.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse faucibus mauris leo, eu bibendum neque congue non. Ut leo mauris, eleifend eu commodo a, egestas ac urna. Maecenas in lacus faucibus, viverra ipsum pulvinar, molestie arcu. Etiam lacinia venenatis dignissim. Suspendisse non nisl semper tellus malesuada suscipit eu et eros. Nulla eu enim quis quam elementum vulputate. Mauris ornare consequat nunc viverra pellentesque. Aenean semper eu massa sit amet aliquam. Integer et neque sed libero mollis elementum at vitae ligula. Vestibulum pharetra sed libero sed porttitor. Suspendisse a faucibus lectus.</p>
-                <p>Duis ut mauris sollicitudin, venenatis nisi sed, luctus ligula. Phasellus blandit nisl ut lorem semper pharetra. Nullam tortor nibh, suscipit in consequat vel, feugiat sed quam. Nam risus libero, auctor vel tristique ac, malesuada ut ante. Sed molestie, est in eleifend sagittis, leo tortor ullamcorper erat, at vulputate eros sapien nec libero. Mauris dapibus laoreet nibh quis bibendum. Fusce dolor sem, suscipit in iaculis id, pharetra at urna. Pellentesque tempor congue massa quis faucibus. Vestibulum nunc eros, convallis blandit dui sit amet, gravida adipiscing libero.</p>
-                <p>Morbi posuere ipsum nisl, accumsan tincidunt nibh lobortis sit amet. Proin felis lorem, dictum vel nulla quis, lobortis dignissim nunc. Pellentesque dapibus urna ut imperdiet mattis. Proin purus diam, accumsan ut mollis ac, vulputate nec metus. Etiam at risus neque. Fusce tincidunt, risus in faucibus lobortis, diam mi blandit nunc, quis molestie dolor tellus ac enim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse interdum turpis a velit vestibulum pharetra. Vivamus blandit dapibus cursus. Aenean lorem augue, vehicula in eleifend ut, imperdiet quis felis.</p>
-                <p>Duis non erat vel lacus consectetur ultricies. Sed non velit dolor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin vel varius mi, a tristique ante. Vivamus eget nibh ac elit tempor bibendum sit amet vitae velit. Proin sit amet dapibus nunc, non porta tellus. Fusce interdum vulputate imperdiet. Sed faucibus metus at pharetra fringilla. Fusce mattis orci et massa congue, eget dapibus ante rhoncus. Morbi semper sed tellus vel dignissim. Cras vestibulum, sapien in suscipit tincidunt, lectus mi sodales purus, at egestas ligula dui vel erat. Etiam cursus neque eu lectus eleifend accumsan vitae non leo. Aliquam scelerisque nisl sed lacus suscipit, ac consectetur sapien volutpat. Etiam nulla diam, accumsan ut enim vel, hendrerit venenatis sem. Vestibulum convallis justo vitae pharetra consequat. Mauris sollicitudin ac quam non congue.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="popover popover-menu">
-      <div class="popover-inner">
-        <div class="list-block">
-          <ul>
-            <li><a href="modals.html" class="list-button item-link">Modals</a></li>
-            <li><a href="popover.html" class="list-button item-link">Popover</a></li>
-            <li><a href="tabs.html" class="list-button item-link">Tabs</a></li>
-            <li><a href="panels.html" class="list-button item-link">Side Panels</a></li>
-            <li><a href="list-view.html" class="list-button item-link">List View</a></li>
-            <li><a href="forms.html" class="list-button item-link">Forms</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-   <!-- <div class="popover popover-music">
-      <div class="popover-inner">
-        <div class="list-block media-list">
-          <ul>
-            <li><a href="#" class="item-link item-content">
-                <div class="item-media"><img src="http://lorempixel.com/88/88/people/1" width="44"></div>
-                <div class="item-inner">
-                  <div class="item-title-row">
-                    <div class="item-title">Yellow Submarine</div>
-                  </div>
-                  <div class="item-subtitle">Beatles</div>
-                </div></a></li>
-            <li><a href="#" class="item-link item-content">
-                <div class="item-media"><img src="http://lorempixel.com/88/88/people/2" width="44"></div>
-                <div class="item-inner">
-                  <div class="item-title-row">
-                    <div class="item-title">Don't Stop Me Now</div>
-                  </div>
-                  <div class="item-subtitle">Queen</div>
-                </div></a></li>
-            <li><a href="#" class="item-link item-content">
-                <div class="item-media"><img src="http://lorempixel.com/88/88/people/3" width="44"></div>
-                <div class="item-inner">
-                  <div class="item-title-row">
-                    <div class="item-title">Billie Jean</div>
-                  </div>
-                  <div class="item-subtitle">Michael Jackson</div>
-                </div></a></li>
-          </ul>
-        </div>
-      </div>
-    </div>-->
-   <!-- <div class="popover popover-contacts">
-      <div class="popover-inner">
-        <div class="list-block media-list">
-          <ul>
-            <li class="item-content">
-              <div class="item-media"><img src="http://lorempixel.com/88/88/people/1" width="40"></div>
-              <div class="item-inner">
-                <div class="item-title-row">
-                  <div class="item-title">Ali Connors</div>
-                </div>
-              </div>
-            </li>
-            <li class="item-content">
-              <div class="item-media"><img src="http://lorempixel.com/88/88/people/2" width="40"></div>
-              <div class="item-inner">
-                <div class="item-title-row">
-                  <div class="item-title">Sandra Adams</div>
-                </div>
-              </div>
-            </li>
-            <li class="item-content">
-              <div class="item-media"><img src="http://lorempixel.com/88/88/people/3" width="40"></div>
-              <div class="item-inner">
-                <div class="item-title-row">
-                  <div class="item-title">Trevor Hansen</div>
-                </div>
-              </div>
-            </li>
-            <li><a href="#" class="item-link item-content bg-purple color-white ripple-white">
-                <div class="item-media"><i class="icon material-icons">mode_edit</i></div>
-                <div class="item-inner">
-                  <div class="item-title-row">
-                    <div class="item-title">Add New</div>
-                  </div>
-                </div></a></li>
-          </ul>
-        </div>
-      </div>
-    </div>-->
-    <div class="login-screen">
-      <div class="view">
-        <div class="page">
-          <div class="page-content login-screen-content">
-            <div class="login-screen-title">Framework7</div>
-            <form>
-              <div class="list-block inputs-list">
-                <ul>
-                  <li class="item-content">
-                    <div class="item-inner">
-                      <div class="item-title label">Username</div>
-                      <div class="item-input">
-                        <input type="text" name="username" placeholder="Your username">
-                      </div>
-                    </div>
-                  </li>
-                  <li class="item-content">
-                    <div class="item-inner">
-                      <div class="item-title label">Password</div>
-                      <div class="item-input">
-                        <input type="password" name="password" placeholder="Your password">
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="content-block"><a href="#" class="button button-big">Sign In</a></div>
-              <div class="content-block">
-                <div class="list-block-label">Some text about login information.<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="picker-modal picker-modal-demo">
-      <div class="toolbar">
-        <div class="toolbar-inner">
-          <div class="left"></div>
-          <div class="right"><a href="#" class="link close-picker">Done</a></div>
-        </div>
-      </div>
-      <div class="picker-modal-inner">
-        <div class="content-block">Integer mollis nulla id nibh elementum finibus. Maecenas eget fermentum ipsum. Sed sagittis condimentum nisl at tempus. Duis lacus libero, laoreet vitae ligula a, aliquet eleifend sapien. Nullam sodales viverra sodales.</div>
-      </div>
-    </div>
-        
-        
+    </div>      
+          
         <div class="app">
              <h1>Apache Cordova</h1>
             <div id="deviceready" class="blink">
@@ -954,6 +754,8 @@
         <script type="text/javascript" src="material/js/kitchen-sink.js"></script>
         <!-- scripts welcomescreen-->
         <script src="js/welcomescreen.js"></script>
-        
+          <!-- script leaflet-->
+        <script src="bower_components/leaflet/leaflet.js"></script>
+         
     </body>
 </html>

@@ -170,3 +170,8 @@ h1 {
     text-align: right;
 }
 
+#map {
+    height: 100vh;
+    width: 100vw;
+    background-color: aquamarine;
+}

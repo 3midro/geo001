@@ -7800,7 +7800,8 @@
                 if (clicked.hasClass('close-panel')) {
                     app.closePanel();
                 }
-        
+                
+           
                 // Panel Overlay
                 if (clicked.hasClass('panel-overlay')) {
                     $('.panel.active').trigger('panel:overlay-click');

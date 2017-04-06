@@ -35,16 +35,31 @@ var app = {
 
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+        if (id==='deviceready'){
+            //dispositivo esta listo 
+            //1 el welcomeScreen
+                welcomeScreen();
+            //2 lanza el mapa
+                createMap();
+            // lanza a buscar la posición
+        // Options: throw an error if no update is received every 30 seconds.
+            //var watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 1000 });
+        }else{
+            console.log("dispositivo no listo");
+        }
+        
+        /*
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
-
+*/
         console.log('Received Event: ' + id);
         //welcomeScreen
-        welcomeScreen();
+        //welcomeScreen();
+        
     }
 };
 
@@ -61,6 +76,10 @@ function onPosError(error) {
     var element = document.getElementById('geolocation');
         element.innerHTML = 'Code: '  + error.code + '<br />' +
                             'Message: ' + error.message  + '<br />' +  element.innerHTML;
+}
+
+function createMap(){
+    var mymap = L.map('map').setView([51.505, -0.09], 13);
 }
 
 var welcomeScreen = function(){
