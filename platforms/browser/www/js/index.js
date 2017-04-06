@@ -79,7 +79,17 @@ function onPosError(error) {
 }
 
 function createMap(){
-    var mymap = L.map('map').setView([51.505, -0.09], 13);
+    
+    var map = L.map('map').setView([21.881272, -102.295468], 16);
+//http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png --> xido
+    //http://{s}.tile.osm.org/{z}/{x}/{y}.png ---> ejemplo
+L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {}).addTo(map);
+    
+//L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(map);
+
+L.marker([21.881272, -102.295468]).addTo(map)
+    .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+    .openPopup();
 }
 
 var welcomeScreen = function(){
