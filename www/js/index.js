@@ -120,3 +120,42 @@ var welcomeScreen = function(){
     }
   //  var welcomescreen = myapp_.welcomescreen(welcomescreen_slides, options);
 };
+
+
+//test PHP
+function testPHP(){
+    //GET
+    /*var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(JSON.parse(this.responseText));
+       }
+    };
+    xhttp.open(urlServices['serviceTest'].type, urlServices['serviceTest'].url, true);
+    xhttp.send();*/
+    
+    
+    //POST
+    var xhttp = new XMLHttpRequest();
+    var datos = {'a': 25687};
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(JSON.parse(this.responseText));
+       }
+    };
+    xhttp.open(urlServices['serviceTestPOST'].type, urlServices['serviceTestPOST'].url, true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send('a=147');
+    
+    
+     /*$$.get(urlServices['serviceTest'].url, function(data, status){
+        alert("Data: " + data + "\nStatus: " + status);
+    });*/
+    
+   /*sendAJAX(urlServices['serviceTest'].url, {}, urlServices['serviceTest'].type, function (data) {
+        console.log(data);
+    }, function(){
+        //loading
+        console.log("loading");
+    },true);*/
+}

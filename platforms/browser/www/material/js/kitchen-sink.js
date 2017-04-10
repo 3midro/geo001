@@ -418,6 +418,7 @@ myApp.onPageInit('login-screen-embedded', function (page) {
         var username = $$(page.container).find('input[name="username"]').val();
         var password = $$(page.container).find('input[name="password"]').val();
         myApp.alert('Username: ' + username + ', password: ' + password, function () {
+            console.log("entro al login normal embebed");
             mainView.router.back();
         });
     });
@@ -427,6 +428,7 @@ $$('.login-screen').find('.button').on('click', function () {
     var password = $$('.login-screen').find('input[name="password"]').val();
     myApp.alert('Username: ' + username + ', password: ' + password, function () {
         myApp.closeModal('.login-screen');
+        console.log("entro al login normal");
     });
 });
 

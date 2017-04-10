@@ -191,3 +191,7 @@ h1 {
     padding: 5%;
     margin: 5%;
 }
+
+.fa-login{
+        transform: rotate(-22deg);
+}
