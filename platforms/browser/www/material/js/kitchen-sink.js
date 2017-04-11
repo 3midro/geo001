@@ -441,6 +441,7 @@ $$('.popover a').on('click', function () {
 myApp.onPageInit('color-themes', function (page) {
     $$(page.container).find('.ks-color-theme').click(function () {
         var classList = $$('body')[0].classList;
+        console.log(classList);
         for (var i = 0; i < classList.length; i++) {
             if (classList[i].indexOf('theme') === 0) classList.remove(classList[i]);
         }

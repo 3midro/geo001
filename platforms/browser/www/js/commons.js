@@ -1,19 +1,28 @@
-/*var sendAJAX = function (URL, data, type, myfunction, bs, withCredentials) {
+var sendAJAX = function (URL, data, type, myfunction) {
     type = (type !== null && type !== '')?type.toUpperCase():type;
     URL = (URL === null && URL === '')?'':URL;
-    
     var xhttp = new XMLHttpRequest();
+    var dataBack = [{}];
     xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(JSON.parse(this.responseText));
+        if (this.readyState == 4) {
+            console.log(this);
+            if(this.status === 200){
+                dataBack[0].operation = true;
+                dataBack[0].datos =JSON.parse(this.responseText);    
+            }else{
+                dataBack[0].operation = false;
+                dataBack[0].datos =['Error de conexión'];
+            }
+            myfunction(dataBack);
        }
     };
-    xhttp.open(urlServices['serviceTest'].type, urlServices['serviceTest'].url, true);
-    xhttp.send();
+    xhttp.open(type, URL, true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(data);
     
     
     
-    
+  /*  
     
     $$.ajax({
         type: type.toString(),
@@ -47,10 +56,10 @@
             //console.log(xhr + " | " + status);
         }
 
-    });
+    });*/
 };
 
-var sendAJAXORIGINAL = function (URL, data, type, myfunction, bs, withCredentials) {
+/*var sendAJAXORIGINAL = function (URL, data, type, myfunction, bs, withCredentials) {
     if (type !== null && type !== '') {
         type = type.toUpperCase();
     }
