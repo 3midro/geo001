@@ -20,6 +20,8 @@ var app = {
     // Application Constructor
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+        document.addEventListener("offline", whenOffline, false);
+        document.addEventListener("online", whenOnline, false);
     },
 
     // deviceready Event Handler
@@ -35,10 +37,15 @@ var app = {
 
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+        console.log('Received Event: ' + id);
         if (id==='deviceready'){
             //dispositivo esta listo 
-            //0 inicializa la base de datos local
+            //-1 inicializa la base de datos local
                 dblocal();
+            
+            //0 checkConnection()
+                checkConnection();
+            
             //1 el welcomeScreen
                 welcomeScreen();
             //2 lanza el mapa
@@ -58,17 +65,57 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 */
-        console.log('Received Event: ' + id);
+        
         //welcomeScreen
         //welcomeScreen();
         
     }
 };
-
+//local storage
+var storage = window.localStorage;
 app.initialize();
 
 var dblocal = function(){
-   var db;
+    //determina el color de la app (la que haya guardado el usuario)
+    var color = storage.getItem('color');
+    if (color !== null){
+        //cambia el color al root
+        var classList = $$('body')[0].classList;
+        for (var i = 0; i < classList.length; i++) {
+            if (classList[i].indexOf('theme') === 0) classList.remove(classList[i]);
+        }
+        classList.add('theme-' + color);
+        //cambia el color a los badges
+       // document.getElementsByClassName("bg-deeppurple").className = 'bg-' + color;
+        
+        var badges = document.getElementsByClassName("bg-deeppurple");
+         for (var i = 0; i < badges.length; i++) {
+             //badges[i].className ='bg-' + color;
+             //replaceClass(badges[i], 'bg-deeppurple', 'bg-' + color);
+              /*for (var j = 0; j < badges[i].classList.length; j++) {
+                    badges[i].classList.remove(badges[i].classList[j]);
+                }*/
+             // badges[i].classList[j].add('bg-' + color);
+            //badges[i].remove('bg-deeppurple').add('bg-' + color);
+             //console.log("antes");
+             //if (badges[i].indexOf('bg-deeppurple') === 0) classList.remove(classList[i]);
+            //console.log(badges[i].classList);
+             //replaceClass(badges[i], 'bg-deeppurple', 'bg-' + color);
+             //addClass(badges[i], 'bg-' + color);
+            // console.log("despues");
+             //console.log(badges[i]);
+         }
+        
+        
+        
+    }else{
+        // inicializa el color en purpura
+        storage.setItem('color', 'deeppurple');
+    }
+    color = storage.getItem('color')
+    console.log(color);
+    
+    var db;
     var databaseName = 'myDBrdxLocal';
     var databaseVersion = 1;
     var openRequest = window.indexedDB.open(databaseName, databaseVersion);
@@ -126,6 +173,36 @@ var dblocal = function(){
         };
     };
 };
+
+function whenOffline() {
+    // Handle the offline event
+    console.log("La app se puso en modo offline");
+}
+
+function whenOnline() {
+    // Handle the offline event
+    console.log("La app se puso en modo online");
+}
+
+var checkConnection = function(){
+    console.log();
+    var networkState = navigator.connection.type;
+    var states = {};
+    states[Connection.UNKNOWN]  = 'Unknown connection';
+    states[Connection.ETHERNET] = 'Ethernet connection';
+    states[Connection.WIFI]     = 'WiFi connection';
+    states[Connection.CELL_2G]  = 'Cell 2G connection';
+    states[Connection.CELL_3G]  = 'Cell 3G connection';
+    states[Connection.CELL_4G]  = 'Cell 4G connection';
+    states[Connection.CELL]     = 'Cell generic connection';
+    states[Connection.NONE]     = 'No network connection';
+
+    console.log('Connection type: ' + states[networkState]);
+};
+
+
+
+
 
 
 function onPosSuccess(position) {

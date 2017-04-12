@@ -441,11 +441,14 @@ $$('.popover a').on('click', function () {
 myApp.onPageInit('color-themes', function (page) {
     $$(page.container).find('.ks-color-theme').click(function () {
         var classList = $$('body')[0].classList;
-        console.log(classList);
+       // console.log(classList);
         for (var i = 0; i < classList.length; i++) {
+            console.log(classList[i].indexOf('theme'));
             if (classList[i].indexOf('theme') === 0) classList.remove(classList[i]);
         }
         classList.add('theme-' + $$(this).attr('data-theme'));
+        storage.setItem('color', $$(this).attr('data-theme'));
+       // console.log($$(this).attr('data-theme'));
     });
     $$(page.container).find('.ks-layout-theme').click(function () {
         var classList = $$('body')[0].classList;

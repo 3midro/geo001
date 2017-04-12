@@ -173,7 +173,10 @@ h1 {
 #map {
     height: 90vh;
     width: 100vw;
-    background-color: #F3E5F5;
+   /* background-color: #F3E5F5;*/
+    /*filter: alpha(opacity=60);
+    -moz-opacity: 0.6;
+    opacity: 0.6;*/
 }
 
 #vidLogin{
