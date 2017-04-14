@@ -28,7 +28,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ws: 'unsafe-inline' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' *.tile.osm.org data: *;">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ws: 'unsafe-inline' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' *.tile.osm.org data: *; script-src 'self' http://10.106.12.66/geoapps/geo001/www/php/  http://localhost/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval'; connect-src 'self' http://10.106.12.66/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval'">
         <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' *.osm.org data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *">-->
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
@@ -60,6 +60,10 @@
         <!--leaflet -->
         <link rel="stylesheet" href="bower_components/leaflet/leaflet.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        
+        <!--font awsome -->
+        <link rel="stylesheet" href="bower_components/font-awesome-4.7.0/css/font-awesome.min.css">
+         
         <title>Brindix Beta 1.0.0</title>
     </head>
     <body>
@@ -72,15 +76,14 @@
           <div data-page="panel-left" class="page">
             <div class="page-content">
                  
-              <div class="content-block">
+              <div class="content-block center">
                   <div class="chip">
-                    <div class="chip-media bg-purple">E</div>
+                    <div class="chip-media bg-deeppurple" id="chipUser"><i class="material-icons">person</i></div>
                     <div class="chip-label">Edd Sarellano</div>
                   </div>
-                  <a href="#" class="button button-raised open-login-screen button-big button-fill color-purple close-welcomescreen">INICIAR SESI&Oacute;N</a>
-                  <!--<a class="button button-big button-fill button-raised color-purple close-welcomescreen" href="login-screen.html">INICIAR SESI&Oacute;N</a>-->
-                 
-              </div>
+                  <!--<a href="#" class="button button-raised open-login-screen button-big button-fill color-purple close-welcomescreen">INICIAR SESI&Oacute;N</a>-->
+                  <a href="#" class="button button-big button-raised button-fill" onclick="testPHP();">TEST PHP</a>
+            </div>
                 
                  
                 <div class="content-block">
@@ -90,38 +93,38 @@
                               
                           <li><a href="color-themes.html" class="item-link"> 
                                   <div class="item-content">
-                                    <div class="item-media"><i class="material-icons">local_pizza</i></div>
+                                    <div class="item-media"><i class="material-icons color-gray">local_pizza</i></div>
                                     <div class="item-inner"> 
                                       <div class="item-title">Eventos</div> <!-- mis fiestas-->
-                                      <!--<div class="item-after"><span class="badge bg-purple">25</span></div>-->
+                                      <div class="item-after"><span class="badge theme-deeppurple">2</span></div>
                                     </div>
                                   </div></a></li>
                             <li><a href="color-themes.html" class="item-link"> 
                                   <div class="item-content">
-                                    <div class="item-media"><i class="material-icons">account_balance_wallet</i></div>
+                                    <div class="item-media"><i class="material-icons color-gray">account_balance_wallet</i></div>
                                     <div class="item-inner"> 
                                       <div class="item-title">Cartera </div> <!-- mi presupuesto-->
                                     </div>
                                   </div></a></li>
                             <li><a href="color-themes.html" class="item-link">
                                       <div class="item-content">
-                                        <div class="item-media"><i class="material-icons">card_giftcard</i></div>
+                                        <div class="item-media"><i class="material-icons color-gray">card_giftcard</i></div>
                                         <div class="item-inner">
                                           <div class="item-title">Regalos</div>
-                                            <div class="item-after"><span class="badge bg-purple">5</span></div>
+                                            <div class="item-after"><span class="badge theme-deeppurple">5</span></div>
                                         </div>
                                       </div></a>
                                 </li>
                             <li><a href="color-themes.html" class="item-link"> 
                                   <div class="item-content">
-                                    <div class="item-media"><i class="material-icons">pie_chart</i></div>
+                                    <div class="item-media"><i class="material-icons color-gray">pie_chart</i></div>
                                     <div class="item-inner"> 
                                       <div class="item-title">Reportes</div>
                                     </div>
                                   </div></a></li>
                              <li><a href="color-themes.html" class="item-link"> 
                                   <div class="item-content">
-                                    <div class="item-media"><i class="material-icons">headset_mic</i></div>
+                                    <div class="item-media"><i class="material-icons color-gray">headset_mic</i></div>
                                     <div class="item-inner"> 
                                       <div class="item-title">Gu&iacute;a</div><!--usuario-->
                                     </div>
@@ -252,25 +255,25 @@
                         <ul>
                               <li><a href="color-themes.html" class="item-link"> 
                                   <div class="item-content">
-                                    <div class="item-media"><i class="material-icons">question_answer</i></div>
+                                    <div class="item-media"><i class="material-icons color-gray">question_answer</i></div>
                                     <div class="item-inner"> 
                                       <div class="item-title">Mensajes</div>
-                                      <div class="item-after"><span class="badge bg-purple">2</span></div>
+                                      <div class="item-after"><span class="badge theme-deeppurple">2</span></div>
                                     </div>
                                   </div></a></li>
                              <li><a href="color-themes.html" class="item-link"> 
                                   <div class="item-content">
-                                    <div class="item-media"><i class="material-icons">notifications</i></div>
+                                    <div class="item-media"><i class="material-icons color-gray">notifications</i></div>
                                     <div class="item-inner"> 
                                       <div class="item-title">Notificaciones</div>
-                                      <div class="item-after"><span class="badge bg-purple">5</span></div>
+                                      <div class="item-after"><span class="badge theme-deeppurple">4</span></div>
                                     </div>
                                   </div></a></li>
                             
                         
                             <li><a href="color-themes.html" class="item-link"> 
                                   <div class="item-content">
-                                    <div class="item-media"><i class="material-icons">color_lens</i></div>
+                                    <div class="item-media"><i class="material-icons color-gray">color_lens</i></div>
                                     <div class="item-inner"> 
                                       <div class="item-title">Color</div>
                                     </div>
@@ -450,11 +453,135 @@
               <div class="navbar-inner">
                 <div class="left"><a href="#" class="open-panel link icon-only"><i class="icon icon-bars"></i></a></div>
                   <div class="center">Brindix</div>
-                <div class="right"><a href="#" data-panel="right" class="open-panel link icon-only"><i class="icon material-icons">search</i></a></div>
+                <div class="right"><a href="#" class="link icon-only" id="btnFlipMap"><i class="icon material-icons">view_list</i></a><a href="#" data-panel="right" class="open-panel link icon-only"><i class="icon material-icons">search</i></a></div>
               </div>
             </div>
             <div class="page-content">
-            <div id="map"></div>
+                <div class="flip-container">
+                    <div class="flipper">
+                        <div class="front_">
+                            <!-- front content -->
+                            <div id="map"></div>
+                        </div>
+                        <div class="back_ center">
+                            <!-- back content -->
+                           <!--<div class="content-block-title"><i class="material-icons icon-only">arrow_back</i> Desliza para ver la magia<i class="material-icons icon-only">arrow_forward</i></div>-->
+    <div class="list-block media-list left" style="overflow-y:auto; height: 90%; background-color: white;">
+      <ul>
+        <li class="swipeout">
+          <div class="swipeout-content"><a href="#" class="item-link item-content">
+              <div class="item-inner">
+                <div class="item-title-row">
+                  <div class="item-title"><i class="material-icons">local_bar</i> DANCETERÍA AN STAGE BAR PULLIMAN</div>
+                  <div class="item-after">17:14</div>
+                </div>
+                <div class="item-subtitle">New messages from John Doe</div>
+                <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+              </div></a></div>
+          <div class="swipeout-actions-left"><a href="#" class="bg-green swipeout-overswipe demo-reply">Reply</a><a href="#" class="demo-forward bg-blue">Forward</a></div>
+          <div class="swipeout-actions-right"><a href="#" class="demo-actions">More</a><a href="#" class="demo-mark bg-orange">Mark</a><a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a></div>
+        </li>
+        <li class="swipeout">
+          <div class="swipeout-content"><a href="#" class="item-link item-content">
+              <div class="item-inner">
+                <div class="item-title-row">
+                  <div class="item-title"><i class="material-icons">local_bar</i> VINOS &amp; LICORES</div>
+                  <div class="item-after">1.8 Km</div>
+                </div>
+                <div class="item-subtitle">ABARROTES Y VTA DE CERVEZA KRISMAR</div>
+                <div class="item-text">CALLE PEDRO GARC&Iacute;A ROJAS #1116-C<br><strong>COLONIA OLIVARES SANTANA</strong></div>
+              </div></a></div>
+          <div class="swipeout-actions-left"><a href="#" class="bg-green swipeout-overswipe demo-reply">Reply</a><a href="#" class="demo-forward bg-blue">Forward</a></div>
+          <div class="swipeout-actions-right"><a href="#" class="demo-actions">More</a><a href="#" class="demo-mark bg-orange">Mark</a><a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a></div>
+        </li>
+        <li class="swipeout">
+          <div class="swipeout-content"><a href="#" class="item-link item-content">
+              <div class="item-inner">
+                <div class="item-title-row">
+                  <div class="item-title">Facebook</div>
+                  <div class="item-after">16:48</div>
+                </div>
+                <div class="item-subtitle">New messages from John Doe</div>
+                <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+              </div></a></div>
+          <div class="swipeout-actions-left"><a href="#" class="bg-green swipeout-overswipe demo-reply">Reply</a><a href="#" class="demo-forward bg-blue">Forward</a></div>
+          <div class="swipeout-actions-right"><a href="#" class="demo-actions">More</a><a href="#" class="demo-mark bg-orange">Mark</a><a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a></div>
+        </li>
+        <li class="swipeout">
+          <div class="swipeout-content"><a href="#" class="item-link item-content">
+              <div class="item-inner">
+                <div class="item-title-row">
+                  <div class="item-title">John Doe (via Twitter)</div>
+                  <div class="item-after">15:32</div>
+                </div>
+                <div class="item-subtitle">John Doe (@_johndoe) mentioned you on Twitter!</div>
+                <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+              </div></a></div>
+          <div class="swipeout-actions-left"><a href="#" class="bg-green swipeout-overswipe demo-reply">Reply</a><a href="#" class="demo-forward bg-blue">Forward</a></div>
+          <div class="swipeout-actions-right"><a href="#" class="demo-actions">More</a><a href="#" class="demo-mark bg-orange">Mark</a><a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a></div>
+        </li>
+          <li class="swipeout">
+          <div class="swipeout-content"><a href="#" class="item-link item-content">
+              <div class="item-inner">
+                <div class="item-title-row">
+                  <div class="item-title">Facebook</div>
+                  <div class="item-after">17:14</div>
+                </div>
+                <div class="item-subtitle">New messages from John Doe</div>
+                <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+              </div></a></div>
+          <div class="swipeout-actions-left"><a href="#" class="bg-green swipeout-overswipe demo-reply">Reply</a><a href="#" class="demo-forward bg-blue">Forward</a></div>
+          <div class="swipeout-actions-right"><a href="#" class="demo-actions">More</a><a href="#" class="demo-mark bg-orange">Mark</a><a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a></div>
+        </li>
+        <li class="swipeout">
+          <div class="swipeout-content"><a href="#" class="item-link item-content">
+              <div class="item-inner">
+                <div class="item-title-row">
+                  <div class="item-title">John Doe (via Twitter)</div>
+                  <div class="item-after">17:11</div>
+                </div>
+                <div class="item-subtitle">John Doe (@_johndoe) mentioned you on Twitter!</div>
+                <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+              </div></a></div>
+          <div class="swipeout-actions-left"><a href="#" class="bg-green swipeout-overswipe demo-reply">Reply</a><a href="#" class="demo-forward bg-blue">Forward</a></div>
+          <div class="swipeout-actions-right"><a href="#" class="demo-actions">More</a><a href="#" class="demo-mark bg-orange">Mark</a><a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a></div>
+        </li>
+        <li class="swipeout">
+          <div class="swipeout-content"><a href="#" class="item-link item-content">
+              <div class="item-inner">
+                <div class="item-title-row">
+                  <div class="item-title">Facebook</div>
+                  <div class="item-after">16:48</div>
+                </div>
+                <div class="item-subtitle">New messages from John Doe</div>
+                <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+              </div></a></div>
+          <div class="swipeout-actions-left"><a href="#" class="bg-green swipeout-overswipe demo-reply">Reply</a><a href="#" class="demo-forward bg-blue">Forward</a></div>
+          <div class="swipeout-actions-right"><a href="#" class="demo-actions">More</a><a href="#" class="demo-mark bg-orange">Mark</a><a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a></div>
+        </li>
+        <li class="swipeout">
+          <div class="swipeout-content"><a href="#" class="item-link item-content">
+              <div class="item-inner">
+                <div class="item-title-row">
+                  <div class="item-title">Final Doe (via Twitter)</div>
+                  <div class="item-after">15:32</div>
+                </div>
+                <div class="item-subtitle">John Doe (@_johndoe) mentioned you on Twitter!</div>
+                <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
+              </div></a></div>
+          <div class="swipeout-actions-left"><a href="#" class="bg-green swipeout-overswipe demo-reply">Reply</a><a href="#" class="demo-forward bg-blue">Forward</a></div>
+          <div class="swipeout-actions-right"><a href="#" class="demo-actions">More</a><a href="#" class="demo-mark bg-orange">Mark</a><a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a></div>
+        </li>
+      </ul>
+    </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+                
+                
              <!-- <div class="content-block-title">Welcome To Framework7</div>
               <div class="content-block"><a href="about.html" class="button button-raised">About Framework7</a></div>
               <div class="content-block-title">Framework7 Kitchen Sink</div>-->
@@ -775,13 +902,13 @@
                   </li>
                 </ul>
               </div>
-              <div class="content-block"><a href="#" class="button button-big button-big button-fill color-purple">Iniciar Sesi&oacute;n</a></div>
+              <div class="content-block"><a href="#" class="button button-big button-big button-fill">Iniciar Sesi&oacute;n</a></div>
               <div class="content-block">
                 <div class="list-block-label">¿No tienes cuenta? <a href="#">Crea una cuenta</a> o registrate utilizando tus redes sociales
                     <p class="buttons-row">
-                        <a href="#" class="button button-raised button-fill color-indigo">Facebook</a>
-                        <a href="#" class="button button-raised button-fill color-cyan">twitter</a>
-                        <a href="#" class="button button-raised button-fill color-red">Google</a>
+                        <a href="#" class="button button-big button-fill button-raised color-indigo"><i class="fa fa-facebook-f fa-4x fa-login" ></i></a>
+                        <a href="#" class="button button-big button-fill button-raised color-cyan"><i class="fa fa-twitter fa-4x fa-login" ></i></a>
+                        <a href="#" class="button button-big button-fill button-raised color-red"><i class="fa fa-google-plus fa-4x fa-login" ></i></a>
                     </p>
                   </div>
               </div>
@@ -791,6 +918,9 @@
       </div>
     </div>
         
+        <!-- commons y services -->
+        <script type="text/javascript" src="js/commons.js"></script>
+        <script type="text/javascript" src="js/services.js"></script>
         
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
@@ -798,6 +928,9 @@
         <!-- scripts framework7-->
         <script type="text/javascript" src="material/js/framework7.js"></script>
         <script type="text/javascript" src="material/js/kitchen-sink.js"></script>
+        
+        
+        
         <!-- scripts welcomescreen-->
         <script src="js/welcomescreen.js"></script>
           <!-- script leaflet-->

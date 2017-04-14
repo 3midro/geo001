@@ -437,18 +437,42 @@ $$('.popover a').on('click', function () {
     myApp.closeModal('.popover');
 });
 
+
+/* ====== FLIP MAP ====== */
+
+$$('#btnFlipMap').on('click', function () {
+    var icn = $$("#btnFlipMap>i").text();
+    (icn === 'map')?$$("#btnFlipMap>i").text('view_list'):$$("#btnFlipMap>i").text('map');
+    document.querySelector(".flip-container").classList.toggle("flip");
+});
+
 /* ===== Color themes ===== */
 myApp.onPageInit('color-themes', function (page) {
     $$(page.container).find('.ks-color-theme').click(function () {
+        //obtengo el color antiguo
+        var colprev = storage.getItem('color'); 
+        //seteo el nuevo color
+        storage.setItem('color', $$(this).attr('data-theme'));
+        setColor(colprev);
+       
+       /* 
         var classList = $$('body')[0].classList;
-       // console.log(classList);
         for (var i = 0; i < classList.length; i++) {
             console.log(classList[i].indexOf('theme'));
             if (classList[i].indexOf('theme') === 0) classList.remove(classList[i]);
         }
         classList.add('theme-' + $$(this).attr('data-theme'));
-        storage.setItem('color', $$(this).attr('data-theme'));
-       // console.log($$(this).attr('data-theme'));
+        StatusBar.backgroundColorByHexString(coloresStatusBar[$$(this).attr('data-theme')])
+        var colprev = storage.getItem('color'); 
+        $$('#chipUser').removeClass('bg-' + colprev).addClass('bg-' + $$(this).attr('data-theme')); 
+        var elements = document.getElementsByClassName("theme-" + colprev);
+        var total = elements.length;
+        console.log(total);
+        for (var j = 0; j < total; j++) {
+                $$(elements[0]).removeClass('theme-' + colprev).addClass('theme-' + $$(this).attr('data-theme')); 
+         }
+        storage.setItem('color', $$(this).attr('data-theme'));*/
+        
     });
     $$(page.container).find('.ks-layout-theme').click(function () {
         var classList = $$('body')[0].classList;

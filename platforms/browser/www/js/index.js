@@ -40,6 +40,8 @@ var app = {
         console.log('Received Event: ' + id);
         if (id==='deviceready'){
             //dispositivo esta listo 
+            // -2 color interfaz
+                setColor();
             //-1 inicializa la base de datos local
                 dblocal();
             
@@ -73,48 +75,44 @@ var app = {
 };
 //local storage
 var storage = window.localStorage;
+//storage.removeItem('color');
 app.initialize();
 
-var dblocal = function(){
+
+
+/*var setColor2 = function(){
     //determina el color de la app (la que haya guardado el usuario)
     var color = storage.getItem('color');
     if (color !== null){
         //cambia el color al root
         var classList = $$('body')[0].classList;
+        console.log(classList);
         for (var i = 0; i < classList.length; i++) {
+           // console.log(classList[i]);
             if (classList[i].indexOf('theme') === 0) classList.remove(classList[i]);
         }
         classList.add('theme-' + color);
-        //cambia el color a los badges
-       // document.getElementsByClassName("bg-deeppurple").className = 'bg-' + color;
-        
-        var badges = document.getElementsByClassName("bg-deeppurple");
-         for (var i = 0; i < badges.length; i++) {
-             //badges[i].className ='bg-' + color;
-             //replaceClass(badges[i], 'bg-deeppurple', 'bg-' + color);
-              /*for (var j = 0; j < badges[i].classList.length; j++) {
-                    badges[i].classList.remove(badges[i].classList[j]);
-                }*/
-             // badges[i].classList[j].add('bg-' + color);
-            //badges[i].remove('bg-deeppurple').add('bg-' + color);
-             //console.log("antes");
-             //if (badges[i].indexOf('bg-deeppurple') === 0) classList.remove(classList[i]);
-            //console.log(badges[i].classList);
-             //replaceClass(badges[i], 'bg-deeppurple', 'bg-' + color);
-             //addClass(badges[i], 'bg-' + color);
-            // console.log("despues");
-             //console.log(badges[i]);
+        //cambia el circulito donde va el nombre del usuario logueado.
+        $$('#chipUser').removeClass('bg-deeppurple').addClass('bg-' + color); 
+        //cambia los badges
+        var elements = document.getElementsByClassName("theme-deeppurple");
+        var total = elements.length;
+        for (var j = 0; j < total; j++) {
+                $$(elements[0]).removeClass('theme-deeppurple').addClass('theme-' + color); 
          }
-        
-        
-        
+        StatusBar.backgroundColorByHexString(coloresStatusBar[color])
+       // StatusBar.backgroundColorByName("pink");
     }else{
         // inicializa el color en purpura
         storage.setItem('color', 'deeppurple');
+        setColor();
     }
-    color = storage.getItem('color')
-    console.log(color);
-    
+    color = storage.getItem('color');
+};*/
+
+var dblocal = function(){
+ 
+    return false;
     var db;
     var databaseName = 'myDBrdxLocal';
     var databaseVersion = 1;
