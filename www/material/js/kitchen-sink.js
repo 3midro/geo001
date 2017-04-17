@@ -446,6 +446,22 @@ $$('#btnFlipMap').on('click', function () {
     document.querySelector(".flip-container").classList.toggle("flip");
 });
 
+/* ======== RANGE ========*/
+
+$$('input[type="range"]').on('input change', function(){
+  var m ='';
+    if ( this.value == 1000 ) {
+        m = 'ilimitado';
+    }else{
+        m = '$ ' + this.value + '.00 MXN'
+    }
+    $$( this ).parent().parent().parent().find(".item-title.label").html(m);
+    /*
+    $$('input[type="range"]').parent().parent().parent().find(".label").html('500')
+    */
+    
+});
+
 /* ===== Color themes ===== */
 myApp.onPageInit('color-themes', function (page) {
     $$(page.container).find('.ks-color-theme').click(function () {

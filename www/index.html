@@ -95,17 +95,18 @@
                                   <div class="item-content">
                                     <div class="item-media"><i class="material-icons color-gray">local_pizza</i></div>
                                     <div class="item-inner"> 
-                                      <div class="item-title">Eventos</div> <!-- mis fiestas-->
+                                      <div class="item-title">Fiestas</div> <!-- mis fiestas-->
                                       <div class="item-after"><span class="badge theme-deeppurple">2</span></div>
                                     </div>
                                   </div></a></li>
-                            <li><a href="color-themes.html" class="item-link"> 
+                            <!-- mi presupuesto-->
+                            <!--<li><a href="color-themes.html" class="item-link"> 
                                   <div class="item-content">
                                     <div class="item-media"><i class="material-icons color-gray">account_balance_wallet</i></div>
                                     <div class="item-inner"> 
-                                      <div class="item-title">Cartera </div> <!-- mi presupuesto-->
+                                      <div class="item-title">Cartera </div> 
                                     </div>
-                                  </div></a></li>
+                                  </div></a></li>-->
                             <li><a href="color-themes.html" class="item-link">
                                       <div class="item-content">
                                         <div class="item-media"><i class="material-icons color-gray">card_giftcard</i></div>
@@ -115,20 +116,21 @@
                                         </div>
                                       </div></a>
                                 </li>
-                            <li><a href="color-themes.html" class="item-link"> 
+                            <!--<li><a href="color-themes.html" class="item-link"> 
                                   <div class="item-content">
                                     <div class="item-media"><i class="material-icons color-gray">pie_chart</i></div>
                                     <div class="item-inner"> 
                                       <div class="item-title">Reportes</div>
                                     </div>
-                                  </div></a></li>
-                             <li><a href="color-themes.html" class="item-link"> 
+                                  </div></a></li>-->
+                                <!--usuario-->
+                             <!--<li><a href="color-themes.html" class="item-link"> 
                                   <div class="item-content">
                                     <div class="item-media"><i class="material-icons color-gray">headset_mic</i></div>
                                     <div class="item-inner"> 
-                                      <div class="item-title">Gu&iacute;a</div><!--usuario-->
+                                      <div class="item-title">Gu&iacute;a</div>
                                     </div>
-                                  </div></a></li> 
+                                  </div></a></li> -->
                         </ul>
                     </div>
                 </div>
@@ -415,29 +417,276 @@
           <div data-page="panel-right1" class="page">
             <div class="navbar">
               <div class="navbar-inner">
-                <div class="center">Buscar</div>
+                <div class="center">
+                  <!--Buscar--> Filtrar
+                    <!--<form data-search-list=".search-here" data-search-in=".item-title" class="searchbar searchbar-init">
+                        <div class="searchbar-input">
+                          <input type="search" placeholder="Busca un lugar"/><a href="#" class="searchbar-clear"></a>
+                        </div>
+                      </form>-->
+                  </div>
+                  <div class="right"><a href="#" class="link icon-only close-panel"><i class="icon material-icons">close</i></a></div>
               </div>
             </div>
             <div class="page-content">
-              <div class="content-block">
-                <p>This is a right side panel. You can close it by clicking outsite or on this link: <a href="#" class="close-panel">close me</a>. You can put here anything, even another isolated view, try it: </p>
-              </div>
-              <div class="list-block">
-                <ul>
-                  <li><a href="panel-right2.html" class="item-link">
-                      <div class="item-content">
-                        <div class="item-inner">
-                          <div class="item-title">Right panel page 2</div>
+                <!--<div class="content-block-title">Por el nombre del establecimiento</div>
+                <div class="list-block">
+                    <form data-search-list=".search-here" data-search-in=".item-title" class="searchbar searchbar-init">
+                        <div class="searchbar-input">
+                          <input type="search" placeholder="Busca un lugar"/><a href="#" class="searchbar-clear"></a>
                         </div>
-                      </div></a></li>
-                  <li><a href="panel-right3.html" class="item-link">
-                      <div class="item-content">
-                        <div class="item-inner">
-                          <div class="item-title">Right panel page 3</div>
+                      </form>
+                </div>-->
+                <div class="content-block-title">Por el giro del establecimiento</div>
+                <div class="list-block">
+                    <ul>
+                        <li>
+                          <label class="label-checkbox item-content">
+                            <input type="checkbox" name="ks-checkbox" value="Books" checked="checked"/>
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="item-inner">
+                              <div class="item-title">Antros, Discos</div>
+                                <div class="item-after"><i class="icon material-icons">music_note</i></div>
+                            </div>
+                          </label>
+                        </li>
+                        <li>
+                          <label class="label-checkbox item-content">
+                            <input type="checkbox" name="ks-checkbox" value="Movies" checked="checked"/>
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="item-inner">
+                             <div class="item-title">Bares, Cantinas</div>
+                                <div class="item-after"><i class="icon material-icons">local_bar</i></div>
+                            </div>
+                          </label>
+                        </li>
+                        <li>
+                          <label class="label-checkbox item-content">
+                            <input type="checkbox" name="ks-checkbox" value="Food" checked="checked"/>
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="item-inner">
+                              <div class="item-title">Venta Cerveza</div>
+                                <div class="item-after"><i class="icon material-icons">local_drink</i></div>
+                            </div>
+                          </label>
+                        </li>
+                        <li>
+                          <label class="label-checkbox item-content">
+                            <input type="checkbox" name="ks-checkbox" value="Drinks" checked="checked"/>
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="item-inner">
+                              <div class="item-title">Vinaterias</div>
+                                <div class="item-after"><i class="icon material-icons">store</i></div>
+                            </div>
+                          </label>
+                        </li>
+                      </ul>
+                </div>
+                
+                   <div class="content-block-title">Por tu presupuesto</div>
+                        <div class="list-block">
+                            <div class="item-content">
+                            <div class="item-media"><i class="icon material-icons color-gray">account_balance_wallet</i></div>
+                            <div class="item-inner">
+                              <div class="item-title label center">ilimitado</div>
+                              <div class="item-input">
+                                <div class="range-slider">
+                                  <input type="range" min="50" max="1000" value="1000" step="50"/>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                      </div></a></li>
-                </ul>
-              </div>
+                
+                
+                <div class="content-block-title">Por tus preferencias</div>
+                <div class="list-block">
+                    <ul>
+                        <li>
+                          <label class="label-radio item-content">
+                            <input type="radio" name="ks-radio" value="Todos" checked="checked"/>
+                            <div class="item-media"><i class="icon icon-form-radio"></i></div>
+                            <div class="item-inner">
+                              <div class="item-title">Ninguno</div>
+                              <div class="item-after"><i class="icon material-icons">filter_none</i></div>
+                            </div>
+                          </label>
+                        </li>
+                        <li>
+                          <label class="label-radio item-content">
+                            <input type="radio" name="ks-radio" value="Books" />
+                            <div class="item-media"><i class="icon icon-form-radio"></i></div>
+                            <div class="item-inner">
+                              <div class="item-title">Favoritos</div>
+                              <div class="item-after"><i class="icon material-icons">favorite</i></div>
+                            </div>
+                          </label>
+                        </li>
+                       <li>
+                          <label class="label-radio item-content">
+                            <input type="radio" name="ks-radio" value="Movies"/>
+                            <div class="item-media"><i class="icon icon-form-radio"></i></div>
+                            <div class="item-inner">
+                              <div class="item-title">Cercanos</div>
+                              <div class="item-after"><i class="icon material-icons">directions_walk</i></div>
+                            </div>
+                          </label>
+                        </li>
+                        <li>
+                          <label class="label-radio item-content">
+                            <input type="radio" name="ks-radio" value="Food"/>
+                            <div class="item-media"><i class="icon icon-form-radio"></i></div>
+                            <div class="item-inner">
+                              <div class="item-title">En la mira</div>
+                              <div class="item-after"><i class="icon material-icons">local_offer</i></div>
+                            </div>
+                          </label>
+                        </li>
+                      </ul>
+                </div>
+                
+                 <div class="content-block-title">Por tus gustos</div>
+                <div class="list-block">
+                      <ul>
+                        <li><a href="#" class="item-link smart-select">
+                            <select name="car" multiple="multiple">
+                              <optgroup label="Lagers">
+                                <option value="honda">American Lager</option>
+                                <option value="lexus">Pilsner</option>
+                                <option value="mazda">Dunkel</option>
+                                <option value="nissan">Bock</option>
+                              </optgroup>
+                              <optgroup label="Ales">
+                                <option value="audi">Barley Wine</option>
+                                <option value="bmw">Pale Ale</option>
+                                <option value="mercedes">Porter</option>
+                                <option value="vw">Stoul</option>
+                              </optgroup>
+                            </select>
+                            <div class="item-content">
+                            <div class="item-media"><i class="material-icons color-gray">local_drink</i></div>
+                              <div class="item-inner">
+                                <div class="item-title" hidden="hidden">Cerveza</div>
+                              </div>
+                            </div></a></li>
+                          <li><a href="#" class="item-link smart-select">
+                            <select name="car2" multiple="multiple">
+                              <optgroup label="Fermentadas">
+                                <option value="honda">Vino (base UVA)</option>
+                                <option value="lexus">Sidra</option>
+                                <option value="mazda">Vino de fruta</option>
+                                <option value="nissan">Sake</option>
+                                <option value="toyota">Hidromiel</option>
+                                <option value="toyota">Pulque</option>
+                              </optgroup>
+                              <optgroup label="Destiladas">
+                                <option value="audi">Pisco</option>
+                                <option value="bmw">Grapa</option>
+                                <option value="mercedes">Ron</option>
+                                <option value="vw">Cachaza</option>
+                                <option value="volvo">Cocuy</option>
+                                <option value="volvo">Tequila</option>
+                                <option value="volvo">Mezcal</option>
+                                <option value="volvo">Brandy</option>  
+                                <option value="volvo">Whisky escoc&eacute;s</option>
+                                <option value="volvo">Whiskey americano</option>
+                                <option value="volvo">Ginebra</option>
+                                <option value="volvo">Vodka</option>
+                                <option value="volvo">Licor</option>
+                              </optgroup>
+                            </select>
+                            <div class="item-content">
+                            <div class="item-media"><i class="material-icons color-gray">local_bar</i></div>
+                              <div class="item-inner">
+                                <div class="item-title" hidden="hidden">Tipo bebida</div>
+                              </div>
+                            </div></a></li>
+                       
+                      </ul>
+                    </div>
+                            
+                <div class="content-block-title">Por la etiqueta</div>
+                <div class="list-block">
+                      <ul>
+                           <li><a href="#" class="item-link smart-select">
+                            <select name="car" multiple="multiple">
+                              <optgroup label="Claras">
+                                <option value="honda">Corona</option>
+                                <option value="mazda">Tecate</option>  
+                                <option value="mazda">Sol</option>
+                                <option value="toyota">Heineken</option>
+                                <option value="mercedes">Carta Blanca</option>
+                              </optgroup>
+                              <optgroup label="Obscuras">
+                                <option value="mazda">Modelo</option>
+                                <option value="mazda">Victoria</option>
+                                <option value="mazda">Indio</option>  
+                                <option value="nissan">Le&oacute;n</option>
+                                <option value="mazda">Bohemia</option>
+                                <option value="mazda">Barrilito</option>
+                                <option value="mazda">P&aacute;cifico</option>
+                              </optgroup>
+                            </select>
+                            <div class="item-content">
+                              <div class="item-media"><i class="material-icons color-gray">local_drink</i></div>
+                              <div class="item-inner">
+                                <div class="item-title" hidden="hidden">Cerveza</div>
+                              </div>
+                            </div></a></li>
+                          
+                          
+                          
+                        <li><a href="#" class="item-link smart-select">
+                            <select name="car" multiple="multiple">
+                              <optgroup label="Ron">
+                                <option value="honda">Antilano</option>
+                                <option value="honda">Bacardi</option>
+                                <option value="lexus">Capitan Morgan</option>
+                                <option value="mazda">Matusalem</option>
+                                <option value="nissan">Appleton</option>
+                                <option value="nissan">Baraima</option>
+                                <option value="toyota">Flor de can&tilde;a</option>
+                                <option value="nissan">Zacapa</option>
+                                <option value="nissan">Carta Blanca</option>
+                                <option value="nissan">Kraken</option>
+                                <option value="nissan">Malibu</option>
+                                <option value="nissan">Abuelo</option>
+                              </optgroup>
+                              <optgroup label="Brandy">
+                                <option value="audi">Presidente</option>
+                                <option value="bmw">Torres</option>
+                                <option value="mercedes">Azteca de Oro</option>
+                                <option value="vw">Pedro Domecq</option>
+                                <option value="volvo">Don Pedro</option>
+                              </optgroup>
+                              <optgroup label="Vodka">
+                                <option value="cadillac">Absolut</option>
+                                <option value="chrysler">Zaverich</option>
+                                <option value="dodge">Smirnoff</option>
+                                <option value="ford">Sky</option>
+                                <option value="ford">Wyborowa</option>
+                                <option value="ford">Stolichnaya</option>
+                                <option value="ford">Grey Goose</option>
+                                <option value="ford">Oso Negro</option>
+                                <option value="ford">Gotland</option>
+                                <option value="ford">Karat</option>
+                                <option value="ford">Finlandia</option>
+                                <option value="ford">Gorloska</option>
+                                <option value="ford">Ketel</option>
+                                <option value="ford">Ciroc</option>
+                                <option value="ford">Tanqueray Sterling</option>
+                              </optgroup>
+                            </select>
+                            <div class="item-content">
+                            <div class="item-media"><i class="material-icons color-gray">local_bar</i></div>
+                              <div class="item-inner">
+                                <div class="item-title" hidden="hidden">Bebidas</div>
+                              </div>
+                            </div></a></li>
+                      
+                      </ul>
+                    </div>        
+             
             </div>
           </div>
         </div>
@@ -452,8 +701,15 @@
             <div class="navbar">
               <div class="navbar-inner">
                 <div class="left"><a href="#" class="open-panel link icon-only"><i class="icon icon-bars"></i></a></div>
-                  <div class="center">Brindix</div>
-                <div class="right"><a href="#" class="link icon-only" id="btnFlipMap"><i class="icon material-icons">view_list</i></a><a href="#" data-panel="right" class="open-panel link icon-only"><i class="icon material-icons">search</i></a></div>
+                  <div class="center">
+                  <form data-search-list=".search-here" data-search-in=".item-title" class="searchbar searchbar-init">
+                        <div class="searchbar-input">
+                          <input type="search" placeholder=" Busca un lugar"/><a href="#" class="searchbar-clear"></a>
+                        </div>
+                      </form>
+                  
+                  </div>
+                <div class="right"><a href="#" class="link icon-only" id="btnFlipMap"><i class="icon material-icons">view_list</i></a><a href="#" data-panel="right" class="open-panel link icon-only"><i class="icon material-icons">tune</i></a></div>
               </div>
             </div>
             <div class="page-content">

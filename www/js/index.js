@@ -40,6 +40,9 @@ var app = {
         console.log('Received Event: ' + id);
         if (id==='deviceready'){
             //dispositivo esta listo 
+            //1 el welcomeScreen
+                welcomeScreen();
+            
             // -2 color interfaz
                 setColor();
             //-1 inicializa la base de datos local
@@ -48,8 +51,7 @@ var app = {
             //0 checkConnection()
                 checkConnection();
             
-            //1 el welcomeScreen
-                welcomeScreen();
+            
             //2 lanza el mapa
                 createMap();
             // lanza a buscar la posición
@@ -68,8 +70,7 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 */
         
-        //welcomeScreen
-        //welcomeScreen();
+     
         
     }
 };
@@ -230,34 +231,7 @@ L.marker([21.881272, -102.295468]).addTo(map)
     .openPopup();
 }
 
-var welcomeScreen = function(){
-    var myapp_ = new Framework7();
-    var welcomescreen_slides = [
-          {
-            id: '0',
-            //picture: '<div class="tutorialicon">♥ <i class="material-icons">person<sup>add</sup></i></div>',
-            picture: '<div class="tutorialicon"><img src="img/logo_main_small.png"></div>',
-            text: 'Bienvenido a Brindix<br> <br> Descubre todo lo que puedes hacer con esta increible app.'
-          },
-          {
-            id: '1',
-           picture: '<ul class="flex-container"><li class="flex-item"><i class="material-icons md-100">audiotrack</i></li><li class="flex-item"><i class="material-icons md-100">local_bar</i></li></ul>',
-            text: '<div class="content-block-title">Lugares de consumo</div><div class="content-block">ubica todos los antros, discos y bares</div>'
-            },
-         {
-            id: '2',
-           picture: '<ul class="flex-container"><li class="flex-item"><i class="material-icons md-100">local_drink</i></li><li class="flex-item"><i class="material-icons md-100">store</i></li></ul>',
-            text: '<div class="content-block-title">Lugares de adquisición</div><div class="content-block">ubica todas las vinaterias, modeloramas y abarrotes con venta de bebidas alcoholicas<br><br><a class="button button-big button-fill button-raised color-purple close-welcomescreen" href="#">COMENZAR</a></div>'
-            }
-        ];
-    
-    var options = {
-      'bgcolor': '#6A1B9A',
-      'fontcolor': '#fff',
-        'closeButtonText': 'Omitir'
-    }
-  //  var welcomescreen = myapp_.welcomescreen(welcomescreen_slides, options);
-};
+
 
 
 //test PHP
@@ -292,4 +266,6 @@ function testPHP(){
    sendAJAX(urlServices['serviceTestPOST'].url, datos, urlServices['serviceTestPOST'].type, function (data) {
         console.log(data);
     });
-}
+};
+
+
