@@ -28,7 +28,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ws: 'unsafe-inline' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' *.tile.osm.org data: *; script-src 'self' http://10.106.12.66/geoapps/geo001/www/php/  http://localhost/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval'; connect-src 'self' http://10.106.12.66/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval'">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ws: 'unsafe-inline' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' *.tile.osm.org data: *; script-src 'self' http://10.106.12.66/geoapps/geo001/www/php/  http://localhost/geoapps/geo001/www/php/ https://npmcdn.com 'unsafe-inline' 'unsafe-eval'; connect-src 'self' http://10.106.12.66/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval'">
         <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' *.osm.org data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *">-->
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
@@ -704,7 +704,7 @@
                   <div class="center">
                   <form data-search-list=".search-here" data-search-in=".item-title" class="searchbar searchbar-init">
                         <div class="searchbar-input">
-                          <input type="search" placeholder=" Busca un lugar"/><a href="#" class="searchbar-clear"></a>
+                          <input type="search" placeholder=" Buscar"/><a href="#" class="searchbar-clear"></a>
                         </div>
                       </form>
                   
@@ -1191,6 +1191,9 @@
         <script src="js/welcomescreen.js"></script>
           <!-- script leaflet-->
         <script src="bower_components/leaflet/leaflet.js"></script>
+        <!-- turf (geoanalitics)-->
+        <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>   
+        
          
     </body>
 </html>

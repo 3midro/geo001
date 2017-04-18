@@ -219,17 +219,87 @@ function onPosError(error) {
 
 function createMap(){
     
-    var map = L.map('map').setView([21.881272, -102.295468], 16);
+    var map = L.map('map').setView([21.8782892, -102.3050335], 16);
 //http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png --> xido
     //http://{s}.tile.osm.org/{z}/{x}/{y}.png ---> ejemplo
 L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {}).addTo(map);
     
-//L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(map);
+    
+     bbox = map.getBounds();
+    console.log(bbox);
+var points = turf.random('points', 120, {
+  //  bbox: [-102.31327056884766, 21.868488580769466, -102.29681253433228, 21.88810213362921]
+    //bbox: [bbox._southWest.lng, bbox._southWest.lat, bbox._northEast.lng, bbox._northEast.lat]
+        bbox: [bbox._southWest.lat, bbox._southWest.lng, bbox._northEast.lat, bbox._northEast.lng]
+});    
 
-L.marker([21.881272, -102.295468]).addTo(map)
-    .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-    .openPopup();
+console.log(points);    
+    
+    
+//L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(map);
+  
+var geojsonMarkerOptions = {
+            radius: 6,
+            fillColor: "#607D8B",
+            color: "#607D8B",
+            weight: 0,
+            opacity: 1,
+            fillOpacity: 0.8
+    };    
+for (i=0; i < points.features.length; i++){
+    var from = {
+  "type": "Feature",
+  "properties": {},
+  "geometry": {
+    "type": "Point",
+    "coordinates": [21.8782892, -102.3050335]
+  }
+};
+var units = "kilometers";  
+   //points.features[i]
+   // L.marker([21.8782892, -102.3050335]).addTo(map).bindPopup('PUNTO ' + i);
+    var to = points.features[i];
+    var distancia = turf.distance(from, to, units);
+    distancia = parseFloat(distancia.toFixed(2));
+        if (distancia<1){
+            distancia = (distancia * 1000) + ' m';
+        }else{
+            distancia = distancia + ' km';
+        }
+     L.circleMarker([points.features[i].geometry.coordinates[0],points.features[i].geometry.coordinates[1]],geojsonMarkerOptions).addTo(map).bindPopup('PUNTO ' + i + ' <i class="icon material-icons">directions_walk</i>  ' + distancia);
+}    
+    
+    
+/*var to = {
+  "type": "Feature",
+  "properties": {},
+  "geometry": {
+    "type": "Point",
+    "coordinates": [21.8815218, -102.29742565]
+  }
+};*/
+
+/*
+var points = {
+  "type": "FeatureCollection",
+  "features": [from, to]
+};*/
+
+
+
+
+    
+    
+//console.log('Distancia en km desde punto A a PUNTO B: ' + distancia );    
+    
+    
+    
+    
+L.marker([21.8782892, -102.3050335]).addTo(map).bindPopup('INICIO').openPopup();
+//L.marker([21.8815218, -102.29742565]).addTo(map).bindPopup('PUNTO B').openPopup();
 }
+
+
 
 
 
