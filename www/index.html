@@ -28,7 +28,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ws: 'unsafe-inline' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' *.tile.osm.org data: *; script-src 'self' http://10.106.12.66/geoapps/geo001/www/php/  http://localhost/geoapps/geo001/www/php/ https://npmcdn.com 'unsafe-inline' 'unsafe-eval'; connect-src 'self' http://10.106.12.66/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval'">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ws: 'unsafe-inline' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' *.tile.osm.org data: *; script-src 'self' http://10.106.12.66/geoapps/geo001/www/php/  http://localhost/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval'; connect-src 'self' http://10.106.12.66/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval'">
         <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' *.osm.org data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *">-->
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
@@ -60,6 +60,11 @@
         <!--leaflet -->
         <link rel="stylesheet" href="bower_components/leaflet/leaflet.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <!-- leaflet clusters-->
+	    <!--<link rel="stylesheet" href="bower_components/leaflet/markercluster/MarkerCluster.css" />
+	    <link rel="stylesheet" href="bower_components/leaflet/markercluster/MarkerCluster.Default.css" />-->
+        <link rel="stylesheet" href="bower_components/leaflet/pruneCluster/LeafletStyleSheet.css">
+        
         
         <!--font awsome -->
         <link rel="stylesheet" href="bower_components/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -1191,8 +1196,10 @@
         <script src="js/welcomescreen.js"></script>
           <!-- script leaflet-->
         <script src="bower_components/leaflet/leaflet.js"></script>
+        <!--<script src="bower_components/leaflet/markercluster/leaflet.markercluster-src.js"></script>-->
+        <script src="bower_components/leaflet/pruneCluster/PruneCluster.js"></script>
         <!-- turf (geoanalitics)-->
-        <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>   
+        <script src='bower_components/turf/turf.min.js'></script>   
         
          
     </body>

@@ -222,21 +222,17 @@ function createMap(){
     var map = L.map('map').setView([21.8782892, -102.3050335], 16);
 //http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png --> xido
     //http://{s}.tile.osm.org/{z}/{x}/{y}.png ---> ejemplo
-L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {}).addTo(map);
-    
-    
-     bbox = map.getBounds();
-    console.log(bbox);
+L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+    detectRetina: true,
+    maxNativeZoom: 17
+}).addTo(map);
+    bbox = map.getBounds();
+
 var points = turf.random('points', 120, {
-  //  bbox: [-102.31327056884766, 21.868488580769466, -102.29681253433228, 21.88810213362921]
-    //bbox: [bbox._southWest.lng, bbox._southWest.lat, bbox._northEast.lng, bbox._northEast.lat]
-        bbox: [bbox._southWest.lat, bbox._southWest.lng, bbox._northEast.lat, bbox._northEast.lng]
+  bbox: [bbox._southWest.lat, bbox._southWest.lng, bbox._northEast.lat, bbox._northEast.lng]
 });    
 
-console.log(points);    
-    
-    
-//L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(map);
+    //L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(map);
   
 var geojsonMarkerOptions = {
             radius: 6,
@@ -245,19 +241,27 @@ var geojsonMarkerOptions = {
             weight: 0,
             opacity: 1,
             fillOpacity: 0.8
-    };    
-for (i=0; i < points.features.length; i++){
-    var from = {
+    };
+
+var leafletView = new PruneClusterForLeaflet();
+
+var from = {
   "type": "Feature",
   "properties": {},
   "geometry": {
     "type": "Point",
     "coordinates": [21.8782892, -102.3050335]
-  }
-};
+    }
+   };
 var units = "kilometers";  
-   //points.features[i]
-   // L.marker([21.8782892, -102.3050335]).addTo(map).bindPopup('PUNTO ' + i);
+  
+   
+    
+for (i=0; i < points.features.length; i++){
+
+    
+    var categoria = Math.round(Math.random() * (4 - 1) + 1);
+    console.log(categoria);
     var to = points.features[i];
     var distancia = turf.distance(from, to, units);
     distancia = parseFloat(distancia.toFixed(2));
@@ -266,9 +270,21 @@ var units = "kilometers";
         }else{
             distancia = distancia + ' km';
         }
-     L.circleMarker([points.features[i].geometry.coordinates[0],points.features[i].geometry.coordinates[1]],geojsonMarkerOptions).addTo(map).bindPopup('PUNTO ' + i + ' <i class="icon material-icons">directions_walk</i>  ' + distancia);
-}    
     
+    var m =  new PruneCluster.Marker(to.geometry.coordinates[0], to.geometry.coordinates[1], {title: distancia},{category: categoria});
+    m.category = categoria;
+   // m.data.icon = L.icon(...);
+    leafletView.RegisterMarker(m);
+    //leafletView.RegisterMarker(new PruneCluster.Marker(to.geometry.coordinates[0], to.geometry.coordinates[1], {title: distancia}));//ok
+//leafletView.RegisterMarker(new PruneCluster.circleMarker([to.geometry.coordinates[0], to.geometry.coordinates[1],geojsonMarkerOptions], {title: distancia}));//
+    
+   // L.circleMarker([points.features[i].geometry.coordinates[0],points.features[i].geometry.coordinates[1]],geojsonMarkerOptions).addTo(map).bindPopup('PUNTO ' + i + ' <i class="icon material-icons">directions_walk</i>  ' + distancia);
+    
+    
+   
+}    
+    console.log(leafletView);
+    map.addLayer(leafletView);
     
 /*var to = {
   "type": "Feature",
