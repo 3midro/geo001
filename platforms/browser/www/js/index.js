@@ -275,12 +275,12 @@ for (i=0; i < points.features.length; i++){
             distancia = distancia + ' km';
         }
     
-    var random_cte = Math.random() >= 0.5;
+    var random_cte = Math.round(Math.random() * (4 - 1) + 1);
     if (random_cte == 1){
-        var color = storage.getItem('color');    
-        var myIcon = L.divIcon({className: 'my-div-icon-cte blink bg-'+color});
+        var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pin"></div><div class="pulse"></div>'});
+        //myIcon += L.divIcon({className: 'pulse'});
     }else{
-        var myIcon = L.divIcon({className: 'my-div-icon'});
+        var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pin-no"></div>'});
     }
     
     
@@ -296,7 +296,7 @@ for (i=0; i < points.features.length; i++){
      
     //var color = storage.getItem('color');    
     //cambia todos los clientes al color de la app
-    $$(".my-div-icon-cte").addClass('bg-' + color);
+    //$$(".my-div-icon-cte").addClass('bg-' + color);
     
     //console.log(leafletView);
     map.addLayer(leafletView);
