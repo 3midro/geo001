@@ -196,11 +196,13 @@ var setColor = function(colprev){
         classList.add('theme-' + color);
         //chip user
         $$('#chipUser').removeClass('bg-' + colprev).addClass('bg-' + color); 
+        $$(".my-div-icon-cte").removeClass('bg-' + colprev).addClass('bg-' + color);
         //badges y elements
         var elements = document.getElementsByClassName("theme-" + colprev);
         var total = elements.length;
         for (var j = 0; j < total; j++) {
-                $$(elements[0]).removeClass('theme-' + colprev).addClass('theme-' + color); 
+                $$(elements[0]).removeClass('theme-' + colprev).addClass('theme-' + color);
+                
          }
         //statusbar color
         StatusBar.backgroundColorByHexString(coloresStatusBar[color]);

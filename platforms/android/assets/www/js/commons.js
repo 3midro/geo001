@@ -196,11 +196,13 @@ var setColor = function(colprev){
         classList.add('theme-' + color);
         //chip user
         $$('#chipUser').removeClass('bg-' + colprev).addClass('bg-' + color); 
+        $$(".my-div-icon-cte").removeClass('bg-' + colprev).addClass('bg-' + color);
         //badges y elements
         var elements = document.getElementsByClassName("theme-" + colprev);
         var total = elements.length;
         for (var j = 0; j < total; j++) {
-                $$(elements[0]).removeClass('theme-' + colprev).addClass('theme-' + color); 
+                $$(elements[0]).removeClass('theme-' + colprev).addClass('theme-' + color);
+                
          }
         //statusbar color
         StatusBar.backgroundColorByHexString(coloresStatusBar[color]);
@@ -211,5 +213,38 @@ var setColor = function(colprev){
         setColor('deeppurple');
     }
 }
+
+var welcomeScreen = function(){
+    var w = storage.getItem('welcome');
+    if (w !== "true"){
+        var myapp_ = new Framework7();
+        var welcomescreen_slides = [
+              {
+                id: '0',
+                //picture: '<div class="tutorialicon">♥ <i class="material-icons">person<sup>add</sup></i></div>',
+                picture: '<div class="tutorialicon"><img src="img/logo_main_small.png"></div>',
+                text: 'Bienvenido a Brindix<br> <br> Descubre todo lo que puedes hacer con esta increible app.'
+              },
+              {
+                id: '1',
+               picture: '<ul class="flex-container"><li class="flex-item"><i class="material-icons md-100">audiotrack</i></li><li class="flex-item"><i class="material-icons md-100">local_bar</i></li></ul>',
+                text: '<div class="content-block-title">Lugares de consumo</div><div class="content-block">ubica todos los antros, discos y bares</div>'
+                },
+             {
+                id: '2',
+               picture: '<ul class="flex-container"><li class="flex-item"><i class="material-icons md-100">local_drink</i></li><li class="flex-item"><i class="material-icons md-100">store</i></li></ul>',
+                text: '<div class="content-block-title">Lugares de adquisición</div><div class="content-block">ubica todas las vinaterias, modeloramas y abarrotes con venta de bebidas alcoholicas<br><br><a class="button button-big button-fill button-raised color-purple close-welcomescreen" href="#">COMENZAR</a></div>'
+                }
+            ];
+
+        var options = {
+          'bgcolor': '#6A1B9A',
+          'fontcolor': '#fff',
+            'closeButtonText': 'Omitir'
+        }
+      var welcomescreen = myapp_.welcomescreen(welcomescreen_slides, options); 
+      storage.setItem('welcome', true);
+    }
+};
 
 

@@ -40,6 +40,9 @@ var app = {
         console.log('Received Event: ' + id);
         if (id==='deviceready'){
             //dispositivo esta listo 
+            //1 el welcomeScreen
+                welcomeScreen();
+            
             // -2 color interfaz
                 setColor();
             //-1 inicializa la base de datos local
@@ -48,8 +51,7 @@ var app = {
             //0 checkConnection()
                 checkConnection();
             
-            //1 el welcomeScreen
-                welcomeScreen();
+            
             //2 lanza el mapa
                 createMap();
             // lanza a buscar la posición
@@ -68,8 +70,7 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 */
         
-        //welcomeScreen
-        //welcomeScreen();
+     
         
     }
 };
@@ -218,46 +219,120 @@ function onPosError(error) {
 
 function createMap(){
     
-    var map = L.map('map').setView([21.881272, -102.295468], 16);
+    var map = L.map('map').setView([21.8782892, -102.3050335], 16);
 //http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png --> xido
     //http://{s}.tile.osm.org/{z}/{x}/{y}.png ---> ejemplo
-L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {}).addTo(map);
-    
-//L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(map);
+L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+    detectRetina: true
+}).addTo(map);
+    bbox = map.getBounds();
 
-L.marker([21.881272, -102.295468]).addTo(map)
-    .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-    .openPopup();
+var points = turf.random('points', 120, {
+  bbox: [bbox._southWest.lat, bbox._southWest.lng, bbox._northEast.lat, bbox._northEast.lng]
+});    
+
+    //L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(map);
+  
+var markerNormal = {
+            radius: 6,
+            fillColor: "#607D8B",
+            color: "#607D8B",
+            weight: 0,
+            opacity: 1,
+            fillOpacity: 0.8
+    };
+
+//var leafletView = new PruneClusterForLeaflet();
+var leafletView = L.markerClusterGroup({disableClusteringAtZoom: 17});
+    //console.log(leafletView);
+    
+    
+    
+    
+var from = {
+  "type": "Feature",
+  "properties": {},
+  "geometry": {
+    "type": "Point",
+    "coordinates": [21.8782892, -102.3050335]
+    }
+   };
+var units = "kilometers";  
+  
+   
+    
+for (i=0; i < points.features.length; i++){
+
+    
+   // var categoria = Math.round(Math.random() * (4 - 1) + 1);
+    //console.log(categoria);
+    var to = points.features[i];
+    var distancia = turf.distance(from, to, units);
+    distancia = parseFloat(distancia.toFixed(2));
+        if (distancia<1){
+            distancia = (distancia * 1000) + ' m';
+        }else{
+            distancia = distancia + ' km';
+        }
+    
+    var random_cte = Math.random() >= 0.5;
+    if (random_cte == 1){
+        var color = storage.getItem('color');    
+        var myIcon = L.divIcon({className: 'my-div-icon-cte blink bg-'+color});
+    }else{
+        var myIcon = L.divIcon({className: 'my-div-icon'});
+    }
+    
+    
+    //var myIcon = L.divIcon({className: 'my-div-icon'});
+    var m = new L.marker([points.features[i].geometry.coordinates[0],points.features[i].geometry.coordinates[1]], {icon: myIcon}).addTo(leafletView).bindPopup('PUNTO ' + i + ' <i class="icon material-icons">directions_walk</i>  ' + distancia);
+
+    
+  //  L.circleMarker([points.features[i].geometry.coordinates[0],points.features[i].geometry.coordinates[1]],markerNormal).addTo(map).bindPopup('PUNTO ' + i + ' <i class="icon material-icons">directions_walk</i>  ' + distancia);
+    
+    
+   
+}   
+     
+    //var color = storage.getItem('color');    
+    //cambia todos los clientes al color de la app
+    $$(".my-div-icon-cte").addClass('bg-' + color);
+    
+    //console.log(leafletView);
+    map.addLayer(leafletView);
+    
+/*var to = {
+  "type": "Feature",
+  "properties": {},
+  "geometry": {
+    "type": "Point",
+    "coordinates": [21.8815218, -102.29742565]
+  }
+};*/
+
+/*
+var points = {
+  "type": "FeatureCollection",
+  "features": [from, to]
+};*/
+
+
+
+
+    
+    
+//console.log('Distancia en km desde punto A a PUNTO B: ' + distancia );    
+    
+    
+    
+    
+L.marker([21.8782892, -102.3050335]).addTo(map).bindPopup('INICIO').openPopup();
+//L.marker([21.8815218, -102.29742565]).addTo(map).bindPopup('PUNTO B').openPopup();
 }
 
-var welcomeScreen = function(){
-    var myapp_ = new Framework7();
-    var welcomescreen_slides = [
-          {
-            id: '0',
-            //picture: '<div class="tutorialicon">♥ <i class="material-icons">person<sup>add</sup></i></div>',
-            picture: '<div class="tutorialicon"><img src="img/logo_main_small.png"></div>',
-            text: 'Bienvenido a Brindix<br> <br> Descubre todo lo que puedes hacer con esta increible app.'
-          },
-          {
-            id: '1',
-           picture: '<ul class="flex-container"><li class="flex-item"><i class="material-icons md-100">audiotrack</i></li><li class="flex-item"><i class="material-icons md-100">local_bar</i></li></ul>',
-            text: '<div class="content-block-title">Lugares de consumo</div><div class="content-block">ubica todos los antros, discos y bares</div>'
-            },
-         {
-            id: '2',
-           picture: '<ul class="flex-container"><li class="flex-item"><i class="material-icons md-100">local_drink</i></li><li class="flex-item"><i class="material-icons md-100">store</i></li></ul>',
-            text: '<div class="content-block-title">Lugares de adquisición</div><div class="content-block">ubica todas las vinaterias, modeloramas y abarrotes con venta de bebidas alcoholicas<br><br><a class="button button-big button-fill button-raised color-purple close-welcomescreen" href="#">COMENZAR</a></div>'
-            }
-        ];
-    
-    var options = {
-      'bgcolor': '#6A1B9A',
-      'fontcolor': '#fff',
-        'closeButtonText': 'Omitir'
-    }
-  //  var welcomescreen = myapp_.welcomescreen(welcomescreen_slides, options);
-};
+
+
+
 
 
 //test PHP
@@ -292,4 +367,6 @@ function testPHP(){
    sendAJAX(urlServices['serviceTestPOST'].url, datos, urlServices['serviceTestPOST'].type, function (data) {
         console.log(data);
     });
-}
+};
+
+

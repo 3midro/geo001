@@ -244,7 +244,7 @@ var markerNormal = {
 
 //var leafletView = new PruneClusterForLeaflet();
 var leafletView = L.markerClusterGroup({disableClusteringAtZoom: 17});
-    console.log(leafletView);
+    //console.log(leafletView);
     
     
     
@@ -275,7 +275,16 @@ for (i=0; i < points.features.length; i++){
             distancia = distancia + ' km';
         }
     
-    var myIcon = L.divIcon({className: 'my-div-icon'});
+    var random_cte = Math.random() >= 0.5;
+    if (random_cte == 1){
+        var color = storage.getItem('color');    
+        var myIcon = L.divIcon({className: 'my-div-icon-cte blink bg-'+color});
+    }else{
+        var myIcon = L.divIcon({className: 'my-div-icon'});
+    }
+    
+    
+    //var myIcon = L.divIcon({className: 'my-div-icon'});
     var m = new L.marker([points.features[i].geometry.coordinates[0],points.features[i].geometry.coordinates[1]], {icon: myIcon}).addTo(leafletView).bindPopup('PUNTO ' + i + ' <i class="icon material-icons">directions_walk</i>  ' + distancia);
 
     
@@ -283,7 +292,12 @@ for (i=0; i < points.features.length; i++){
     
     
    
-}    
+}   
+     
+    //var color = storage.getItem('color');    
+    //cambia todos los clientes al color de la app
+    $$(".my-div-icon-cte").addClass('bg-' + color);
+    
     //console.log(leafletView);
     map.addLayer(leafletView);
     

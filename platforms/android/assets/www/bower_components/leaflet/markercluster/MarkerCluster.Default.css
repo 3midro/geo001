@@ -50,11 +50,20 @@
 	height: 30px;
 	margin-left: 5px;
 	margin-top: 5px;
-
-	text-align: center;
+    text-align: center;
 	border-radius: 15px;
 	font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
 	}
 .marker-cluster span {
 	line-height: 30px;
 	}
+div.my-div-icon{
+    background-color: rgba(96,125,139,0.8);
+    border-radius: 50%;
+}
+
+div.my-div-icon-cte{
+    /*background-color: rgba(183,28,28,0.8);*/
+    border-radius: 50%;
+}
+
