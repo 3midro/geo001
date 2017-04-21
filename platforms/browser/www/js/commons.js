@@ -216,7 +216,7 @@ var setColor = function(colprev){
 
 var welcomeScreen = function(){
     var w = storage.getItem('welcome');
-    w = false;
+   // w = false;
     if (w !== "true"){
         var myapp_ = new Framework7();
         var welcomescreen_slides = [
@@ -247,5 +247,31 @@ var welcomeScreen = function(){
       storage.setItem('welcome', true);
     }
 };
+
+
+var payWithTweet = function(){
+    var p = storage.getItem('pay');
+   // w = false;
+    if (p !== "true"){
+        var myapp_ = new Framework7();
+        var welcomescreen_slides = [
+            {
+                id: '0',
+                picture: '<div class="tutorialicon"><img src="img/logo_main_small.png"></div><p>¡Brindix es gratuito! <br> <small>Por favor ayudanos compartiendo esta aplicación para que lo siga siendo</small></p>',
+                text: ' <div class="socialjs"><a class="sharebutton facebook button button-big button-fill button-raised color-purple" data-basecount="249" data-sharetype="facebook" data-text="The neat page title" title="Share this on Facebook" href="#"><span class="count"></span></a></div>'
+              }
+            ];
+
+        var options = {
+          'bgcolor': '#6A1B9A',
+          'fontcolor': '#fff',
+            'closeButtonText': ''
+        }
+      var welcomescreen = myapp_.welcomescreen(welcomescreen_slides, options); 
+      // socialjs.init();
+      //storage.setItem('pay', true);
+    }
+};
+
 
 

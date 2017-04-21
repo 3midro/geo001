@@ -216,6 +216,7 @@ var setColor = function(colprev){
 
 var welcomeScreen = function(){
     var w = storage.getItem('welcome');
+   // w = false;
     if (w !== "true"){
         var myapp_ = new Framework7();
         var welcomescreen_slides = [
@@ -246,5 +247,35 @@ var welcomeScreen = function(){
       storage.setItem('welcome', true);
     }
 };
+
+
+var payWithTweet = function(){
+    var p = storage.getItem('pay');
+   // w = false;
+    if (p !== "true"){
+        var myapp_ = new Framework7();
+        var welcomescreen_slides = [
+            {
+                id: '0',
+                picture: '<div class="tutorialicon"><img src="img/logo_main_small.png"></div><p>¡Brindix es gratuito! <br> <small>Por favor ayudanos compartiendo esta aplicación para que lo siga siendo</small></p>',
+                text: ''
+              }
+            /*{
+                id: '0',
+                picture: '<iframe width="100%" style="height: 100em;" src="http://www.paywithapost.de/pay?id=6afda198-1646-4240-8bb3-768724bbe9c6" frameborder="0"></iframe>   <div class="tutorialicon"><img src="img/logo_main_small.png"></div>',
+                text: '¡Brindix es gratuito! <br> por favor ayudanos compartiendo esta aplicación para que lo siga siendo'
+              }*/
+            ];
+
+        var options = {
+          'bgcolor': '#6A1B9A',
+          'fontcolor': '#fff',
+            'closeButtonText': ''
+        }
+      var welcomescreen = myapp_.welcomescreen(welcomescreen_slides, options); 
+      //storage.setItem('pay', true);
+    }
+};
+
 
 

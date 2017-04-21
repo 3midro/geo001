@@ -40,15 +40,20 @@ var app = {
         console.log('Received Event: ' + id);
         if (id==='deviceready'){
             //dispositivo esta listo 
-            //1 el welcomeScreen
+            //paywithateewt
+                payWithTweet();
+            
+            // el welcomeScreen
                 welcomeScreen();
             
-            // -2 color interfaz
+            //color interfaz
                 setColor();
-            //-1 inicializa la base de datos local
+            //inicializa firebase
+                initFirebase();
+            //inicializa la base de datos local
                 dblocal();
             
-            //0 checkConnection()
+            //checkConnection()
                 checkConnection();
             
             
@@ -79,37 +84,28 @@ var storage = window.localStorage;
 //storage.removeItem('color');
 app.initialize();
 
-
-
-/*var setColor2 = function(){
-    //determina el color de la app (la que haya guardado el usuario)
-    var color = storage.getItem('color');
-    if (color !== null){
-        //cambia el color al root
-        var classList = $$('body')[0].classList;
-        console.log(classList);
-        for (var i = 0; i < classList.length; i++) {
-           // console.log(classList[i]);
-            if (classList[i].indexOf('theme') === 0) classList.remove(classList[i]);
-        }
-        classList.add('theme-' + color);
-        //cambia el circulito donde va el nombre del usuario logueado.
-        $$('#chipUser').removeClass('bg-deeppurple').addClass('bg-' + color); 
-        //cambia los badges
-        var elements = document.getElementsByClassName("theme-deeppurple");
-        var total = elements.length;
-        for (var j = 0; j < total; j++) {
-                $$(elements[0]).removeClass('theme-deeppurple').addClass('theme-' + color); 
-         }
-        StatusBar.backgroundColorByHexString(coloresStatusBar[color])
-       // StatusBar.backgroundColorByName("pink");
-    }else{
-        // inicializa el color en purpura
-        storage.setItem('color', 'deeppurple');
-        setColor();
-    }
-    color = storage.getItem('color');
-};*/
+var initFirebase =  function(){
+        // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDrUJR4rbVPlr37C2Il8x-vSoSeBFxUqU4",
+        authDomain: "brindix-866ce.firebaseapp.com",
+        databaseURL: "https://brindix-866ce.firebaseio.com",
+        projectId: "brindix-866ce",
+        storageBucket: "brindix-866ce.appspot.com",
+        messagingSenderId: "54415741684"
+      };
+      firebase.initializeApp(config);
+      firebase.auth().onAuthStateChanged(function(user) {
+          console.log(user);
+          if (user) {
+             // usrObj = user.uid;
+              console.log(user.uid);
+             // $$("#chipUsuario").show();
+          }else{
+            //  $$("#chipUsuario").hide();
+          }
+      });
+}
 
 var dblocal = function(){
  

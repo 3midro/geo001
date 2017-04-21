@@ -40,17 +40,20 @@ var app = {
         console.log('Received Event: ' + id);
         if (id==='deviceready'){
             //dispositivo esta listo 
-            //1 el welcomeScreen
+            //paywithateewt
+                payWithTweet();
+            
+            // el welcomeScreen
                 welcomeScreen();
             
-            // -2 color interfaz
+            //color interfaz
                 setColor();
-            //0 inicializa firebase
+            //inicializa firebase
                 initFirebase();
-            //-1 inicializa la base de datos local
+            //inicializa la base de datos local
                 dblocal();
             
-            //0 checkConnection()
+            //checkConnection()
                 checkConnection();
             
             
@@ -97,9 +100,9 @@ var initFirebase =  function(){
           if (user) {
              // usrObj = user.uid;
               console.log(user.uid);
-              $$("#chipUsuario").show();
+             // $$("#chipUsuario").show();
           }else{
-              $$("#chipUsuario").hide();
+            //  $$("#chipUsuario").hide();
           }
       });
 }

@@ -28,7 +28,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ws: 'unsafe-inline' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' *.tile.osm.org data: *; script-src 'self' http://10.106.12.66/geoapps/geo001/www/php/  http://localhost/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval'; connect-src 'self' http://10.106.12.66/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval'">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ws: 'unsafe-inline' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' *.tile.osm.org data: *; script-src 'self' http://10.106.12.66/geoapps/geo001/www/php/  http://localhost/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval'; connect-src 'self' http://10.106.12.66/geoapps/geo001/www/php/  'unsafe-inline' 'unsafe-eval'; frame-src 'self' 'unsafe-inline' ">
         <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' *.osm.org data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *">-->
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
@@ -82,12 +82,12 @@
             <div class="page-content">
                  
               <div class="content-block center">
-                  <div class="chip">
+                  <div class="chip" id="chipUsuario">
                     <div class="chip-media bg-deeppurple" id="chipUser"><i class="material-icons">person</i></div>
                     <div class="chip-label">Edd Sarellano</div>
                   </div>
-                  <!--<a href="#" class="button button-raised open-login-screen button-big button-fill color-purple close-welcomescreen">INICIAR SESI&Oacute;N</a>-->
-                  <a href="#" class="button button-big button-raised button-fill" onclick="testPHP();">TEST PHP</a>
+                  <p><a href="#" class="button button-raised open-login-screen button-big button-fill">INICIAR SESI&Oacute;N</a></p>
+                  <p><a href="#" class="button button-big button-raised button-fill" onclick="testPHP();">TEST PHP</a></p>
             </div>
                 
                  
@@ -1200,7 +1200,8 @@
         <!--<script src="bower_components/leaflet/pruneCluster/PruneCluster.js"></script> -->
         <!-- turf (geoanalitics)-->
         <script src='bower_components/turf/turf.min.js'></script>   
-        
+        <!--firebase-->
+        <script src="bower_components/firebase/firebase.js"></script>
          
     </body>
 </html>
