@@ -33,6 +33,9 @@
         },
         "nl.madebymark.share": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "nl.x-services.plugins.socialsharing": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },
     "dependent_plugins": {

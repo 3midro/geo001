@@ -253,12 +253,19 @@ var payWithTweet = function(){
     var p = storage.getItem('pay');
    // w = false;
     if (p !== "true"){
-        var myapp_ = new Framework7();
+        window.plugins.socialsharing.shareViaWhatsApp('Message', "subject", "http://geopanda.com.mx/images/logo4.png", "https://geopanda.com.mx", function(){
+            console.log("success");
+        }, function(){
+            console.log("error");
+        });
+        
+        
+        /*var myapp_ = new Framework7();
         var welcomescreen_slides = [
             {
                 id: '0',
                 picture: '<div class="tutorialicon"><img src="img/logo_main_small.png"></div><p>¡Brindix es gratuito! <br> <small>Por favor ayudanos compartiendo esta aplicación para que lo siga siendo</small></p>',
-                text: ' <div class="socialjs"><a class="sharebutton facebook button button-big button-fill button-raised color-purple" data-basecount="249" data-sharetype="facebook" data-text="The neat page title" title="Share this on Facebook" href="#"><span class="count"></span></a></div>'
+                text: 'Botones Social sharing'
               }
             ];
 
@@ -267,8 +274,8 @@ var payWithTweet = function(){
           'fontcolor': '#fff',
             'closeButtonText': ''
         }
-      var welcomescreen = myapp_.welcomescreen(welcomescreen_slides, options); 
-      // socialjs.init();
+      var welcomescreen = myapp_.welcomescreen(welcomescreen_slides, options); */
+      
       //storage.setItem('pay', true);
     }
 };

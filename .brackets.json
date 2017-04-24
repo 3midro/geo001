@@ -1,0 +1,6 @@
+{
+    "jscodehints.detectedExclusions": [
+        "C:/xampp/htdocs/geoapps/geo001/www/js/index.js",
+        "C:/xampp/htdocs/geoapps/geo001/platforms/browser/www/plugins/cordova-plugin-network-information/www/network.js"
+    ]
+}

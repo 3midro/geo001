@@ -253,6 +253,14 @@ module.exports = [
         "clobbers": [
             "window.navigator.share"
         ]
+    },
+    {
+        "file": "plugins/nl.x-services.plugins.socialsharing/www/SocialSharing.js",
+        "id": "nl.x-services.plugins.socialsharing.SocialSharing",
+        "pluginId": "nl.x-services.plugins.socialsharing",
+        "clobbers": [
+            "window.plugins.socialsharing"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -267,7 +275,8 @@ module.exports.metadata =
     "cordova-plugin-splashscreen": "4.0.2",
     "cordova-plugin-network-information": "1.3.2",
     "cordova-plugin-statusbar": "2.2.2",
-    "nl.madebymark.share": "0.1.1"
+    "nl.madebymark.share": "0.1.1",
+    "nl.x-services.plugins.socialsharing": "5.1.1"
 }
 // BOTTOM OF METADATA
 });

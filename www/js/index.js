@@ -44,10 +44,10 @@ var app = {
                 payWithTweet();
             
             // el welcomeScreen
-                welcomeScreen();
+               // welcomeScreen();
             
             //color interfaz
-                setColor();
+                //setColor();
             //inicializa firebase
                 initFirebase();
             //inicializa la base de datos local

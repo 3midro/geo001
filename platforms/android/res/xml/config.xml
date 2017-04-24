@@ -29,6 +29,9 @@
     <feature name="Share">
         <param name="android-package" value="nl.madebymark.share.Share" />
     </feature>
+    <feature name="SocialSharing">
+        <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
+    </feature>
     <name>Brindix Beta</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
