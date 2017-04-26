@@ -61,7 +61,7 @@ var app = {
                 createMap();
             // lanza a buscar la posición
         // Options: throw an error if no update is received every 30 seconds.
-            //var watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 1000 });
+            var watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 1000 });
         }else{
             console.log("dispositivo no listo");
         }
@@ -202,18 +202,18 @@ var checkConnection = function(){
 
 function onPosSuccess(position) {
      var element = document.getElementById('geolocation');
-        element.innerHTML = 'Latitude: '  + position.coords.latitude      + '<br />' +
-                            'Longitude: ' + position.coords.longitude     + '<br />' +
-                            '<hr />'      + element.innerHTML;
+        element.innerHTML = 'Lat: '  + position.coords.latitude      + '<br />' +
+                            'Lon: ' + position.coords.longitude     + '<br />';
 }
 
 function onPosError(error) {
     var element = document.getElementById('geolocation');
         element.innerHTML = 'Code: '  + error.code + '<br />' +
-                            'Message: ' + error.message  + '<br />' +  element.innerHTML;
+                            'Message: ' + error.message  + '<br />';
 }
 
 function createMap(){
+    
     
     var map = L.map('map').setView([21.8782892, -102.3050335], 16);
 //http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png --> xido
@@ -222,8 +222,11 @@ L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
     detectRetina: true
 }).addTo(map);
     bbox = map.getBounds();
+    
+  
+    
 
-var points = turf.random('points', 120, {
+var points = turf.random('points', 150, {
   bbox: [bbox._southWest.lat, bbox._southWest.lng, bbox._northEast.lat, bbox._northEast.lng]
 });    
 
