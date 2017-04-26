@@ -222,18 +222,18 @@ var welcomeScreen = function(){
         var welcomescreen_slides = [
               {
                 id: '0',
-                picture: '<div class="tutorialicon"><img src="img/logo_main_small.png"></div><div class="content-block center">¡Muchas Gracias por tu ayuda! <br> <small>Brindix no contiene molesta publicidad gracias a tu valiosa ayuda</small></div>',
+                picture: '<div class="tutorialicon"><img src="img/logo_main_small.png"></div><div class="content-block center">¡Muchas Gracias! <br> <small>Brindix no contiene molesta publicidad gracias a tu valiosa ayuda</small></div>',
                 text: ''
               },
               {
                 id: '1',
-               picture: '<ul class="flex-container"><li class="flex-item"><i class="material-icons md-100">audiotrack</i></li><li class="flex-item"><i class="material-icons md-100">local_bar</i></li></ul>',
-                text: '<div class="content-block-title">Lugares de consumo</div><div class="content-block">ubica todos los antros, discos y bares</div>'
+               picture: '<ul class="flex-container"><li class="flex-item"><i class="material-icons md-150">local_bar</i></li></ul>',
+                text: '<div class="content-block">Localiza todos los establecimientos de consumo y venta de bebidas alcoholicas</div>'
                 },
              {
                 id: '2',
-               picture: '<ul class="flex-container"><li class="flex-item"><i class="material-icons md-100">local_drink</i></li><li class="flex-item"><i class="material-icons md-100">store</i></li></ul>',
-                text: '<div class="content-block-title">Lugares de adquisición</div><div class="content-block">ubica todas las vinaterias, modeloramas y abarrotes con venta de bebidas alcoholicas<br><br><a class="button button-big button-fill button-raised color-purple close-welcomescreen" href="#">COMENZAR</a></div>'
+               picture: '<ul class="flex-container"><li class="flex-item"><i class="material-icons md-150">local_pizza</i></li></ul>',
+                text: '<div class="content-block">Organiza tus eventos<br><br><a class="button button-big button-fill button-raised color-purple close-welcomescreen" href="#">COMIENZA YA</a></div>'
                 }
             ];
 
@@ -286,6 +286,7 @@ var payWithTweet = function(){
     }
    
 };
+
 
 
 

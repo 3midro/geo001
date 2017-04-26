@@ -418,7 +418,6 @@ myApp.onPageInit('login-screen-embedded', function (page) {
         var username = $$(page.container).find('input[name="username"]').val();
         var password = $$(page.container).find('input[name="password"]').val();
         myApp.alert('Username: ' + username + ', password: ' + password, function () {
-            console.log("entro al login normal embebed");
             mainView.router.back();
         });
     });
@@ -428,7 +427,6 @@ $$('.login-screen').find('.button').on('click', function () {
     var password = $$('.login-screen').find('input[name="password"]').val();
     myApp.alert('Username: ' + username + ', password: ' + password, function () {
         myApp.closeModal('.login-screen');
-        console.log("entro al login normal");
     });
 });
 
@@ -436,7 +434,6 @@ $$('.login-screen').find('.button').on('click', function () {
 $$('.popover a').on('click', function () {
     myApp.closeModal('.popover');
 });
-
 
 /* ====== FLIP MAP ====== */
 
@@ -446,21 +443,6 @@ $$('#btnFlipMap').on('click', function () {
     document.querySelector(".flip-container").classList.toggle("flip");
 });
 
-/* ======== RANGE ========*/
-
-$$('input[type="range"]').on('input change', function(){
-  var m ='';
-    if ( this.value == 1000 ) {
-        m = 'ilimitado';
-    }else{
-        m = '$ ' + this.value + '.00 MXN'
-    }
-    $$( this ).parent().parent().parent().find(".item-title.label").html(m);
-    /*
-    $$('input[type="range"]').parent().parent().parent().find(".label").html('500')
-    */
-    
-});
 
 /* ===== Color themes ===== */
 myApp.onPageInit('color-themes', function (page) {
@@ -469,26 +451,7 @@ myApp.onPageInit('color-themes', function (page) {
         var colprev = storage.getItem('color'); 
         //seteo el nuevo color
         storage.setItem('color', $$(this).attr('data-theme'));
-        setColor(colprev);
-       
-       /* 
-        var classList = $$('body')[0].classList;
-        for (var i = 0; i < classList.length; i++) {
-            console.log(classList[i].indexOf('theme'));
-            if (classList[i].indexOf('theme') === 0) classList.remove(classList[i]);
-        }
-        classList.add('theme-' + $$(this).attr('data-theme'));
-        StatusBar.backgroundColorByHexString(coloresStatusBar[$$(this).attr('data-theme')])
-        var colprev = storage.getItem('color'); 
-        $$('#chipUser').removeClass('bg-' + colprev).addClass('bg-' + $$(this).attr('data-theme')); 
-        var elements = document.getElementsByClassName("theme-" + colprev);
-        var total = elements.length;
-        console.log(total);
-        for (var j = 0; j < total; j++) {
-                $$(elements[0]).removeClass('theme-' + colprev).addClass('theme-' + $$(this).attr('data-theme')); 
-         }
-        storage.setItem('color', $$(this).attr('data-theme'));*/
-        
+        setColor(colprev);        
     });
     $$(page.container).find('.ks-layout-theme').click(function () {
         var classList = $$('body')[0].classList;

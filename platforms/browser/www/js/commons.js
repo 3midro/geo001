@@ -216,69 +216,77 @@ var setColor = function(colprev){
 
 var welcomeScreen = function(){
     var w = storage.getItem('welcome');
-   // w = false;
+    w = false;
     if (w !== "true"){
         var myapp_ = new Framework7();
         var welcomescreen_slides = [
               {
                 id: '0',
-                //picture: '<div class="tutorialicon">♥ <i class="material-icons">person<sup>add</sup></i></div>',
-                picture: '<div class="tutorialicon"><img src="img/logo_main_small.png"></div>',
-                text: 'Bienvenido a Brindix<br> <br> Descubre todo lo que puedes hacer con esta increible app.'
+                picture: '<div class="tutorialicon"><img src="img/logo_main_small.png"></div><div class="content-block center">¡Muchas Gracias! <br> <small>Brindix no contiene molesta publicidad gracias a tu valiosa ayuda</small></div>',
+                text: ''
               },
               {
                 id: '1',
-               picture: '<ul class="flex-container"><li class="flex-item"><i class="material-icons md-100">audiotrack</i></li><li class="flex-item"><i class="material-icons md-100">local_bar</i></li></ul>',
-                text: '<div class="content-block-title">Lugares de consumo</div><div class="content-block">ubica todos los antros, discos y bares</div>'
+               picture: '<ul class="flex-container"><li class="flex-item"><i class="material-icons md-150">local_bar</i></li></ul>',
+                text: '<div class="content-block">Localiza todos los establecimientos de consumo y venta de bebidas alcoholicas</div>'
                 },
              {
                 id: '2',
-               picture: '<ul class="flex-container"><li class="flex-item"><i class="material-icons md-100">local_drink</i></li><li class="flex-item"><i class="material-icons md-100">store</i></li></ul>',
-                text: '<div class="content-block-title">Lugares de adquisición</div><div class="content-block">ubica todas las vinaterias, modeloramas y abarrotes con venta de bebidas alcoholicas<br><br><a class="button button-big button-fill button-raised color-purple close-welcomescreen" href="#">COMENZAR</a></div>'
+               picture: '<ul class="flex-container"><li class="flex-item"><i class="material-icons md-150">local_pizza</i></li></ul>',
+                text: '<div class="content-block">Organiza tus eventos<br><br><a class="button button-big button-fill button-raised color-purple close-welcomescreen" href="#">COMIENZA YA</a></div>'
                 }
             ];
 
         var options = {
           'bgcolor': '#6A1B9A',
           'fontcolor': '#fff',
-            'closeButtonText': 'Omitir'
+          'closeButtonText': 'Omitir',
+          'onClosed': function(){
+               setColor();
+          }
         }
       var welcomescreen = myapp_.welcomescreen(welcomescreen_slides, options); 
       storage.setItem('welcome', true);
     }
 };
 
-
+/*<p class="buttons-row">
+    <a href="#" class="button button-big button-fill button-raised color-indigo"><i class="fa fa-facebook-f fa-4x fa-login" ></i></a>
+    <a href="#" class="button button-big button-fill button-raised color-cyan"><i class="fa fa-twitter fa-4x fa-login" ></i></a>
+    <a href="#" class="button button-big button-fill button-raised color-red"><i class="fa fa-google-plus fa-4x fa-login" ></i></a></p>*/
 var payWithTweet = function(){
     var p = storage.getItem('pay');
-   // w = false;
+    p = false;
     if (p !== "true"){
-        window.plugins.socialsharing.shareViaWhatsApp('Message', "subject", "http://geopanda.com.mx/images/logo4.png", "https://geopanda.com.mx", function(){
-            console.log("success");
-        }, function(){
-            console.log("error");
-        });
-        
-        
-        /*var myapp_ = new Framework7();
+         
+       var myapp_ = new Framework7();
         var welcomescreen_slides = [
             {
                 id: '0',
-                picture: '<div class="tutorialicon"><img src="img/logo_main_small.png"></div><p>¡Brindix es gratuito! <br> <small>Por favor ayudanos compartiendo esta aplicación para que lo siga siendo</small></p>',
-                text: 'Botones Social sharing'
+                picture: '<div class="tutorialicon"><img src="img/logo_main_small.png"></div><div class="content-block center">¡Brindix es gratuito! <br> <small>Por favor ayúdanos compartiendo esto en tu muro para que tus amigos también disfruten de esta increible app</small></div>',
+                text: '<ul class="flex-container"><li class="flex-item" onclick="window.plugins.socialsharing.shareViaFacebook(\'Ya baje brindix! esta increible, pruebala tu también https://goo.gl/zn13y7\', null /* img */, null /* url */, function() {console.log(\'share ok\')}, function(errormsg){alert(errormsg)})"><a href="#" class="button button-big button-fill button-raised color-indigo close-welcomescreen" ><i class="fa fa-facebook-f fa-4x fa-login" ></i></a></li><li class="flex-item" onclick="window.plugins.socialsharing.shareViaTwitter(\'Ya baje brindix! esta increible, pruebala tu también https://goo.gl/zn13y7\')"><a href="#" class="button button-big button-fill button-raised color-cyan close-welcomescreen"><i class="fa fa-twitter fa-4x fa-login" ></i></a></li></ul>'
               }
             ];
 
         var options = {
           'bgcolor': '#6A1B9A',
           'fontcolor': '#fff',
-            'closeButtonText': ''
+          'closeButton': 'disable',    
+          'closeButtonText': '',
+          'onOpened':function(){
+              //statusbar color temporal to purple
+              StatusBar.backgroundColorByHexString(coloresStatusBar["purple"]);
+          },
+          'onClosed': function(){
+               welcomeScreen();
+          }
         }
-      var welcomescreen = myapp_.welcomescreen(welcomescreen_slides, options); */
-      
-      //storage.setItem('pay', true);
+      var welcomescreen = myapp_.welcomescreen(welcomescreen_slides, options); 
+      storage.setItem('pay', true);
     }
+   
 };
+
 
 
 
