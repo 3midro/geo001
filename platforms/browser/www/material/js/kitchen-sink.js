@@ -439,13 +439,7 @@ $$('.popover a').on('click', function () {
     myApp.closeModal('.popover');
 });
 
-/* ====== FLIP MAP ====== */
 
-$$('#btnFlipMap').on('click', function () {
-    var icn = $$("#btnFlipMap>i").text();
-    (icn === 'map')?$$("#btnFlipMap>i").text('view_list'):$$("#btnFlipMap>i").text('map');
-    document.querySelector(".flip-container").classList.toggle("flip");
-});
 
 
 /* ===== Color themes ===== */
@@ -1135,4 +1129,30 @@ myApp.onPageInit('animation', function (page) {
                 }
             );
     });
+});
+
+
+
+// _____ MIS FUNCIONES ------------//
+
+/* ====== FLIP MAP ====== */
+
+$$('#btnFlipMap').on('click', function () {
+    var icn = $$("#btnFlipMap>i").text();
+    (icn === 'map')?$$("#btnFlipMap>i").text('view_list'):$$("#btnFlipMap>i").text('map');
+    document.querySelector(".flip-container").classList.toggle("flip");
+});
+
+/* ======== RANGE ========*/
+
+$$('input[type="range"]').on('input change', function(){
+    var m =  ( this.value == 1000 )?'ilimitado':'$ ' + this.value + '.00 MXN';
+    /*
+    if ( this.value == 1000 ) {
+        m = 'ilimitado';
+    }else{
+        m = '$ ' + this.value + '.00 MXN'
+    }*/
+    $$( this ).parent().parent().parent().find(".item-title.label").html(m);
+    
 });
