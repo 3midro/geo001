@@ -201,9 +201,129 @@ var checkConnection = function(){
 
 
 function onPosSuccess(position) {
+    storage.removeItem('entidad');
+    var currentEntidad = storage.getItem('entidad'); 
+    //console.log(currentEntidad);
+   // currentEntidad = '02';
+     var pt = turf.point([position.coords.longitude, position.coords.latitude]);
+    pt = turf.point([-104.65663,24.0279]); 
+    if (currentEntidad !== null){
+      //   console.log("eaaah");
+         //verifica que la coordenada pertenezca a esa entidad
+       
+        var poly = turf.polygon([entidades[currentEntidad]]);
+        var isInside = turf.inside(pt, poly);
+         console.log(isInside);
+         if (isInside === false){
+            storage.removeItem('entidad');
+            onPosSuccess(position);
+         }
+         
+     }else{
+         //determina la entidad a la que pertenece la coordenada recorriendo el arreglo de entidades
+         //
+         
+         var i = 0;
+        for (var key in entidades) {
+            var poly = turf.polygon([entidades[key]]);
+            var isInside = turf.inside(pt, poly);
+             console.log(key+ ' isInside: ' + isInside);
+            if (isInside === true){
+                currentEntidad = key;
+                storage.setItem('entidad', key);
+                break;
+            }
+           
+        }
+         
+         
+          /*  Object.keys(entidades).forEach(function(key) {
+                var poly = turf.polygon([entidades[key]]);
+                var isInside = turf.inside(pt, poly);
+                if (isInside === true){
+                    storage.setItem('entidad', key);
+                    break;
+                }
+            });*/
+       
+         
+     }
+   /* var __myapp = new Framework7();
+    __myapp.initSmartSelects('.page[data-page="my-location"]');*/
+    document.getElementsByName("location").value = currentEntidad;
+   myApp.initSmartSelects('.page[data-page="panel-left"]');
+   // myApp.initSmartSelects('.page[data-page="my-location"]');
+    //$$('select[name="location"]  option[value="'+currentEntidad+'"]').click();
+     console.log('La posicion esta dentro de la entidad '+ storage.getItem('entidad'));
+    
+    return false;
+    
+    var pt = turf.point([position.coords.longitude, position.coords.latitude]);
+    var poly = turf.polygon([[
+       [-102.667,22.292],
+[-102.507,22.292],
+[-102.504,22.302],
+[-102.466,22.309],
+[-102.470,22.351],
+[-102.387,22.363],
+[-102.379,22.358],
+[-102.359,22.388],
+[-102.323,22.387],
+[-102.321,22.422],
+[-102.306,22.447],
+[-102.249,22.383],
+[-102.152,22.348],
+[-102.153,22.289],
+[-102.105,22.284],
+[-102.074,22.305],
+[-102.035,22.298],
+[-102.022,22.243],
+[-102.005,22.240],
+[-102.000,22.169],
+[-102.046,22.152],
+[-102.016,22.154],
+[-102.027,22.128],
+[-101.989,22.120],
+[-101.857,22.042],
+[-101.864,21.991],
+[-101.901,21.971],
+[-101.887,21.942],
+[-101.836,21.948],
+[-101.837,21.904],
+[-101.868,21.911],
+[-102.015,21.864],
+[-102.140,21.701],
+[-102.171,21.703],
+[-102.177,21.686],
+[-102.217,21.693],
+[-102.224,21.652],
+[-102.278,21.655],
+[-102.295,21.660],
+[-102.315,21.620],
+[-102.375,21.650],
+[-102.447,21.673],
+[-102.459,21.696],
+[-102.570,21.745],
+[-102.652,21.766],
+[-102.694,21.743],
+[-102.735,21.711],
+[-102.797,21.752],
+[-102.850,21.801],
+[-102.849,21.830],
+[-102.876,21.851],
+[-102.825,21.961],
+[-102.749,22.071],
+[-102.684,22.086],
+[-102.637,22.224],
+[-102.673,22.244],
+[-102.670,22.254],
+[-102.667,22.292] 
+    ]]);
      var element = document.getElementById('geolocation');
         element.innerHTML = 'Lat: '  + position.coords.latitude      + '<br />' +
                             'Lon: ' + position.coords.longitude     + '<br />';
+    var isInside = turf.inside(pt, poly);
+    console.log(isInside);
 }
 
 function onPosError(error) {

@@ -1147,12 +1147,6 @@ $$('#btnFlipMap').on('click', function () {
 
 $$('input[type="range"]').on('input change', function(){
     var m =  ( this.value == 1000 )?'ilimitado':'$ ' + this.value + '.00 MXN';
-    /*
-    if ( this.value == 1000 ) {
-        m = 'ilimitado';
-    }else{
-        m = '$ ' + this.value + '.00 MXN'
-    }*/
     $$( this ).parent().parent().parent().find(".item-title.label").html(m);
     
 });
