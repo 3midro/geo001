@@ -40,28 +40,25 @@ var app = {
         console.log('Received Event: ' + id);
         if (id==='deviceready'){
             //dispositivo esta listo 
-            //paywithateewt
+            //paywithateewt || welcomescreen || setColor
                 payWithTweet();
-            
-            // el welcomeScreen
-               // welcomeScreen();
-            
-            //color interfaz
-                //setColor();
             //inicializa firebase
                 initFirebase();
             //inicializa la base de datos local
-                dblocal();
+               // dblocal();
             
             //checkConnection()
-                checkConnection();
+                //checkConnection();
             
             
             //2 lanza el mapa
                 createMap();
-            // lanza a buscar la posición
-        // Options: throw an error if no update is received every 30 seconds.
-            var watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 1000 });
+            
+            // lanza a buscar la posición con un watcher
+    // Options: throw an error if no update is received every 60 seconds.
+   // var watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 60000 });
+            
+        
         }else{
             console.log("dispositivo no listo");
         }
@@ -206,7 +203,7 @@ function onPosSuccess(position) {
     //console.log(currentEntidad);
    // currentEntidad = '02';
      var pt = turf.point([position.coords.longitude, position.coords.latitude]);
-    pt = turf.point([-104.65663,24.0279]); 
+    //pt = turf.point([-502.59,90.755]); 
     if (currentEntidad !== null){
       //   console.log("eaaah");
          //verifica que la coordenada pertenezca a esa entidad
@@ -221,9 +218,6 @@ function onPosSuccess(position) {
          
      }else{
          //determina la entidad a la que pertenece la coordenada recorriendo el arreglo de entidades
-         //
-         
-         var i = 0;
         for (var key in entidades) {
             var poly = turf.polygon([entidades[key]]);
             var isInside = turf.inside(pt, poly);
@@ -233,124 +227,73 @@ function onPosSuccess(position) {
                 storage.setItem('entidad', key);
                 break;
             }
-           
         }
-         
-         
-          /*  Object.keys(entidades).forEach(function(key) {
-                var poly = turf.polygon([entidades[key]]);
-                var isInside = turf.inside(pt, poly);
-                if (isInside === true){
-                    storage.setItem('entidad', key);
-                    break;
-                }
-            });*/
-       
-         
      }
-   /* var __myapp = new Framework7();
-    __myapp.initSmartSelects('.page[data-page="my-location"]');*/
-    document.getElementsByName("location").value = currentEntidad;
-   myApp.initSmartSelects('.page[data-page="panel-left"]');
-   // myApp.initSmartSelects('.page[data-page="my-location"]');
-    //$$('select[name="location"]  option[value="'+currentEntidad+'"]').click();
-     console.log('La posicion esta dentro de la entidad '+ storage.getItem('entidad'));
-    
-    return false;
-    
-    var pt = turf.point([position.coords.longitude, position.coords.latitude]);
-    var poly = turf.polygon([[
-       [-102.667,22.292],
-[-102.507,22.292],
-[-102.504,22.302],
-[-102.466,22.309],
-[-102.470,22.351],
-[-102.387,22.363],
-[-102.379,22.358],
-[-102.359,22.388],
-[-102.323,22.387],
-[-102.321,22.422],
-[-102.306,22.447],
-[-102.249,22.383],
-[-102.152,22.348],
-[-102.153,22.289],
-[-102.105,22.284],
-[-102.074,22.305],
-[-102.035,22.298],
-[-102.022,22.243],
-[-102.005,22.240],
-[-102.000,22.169],
-[-102.046,22.152],
-[-102.016,22.154],
-[-102.027,22.128],
-[-101.989,22.120],
-[-101.857,22.042],
-[-101.864,21.991],
-[-101.901,21.971],
-[-101.887,21.942],
-[-101.836,21.948],
-[-101.837,21.904],
-[-101.868,21.911],
-[-102.015,21.864],
-[-102.140,21.701],
-[-102.171,21.703],
-[-102.177,21.686],
-[-102.217,21.693],
-[-102.224,21.652],
-[-102.278,21.655],
-[-102.295,21.660],
-[-102.315,21.620],
-[-102.375,21.650],
-[-102.447,21.673],
-[-102.459,21.696],
-[-102.570,21.745],
-[-102.652,21.766],
-[-102.694,21.743],
-[-102.735,21.711],
-[-102.797,21.752],
-[-102.850,21.801],
-[-102.849,21.830],
-[-102.876,21.851],
-[-102.825,21.961],
-[-102.749,22.071],
-[-102.684,22.086],
-[-102.637,22.224],
-[-102.673,22.244],
-[-102.670,22.254],
-[-102.667,22.292] 
-    ]]);
+        $$(".my-location").val(currentEntidad).trigger("change");  
+    //$$(".my-location").val(currentEntidad);
+     // myApp.initSmartSelects('.page[data-page="panel-left"]');
+   
      var element = document.getElementById('geolocation');
         element.innerHTML = 'Lat: '  + position.coords.latitude      + '<br />' +
                             'Lon: ' + position.coords.longitude     + '<br />';
-    var isInside = turf.inside(pt, poly);
-    console.log(isInside);
 }
 
 function onPosError(error) {
     var element = document.getElementById('geolocation');
-        element.innerHTML = 'Code: '  + error.code + '<br />' +
+       element.innerHTML = 'Code: '  + error.code + '<br />' +
                             'Message: ' + error.message  + '<br />';
+    //element.innerHTML = ' No pudimos ubicar tu posición'
+    navigator.notification.alert(
+        'No pudimos ubicar tu posicion, por favor indicanos en que estado de la república mexicana te encuentras',  // message
+        AlertNoLocated,         // callback
+        'Ubicación no encontrada',            // title
+        'Ok'                  // buttonName
+    );
+    
 }
 
+function AlertNoLocated() {
+    // do something
+    myApp.openPanel('left');
+    $$('#location').click();
+}
+
+
 function createMap(){
-    
-    
-    var map = L.map('map').setView([21.8782892, -102.3050335], 16);
+    console.log("crea el mapa segun la posicion del usuario");
+    navigator.geolocation.getCurrentPosition(function(position){
+        // se obtiene la posicion y setea el mapa
+        var map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 16); // lo inicializa en aguascalientes //posteriormente hara el zoom a la entidad del usuario
+        L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+            detectRetina: true
+        }).addTo(map);
+        var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pin-me"></div><div class="pulse"></div>'});
+        // var m = new L.marker([position.coords.latitude, position.coords.longitude], {icon: myIcon}).addTo(leafletView).bindPopup('PUNTO ' + i + ' <i class="icon material-icons">directions_walk</i>  ' + distancia);
+        var m = new L.marker([position.coords.latitude, position.coords.longitude], {icon: myIcon}).addTo(map).bindPopup('INICIO').openPopup();
+    },function(error){
+        // no pudo leer la posicion
+        var map = L.map('map').setView([21.8782892, -102.3050335], 16); // lo inicializa en aguascalientes *fix* por ahora
+        L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+            detectRetina: true
+        }).addTo(map);
+        L.marker([21.8782892, -102.3050335]).addTo(map).bindPopup('INICIO').openPopup();
+    });
+   
 //http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png --> xido
     //http://{s}.tile.osm.org/{z}/{x}/{y}.png ---> ejemplo
-L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
-    detectRetina: true
-}).addTo(map);
+
+    
+    
+    
+    //hasta aqui llega la inicializacion
+    return false;
+    
+    
     bbox = map.getBounds();
-    
-  
-    
 
 var points = turf.random('points', 150, {
   bbox: [bbox._southWest.lat, bbox._southWest.lng, bbox._northEast.lat, bbox._northEast.lng]
-});    
-
-    //L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(map);
+}); 
   
 var markerNormal = {
             radius: 6,
@@ -360,14 +303,7 @@ var markerNormal = {
             opacity: 1,
             fillOpacity: 0.8
     };
-
-//var leafletView = new PruneClusterForLeaflet();
 var leafletView = L.markerClusterGroup({disableClusteringAtZoom: 17});
-    //console.log(leafletView);
-    
-    
-    
-    
 var from = {
   "type": "Feature",
   "properties": {},
@@ -377,14 +313,7 @@ var from = {
     }
    };
 var units = "kilometers";  
-  
-   
-    
 for (i=0; i < points.features.length; i++){
-
-    
-   // var categoria = Math.round(Math.random() * (4 - 1) + 1);
-    //console.log(categoria);
     var to = points.features[i];
     var distancia = turf.distance(from, to, units);
     distancia = parseFloat(distancia.toFixed(2));
@@ -397,56 +326,15 @@ for (i=0; i < points.features.length; i++){
     var random_cte = Math.round(Math.random() * (4 - 1) + 1);
     if (random_cte == 1){
         var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pin"></div><div class="pulse"></div>'});
-        //myIcon += L.divIcon({className: 'pulse'});
     }else{
         var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pin-no"></div>'});
     }
-    
-    
-    //var myIcon = L.divIcon({className: 'my-div-icon'});
     var m = new L.marker([points.features[i].geometry.coordinates[0],points.features[i].geometry.coordinates[1]], {icon: myIcon}).addTo(leafletView).bindPopup('PUNTO ' + i + ' <i class="icon material-icons">directions_walk</i>  ' + distancia);
-
-    
-  //  L.circleMarker([points.features[i].geometry.coordinates[0],points.features[i].geometry.coordinates[1]],markerNormal).addTo(map).bindPopup('PUNTO ' + i + ' <i class="icon material-icons">directions_walk</i>  ' + distancia);
-    
-    
-   
 }   
      
-    //var color = storage.getItem('color');    
-    //cambia todos los clientes al color de la app
-    //$$(".my-div-icon-cte").addClass('bg-' + color);
-    
-    //console.log(leafletView);
     map.addLayer(leafletView);
-    
-/*var to = {
-  "type": "Feature",
-  "properties": {},
-  "geometry": {
-    "type": "Point",
-    "coordinates": [21.8815218, -102.29742565]
-  }
-};*/
+    L.marker([21.8782892, -102.3050335]).addTo(map).bindPopup('INICIO').openPopup();
 
-/*
-var points = {
-  "type": "FeatureCollection",
-  "features": [from, to]
-};*/
-
-
-
-
-    
-    
-//console.log('Distancia en km desde punto A a PUNTO B: ' + distancia );    
-    
-    
-    
-    
-L.marker([21.8782892, -102.3050335]).addTo(map).bindPopup('INICIO').openPopup();
-//L.marker([21.8815218, -102.29742565]).addTo(map).bindPopup('PUNTO B').openPopup();
 }
 
 

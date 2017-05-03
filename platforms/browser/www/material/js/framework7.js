@@ -5575,6 +5575,7 @@
         ************   Smart Select   ************
         ===============================================================================*/
         app.initSmartSelects = function (pageContainer) {
+            //console.log(pageContainer);
             pageContainer = $(pageContainer);
             var selects;
             if (pageContainer.is('.smart-select')) {
@@ -6000,6 +6001,7 @@
                     var value = input.value;
                     var optionText = [];
                     var displayAs;
+                    console.log(input);
                     if (input.type === 'checkbox') {
                         var values = [];
                         for (var i = 0; i < select.options.length; i++) {

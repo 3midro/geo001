@@ -1146,7 +1146,15 @@ $$('#btnFlipMap').on('click', function () {
 /* ======== RANGE ========*/
 
 $$('input[type="range"]').on('input change', function(){
-    var m =  ( this.value == 1000 )?'ilimitado':'$ ' + this.value + '.00 MXN';
+    var m =  ( this.value == this.max )?'ilimitado':'$ ' + this.value + '.00 MXN';
     $$( this ).parent().parent().parent().find(".item-title.label").html(m);
     
 });
+
+$$('.my-location').on('change', function(e){
+     //var optionSelected = $$("option:selected", this);
+     var valueSelected = this.value;
+    console.log("zoom a la entidad " + /*optionSelected + ' - ' +*/ valueSelected);
+});
+
+

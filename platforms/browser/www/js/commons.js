@@ -214,9 +214,44 @@ var setColor = function(colprev){
     }
 }
 
+
+var payWithTweet = function(){
+    var p = storage.getItem('pay');
+   // p = false;
+    if (p !== "true"){
+       var myapp_ = new Framework7();
+        var welcomescreen_slides = [
+            {
+                id: '0',
+                picture: '<div class="tutorialicon"><img src="img/logo_main_small.png"></div><div class="content-block center">¡Brindix es gratuito! <br> <small>Por favor ayúdanos compartiendo esto en tu muro para que tus amigos también disfruten de esta increible app</small></div>',
+                text: '<ul class="flex-container"><li class="flex-item" onclick="window.plugins.socialsharing.shareViaFacebook(\'Ya baje brindix! esta increible, pruebala tu también https://goo.gl/zn13y7\', null /* img */, null /* url */, function() {console.log(\'share ok\')}, function(errormsg){alert(errormsg)})"><a href="#" class="button button-big button-fill button-raised color-indigo close-welcomescreen" ><i class="fa fa-facebook-f fa-4x fa-login" ></i></a></li><li class="flex-item" onclick="window.plugins.socialsharing.shareViaTwitter(\'Ya baje brindix! esta increible, pruebala tu también https://goo.gl/zn13y7\')"><a href="#" class="button button-big button-fill button-raised color-cyan close-welcomescreen"><i class="fa fa-twitter fa-4x fa-login" ></i></a></li></ul>'
+              }
+            ];
+
+        var options = {
+          'bgcolor': '#6A1B9A',
+          'fontcolor': '#fff',
+          'closeButton': 'disable',    
+          'closeButtonText': '',
+          'onOpened':function(){
+              //statusbar color temporal to purple
+              StatusBar.backgroundColorByHexString(coloresStatusBar["purple"]);
+          },
+          'onClosed': function(){
+               welcomeScreen();
+          }
+        }
+      var welcomescreen = myapp_.welcomescreen(welcomescreen_slides, options); 
+      storage.setItem('pay', true);
+    }else{
+        welcomeScreen();
+    }
+   
+};
+
 var welcomeScreen = function(){
     var w = storage.getItem('welcome');
-    w = false;
+    //w = false;
     if (w !== "true"){
         var myapp_ = new Framework7();
         var welcomescreen_slides = [
@@ -247,45 +282,13 @@ var welcomeScreen = function(){
         }
       var welcomescreen = myapp_.welcomescreen(welcomescreen_slides, options); 
       storage.setItem('welcome', true);
+    }else{
+        setColor();
     }
 };
 
-/*<p class="buttons-row">
-    <a href="#" class="button button-big button-fill button-raised color-indigo"><i class="fa fa-facebook-f fa-4x fa-login" ></i></a>
-    <a href="#" class="button button-big button-fill button-raised color-cyan"><i class="fa fa-twitter fa-4x fa-login" ></i></a>
-    <a href="#" class="button button-big button-fill button-raised color-red"><i class="fa fa-google-plus fa-4x fa-login" ></i></a></p>*/
-var payWithTweet = function(){
-    var p = storage.getItem('pay');
-    p = false;
-    if (p !== "true"){
-         
-       var myapp_ = new Framework7();
-        var welcomescreen_slides = [
-            {
-                id: '0',
-                picture: '<div class="tutorialicon"><img src="img/logo_main_small.png"></div><div class="content-block center">¡Brindix es gratuito! <br> <small>Por favor ayúdanos compartiendo esto en tu muro para que tus amigos también disfruten de esta increible app</small></div>',
-                text: '<ul class="flex-container"><li class="flex-item" onclick="window.plugins.socialsharing.shareViaFacebook(\'Ya baje brindix! esta increible, pruebala tu también https://goo.gl/zn13y7\', null /* img */, null /* url */, function() {console.log(\'share ok\')}, function(errormsg){alert(errormsg)})"><a href="#" class="button button-big button-fill button-raised color-indigo close-welcomescreen" ><i class="fa fa-facebook-f fa-4x fa-login" ></i></a></li><li class="flex-item" onclick="window.plugins.socialsharing.shareViaTwitter(\'Ya baje brindix! esta increible, pruebala tu también https://goo.gl/zn13y7\')"><a href="#" class="button button-big button-fill button-raised color-cyan close-welcomescreen"><i class="fa fa-twitter fa-4x fa-login" ></i></a></li></ul>'
-              }
-            ];
 
-        var options = {
-          'bgcolor': '#6A1B9A',
-          'fontcolor': '#fff',
-          'closeButton': 'disable',    
-          'closeButtonText': '',
-          'onOpened':function(){
-              //statusbar color temporal to purple
-              StatusBar.backgroundColorByHexString(coloresStatusBar["purple"]);
-          },
-          'onClosed': function(){
-               welcomeScreen();
-          }
-        }
-      var welcomescreen = myapp_.welcomescreen(welcomescreen_slides, options); 
-      storage.setItem('pay', true);
-    }
-   
-};
+
 
 
 
