@@ -269,6 +269,61 @@ function createMap(){
         }).addTo(map);
         var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
         var m = new L.marker([position.coords.latitude, position.coords.longitude], {icon: myIcon}).addTo(map).bindPopup('TU UBICACIÓN').openPopup();
+        
+        /*custom control*/
+         L.control.custom({
+    position: 'bottomleft',
+    content : '<button type="button" class="btn btn-default">'+
+              '    <i class="fa fa-crosshairs"></i>'+
+              '</button>'+
+              '<button type="button" class="btn btn-info">'+
+              '    <i class="fa fa-compass"></i>'+
+              '</button>'+
+              '<button type="button" class="btn btn-primary">'+
+              '    <i class="fa fa-spinner fa-pulse fa-fw"></i>'+
+              '</button>'+
+              '<button type="button" class="btn btn-danger">'+
+              '    <i class="fa fa-times"></i>'+
+              '</button>'+
+              '<button type="button" class="btn btn-success">'+
+              '    <i class="fa fa-check"></i>'+
+              '</button>'+
+              '<button type="button" class="btn btn-warning">'+
+              '    <i class="fa fa-exclamation-triangle"></i>'+
+              '</button>',
+    classes : 'btn-group-vertical btn-group-sm',
+    style   :
+    {
+        margin: '10px',
+        padding: '0px 0 0 0',
+        cursor: 'pointer',
+    },
+    datas   :
+    {
+        'foo': 'bar',
+    },
+    events:
+    {
+        click: function(data)
+        {
+            console.log('wrapper div element clicked');
+            console.log(data);
+        },
+        dblclick: function(data)
+        {
+            console.log('wrapper div element dblclicked');
+            console.log(data);
+        },
+        contextmenu: function(data)
+        {
+            console.log('wrapper div element contextmenu');
+            console.log(data);
+        },
+    }
+})
+.addTo(map);
+        
+        
     },function(error){
         // no pudo leer la posicion
         var map = L.map('map').setView([21.8782892, -102.3050335], 16); // lo inicializa en aguascalientes *fix* por ahora
@@ -280,11 +335,9 @@ function createMap(){
    
 //http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png --> xido
     //http://{s}.tile.osm.org/{z}/{x}/{y}.png ---> ejemplo
-
-    
-    
-    
-    //hasta aqui llega la inicializacion
+ //hasta aqui llega la inicializacion
+   
+   
     return false;
     
     

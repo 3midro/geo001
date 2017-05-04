@@ -217,7 +217,7 @@ var setColor = function(colprev){
 
 var payWithTweet = function(){
     var p = storage.getItem('pay');
-    p = false;
+    //p = false;
     if (p !== "true"){
        var myapp_ = new Framework7();
         var welcomescreen_slides = [
@@ -251,7 +251,7 @@ var payWithTweet = function(){
 
 var welcomeScreen = function(){
     var w = storage.getItem('welcome');
-    w = false;
+    //w = false;
     if (w !== "true"){
         var myapp_ = new Framework7();
         var welcomescreen_slides = [
