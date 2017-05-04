@@ -60,3 +60,94 @@
 html.with-statusbar-overlay .welcomescreen-container{
     top: 20px;
 }
+
+
+.img-back-share {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0px;
+    -moz-box-sizing: content-box;
+    -o-text-overflow: ellipsis;
+    background: -moz-linear-gradient(180deg, rgba(0, 0, 0, 0) 0, #4527A0 78%, #4527A0 100%), url(../img/welcome/9.png);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0, #4527A0 78%, #4527A0 100%), url(../img/welcome/9.png);
+    background-position: 50% 50%, 60% 0;
+    -webkit-background-origin: padding-box;
+    background-origin: padding-box; 
+    -webkit-background-clip: border-box;
+     background-clip: border-box;
+    -webkit-background-size: auto auto, cover;
+    background-size: auto auto, cover; 
+}
+
+.img-back-01 {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0px;
+    -moz-box-sizing: content-box;
+    -o-text-overflow: ellipsis;
+    background: -moz-linear-gradient(180deg, rgba(0, 0, 0, 0) 0, #4527A0 78%, #4527A0 100%), url(../img/welcome/0.jpg);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0, #4527A0 78%, #4527A0 100%), url(../img/welcome/0.jpg);
+    background-position: 50% 50%, 30% 0;
+    -webkit-background-origin: padding-box;
+    background-origin: padding-box; 
+    -webkit-background-clip: border-box;
+     background-clip: border-box;
+    -webkit-background-size: auto auto, cover;
+    background-size: auto auto, cover; 
+}
+
+.img-back-02 {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0px;
+    -moz-box-sizing: content-box;
+    -o-text-overflow: ellipsis;
+    background: -moz-linear-gradient(180deg, rgba(0, 0, 0, 0) 0, #4527A0 78%, #4527A0 100%), url(../img/welcome/2.jpg);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0, #4527A0 78%, #4527A0 100%), url(../img/welcome/2.jpg);
+    background-position: 50% 50%, 40% 0;
+    -webkit-background-origin: padding-box;
+    background-origin: padding-box; 
+    -webkit-background-clip: border-box;
+     background-clip: border-box;
+    -webkit-background-size: auto auto, cover;
+    background-size: auto auto, cover; 
+}
+
+.img-back-03 {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0px;
+    -moz-box-sizing: content-box;
+    -o-text-overflow: ellipsis;
+    background: -moz-linear-gradient(180deg, rgba(0, 0, 0, 0) 0, #4527A0 78%, #4527A0 100%), url(../img/welcome/3.jpg);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0, #4527A0 78%, #4527A0 100%), url(../img/welcome/3.jpg);
+    background-position: 50% 50%, 30% 0;
+    -webkit-background-origin: padding-box;
+    background-origin: padding-box; 
+    -webkit-background-clip: border-box;
+     background-clip: border-box;
+    -webkit-background-size: auto auto, cover;
+    background-size: auto auto, cover; 
+}
+
+.img-back-04 {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0px;
+    -moz-box-sizing: content-box;
+    -o-text-overflow: ellipsis;
+    background: -moz-linear-gradient(180deg, rgba(0, 0, 0, 0) 0, #4527A0 78%, #4527A0 100%), url(../img/welcome/3.jpg);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0, #4527A0 78%, #4527A0 100%), url(../img/welcome/3.jpg);
+    background-position: 50% 50%, 30% 0;
+    -webkit-background-origin: padding-box;
+    background-origin: padding-box; 
+    -webkit-background-clip: border-box;
+     background-clip: border-box;
+    -webkit-background-size: auto auto, cover;
+    background-size: auto auto, cover; 
+}

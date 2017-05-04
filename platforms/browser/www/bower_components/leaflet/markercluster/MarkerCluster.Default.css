@@ -57,22 +57,53 @@
 .marker-cluster span {
 	line-height: 30px;
 	}
-/*div.my-div-icon{
-    background-color: rgba(117,117,117,0.3);
-    border-radius: 50%;
+
+
+/*--- MY LOCATION---*/
+
+.pulse-me {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #fc5e5e;
+  cursor: pointer;
+  box-shadow: 0 0 0 rgba(252,94,94, 0.4);
+  animation: pulse-me 2s infinite;
 }
 
-div.my-div-icon-cte{
-    background-color: rgba(0,191,165,1);
-    border-radius: 50%;
-   
-   /* animation: mystore 3s infinite;
+
+@-webkit-keyframes pulse-me {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(252,94,94, 0.4);
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 10px rgba(252,94,94, 0);
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 rgba(252,94,94, 0);
+  }
+}
+@keyframes pulse-me {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(252,94,94, 0.4);
+    box-shadow: 0 0 0 0 rgba(252,94,94, 0.4);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 10px rgba(252,94,94, 0);
+      box-shadow: 0 0 0 10px rgba(252,94,94, 0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba(252,94,94, 0);
+      box-shadow: 0 0 0 0 rgba(252,94,94, 0);
+  }
 }
 
-@keyframes mystore {
-    0%   {top: 0; width: 10px; height: 10px; opacity: 1}
-    100% {top: 0; width: 30px; height: 30px; opacity: 0}
-}*/
+/*===================*//
+
+
+
+
 
 .pin-no {
     background-color: rgba(171,171,171,0.8);

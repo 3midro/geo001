@@ -267,9 +267,8 @@ function createMap(){
         L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
             detectRetina: true
         }).addTo(map);
-        var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pin-me"></div><div class="pulse"></div>'});
-        // var m = new L.marker([position.coords.latitude, position.coords.longitude], {icon: myIcon}).addTo(leafletView).bindPopup('PUNTO ' + i + ' <i class="icon material-icons">directions_walk</i>  ' + distancia);
-        var m = new L.marker([position.coords.latitude, position.coords.longitude], {icon: myIcon}).addTo(map).bindPopup('INICIO').openPopup();
+        var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
+        var m = new L.marker([position.coords.latitude, position.coords.longitude], {icon: myIcon}).addTo(map).bindPopup('TU UBICACIÓN').openPopup();
     },function(error){
         // no pudo leer la posicion
         var map = L.map('map').setView([21.8782892, -102.3050335], 16); // lo inicializa en aguascalientes *fix* por ahora

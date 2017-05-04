@@ -217,14 +217,14 @@ var setColor = function(colprev){
 
 var payWithTweet = function(){
     var p = storage.getItem('pay');
-   // p = false;
+    p = false;
     if (p !== "true"){
        var myapp_ = new Framework7();
         var welcomescreen_slides = [
             {
                 id: '0',
-                picture: '<div class="tutorialicon"><img src="img/logo_main_small.png"></div><div class="content-block center">¡Brindix es gratuito! <br> <small>Por favor ayúdanos compartiendo esto en tu muro para que tus amigos también disfruten de esta increible app</small></div>',
-                text: '<ul class="flex-container"><li class="flex-item" onclick="window.plugins.socialsharing.shareViaFacebook(\'Ya baje brindix! esta increible, pruebala tu también https://goo.gl/zn13y7\', null /* img */, null /* url */, function() {console.log(\'share ok\')}, function(errormsg){alert(errormsg)})"><a href="#" class="button button-big button-fill button-raised color-indigo close-welcomescreen" ><i class="fa fa-facebook-f fa-4x fa-login" ></i></a></li><li class="flex-item" onclick="window.plugins.socialsharing.shareViaTwitter(\'Ya baje brindix! esta increible, pruebala tu también https://goo.gl/zn13y7\')"><a href="#" class="button button-big button-fill button-raised color-cyan close-welcomescreen"><i class="fa fa-twitter fa-4x fa-login" ></i></a></li></ul>'
+                picture: '<div class="img-back-share"></div>',
+                text: '<div class="tutorialicon"><img src="img/logo_main_small.png" style="width: 15%"></div><div class="content-block center"><h1>¡Brindix es gratuito!</h1> <small>Por favor ayúdanos compartiendo esto en tu muro para que tus amigos también disfruten de esta increible app</small></div><ul class="flex-container"><li class="flex-item" onclick="window.plugins.socialsharing.shareViaFacebook(\'Ya baje brindix! esta increible, pruebala tu también https://goo.gl/zn13y7\', null /* img */, null /* url */, function() {console.log(\'share ok\')}, function(errormsg){alert(errormsg)})"><a href="#" class="button button-big button-fill button-raised color-indigo close-welcomescreen" ><i class="fa fa-facebook-f fa-4x fa-login" ></i></a></li><li class="flex-item" onclick="window.plugins.socialsharing.shareViaTwitter(\'Ya baje brindix! esta increible, pruebala tu también https://goo.gl/zn13y7\')"><a href="#" class="button button-big button-fill button-raised color-cyan close-welcomescreen"><i class="fa fa-twitter fa-4x fa-login" ></i></a></li></ul>'
               }
             ];
 
@@ -251,25 +251,27 @@ var payWithTweet = function(){
 
 var welcomeScreen = function(){
     var w = storage.getItem('welcome');
-    //w = false;
+    w = false;
     if (w !== "true"){
         var myapp_ = new Framework7();
         var welcomescreen_slides = [
-              {
+            {
                 id: '0',
-                picture: '<div class="tutorialicon"><img src="img/logo_main_small.png"></div><div class="content-block center">¡Muchas Gracias! <br> <small>Brindix no contiene molesta publicidad gracias a tu valiosa ayuda</small></div>',
-                text: ''
-              },
-              {
+                picture: '<div class="img-back-01"></div>',
+                text: '<div class="tutorialicon"><img src="img/logo_main_small.png"></div><div class="content-block center"><h1>¡Muchas Gracias!</h1><small>Brindix no contiene molesta publicidad gracias a tu valiosa ayuda</small></div>'
+            },{
                 id: '1',
-               picture: '<ul class="flex-container"><li class="flex-item"><i class="material-icons md-150">local_bar</i></li></ul>',
-                text: '<div class="content-block">Localiza todos los establecimientos de consumo y venta de bebidas alcoholicas</div>'
-                },
-             {
+                picture: '<div class="img-back-02"></div>',
+                text: '<div class="tutorialicon"><i class="material-icons md-150">local_bar</i></div><div class="content-block center"><h1>¡Orienta tus emociones!</h1><small>Estas en el lugar perfecto para encontrar todos los establecimientos de venta & consumo de bebidas alcohólicas</small></div>'
+            },{
                 id: '2',
-               picture: '<ul class="flex-container"><li class="flex-item"><i class="material-icons md-150">local_pizza</i></li></ul>',
-                text: '<div class="content-block">Organiza tus eventos<br><br><a class="button button-big button-fill button-raised color-purple close-welcomescreen" href="#">COMIENZA YA</a></div>'
-                }
+                picture: '<div class="img-back-03"></div>',
+                text: '<div class="tutorialicon"><i class="material-icons md-150">local_pizza</i></div><div class="content-block center"><h1>Tú lugar, tú espacio</h1><small>Organiza tus eventos, invita a tus amigos y diviertete con nuestra app</small></div>'
+            },{
+                id: '3',
+                picture: '<div class="img-back-01"></div>',
+                text: '<div class="tutorialicon"><i class="material-icons md-150">timer</i></div><div class="content-block center"><h1>¿Qué estás esperando?</h1><small>Inicia sesión y registrate utilizando tus redes sociales</small><h1>¡Es gratis!</h1></div><ul class="flex-container"><li class="flex-item"><a href="#" class="button button-big button-fill button-raised color-indigo close-welcomescreen" ><i class="fa fa-facebook-f fa-4x fa-login" ></i></a></li><li class="flex-item" ><a href="#" class="button button-big button-fill button-raised color-cyan close-welcomescreen"><i class="fa fa-twitter fa-4x fa-login" ></i></a></li><li class="flex-item" ><a href="#" class="button button-big button-fill button-raised color-red"><i class="fa fa-google-plus fa-4x fa-login" ></i></a></i></a></li></ul>'
+            }
             ];
 
         var options = {
@@ -280,8 +282,9 @@ var welcomeScreen = function(){
                setColor();
           }
         }
-      var welcomescreen = myapp_.welcomescreen(welcomescreen_slides, options); 
-      storage.setItem('welcome', true);
+        
+        var welcomescreen = myapp_.welcomescreen(welcomescreen_slides, options); 
+        storage.setItem('welcome', true);
     }else{
         setColor();
     }
