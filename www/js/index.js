@@ -263,61 +263,50 @@ function createMap(){
     console.log("crea el mapa segun la posicion del usuario");
     navigator.geolocation.getCurrentPosition(function(position){
         // se obtiene la posicion y setea el mapa
-        var map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 16); // lo inicializa en aguascalientes //posteriormente hara el zoom a la entidad del usuario
+        var map = L.map('map',{
+            //zoomControl: false
+        }).setView([position.coords.latitude, position.coords.longitude], 16); // lo inicializa en aguascalientes //posteriormente hara el zoom a la entidad del usuario
         L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
-            detectRetina: true
+            detectRetina: true,
         }).addTo(map);
         var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
         var m = new L.marker([position.coords.latitude, position.coords.longitude], {icon: myIcon}).addTo(map).bindPopup('TU UBICACIÓN').openPopup();
         
-        /*custom control*/
+        /* zoomIn & zoomOut controls con estilo propio*/
+       /* L.control.custom({
+            position: 'topleft',
+            content: '<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">add</i></a></p>'
+                     +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">remove</i></a></p>',
+            events:
+            {
+                click: function(data)
+                {
+                    console.log('wrapper div element clicked');
+                    console.log(data);
+                }
+            }
+        })
+    .addTo(map);*/
+        
+        /*FILTROS*/
          L.control.custom({
     position: 'bottomleft',
-    content : '<button type="button" class="btn btn-default">'+
-              '    <i class="fa fa-crosshairs"></i>'+
-              '</button>'+
-              '<button type="button" class="btn btn-info">'+
-              '    <i class="fa fa-compass"></i>'+
-              '</button>'+
-              '<button type="button" class="btn btn-primary">'+
-              '    <i class="fa fa-spinner fa-pulse fa-fw"></i>'+
-              '</button>'+
-              '<button type="button" class="btn btn-danger">'+
-              '    <i class="fa fa-times"></i>'+
-              '</button>'+
-              '<button type="button" class="btn btn-success">'+
-              '    <i class="fa fa-check"></i>'+
-              '</button>'+
-              '<button type="button" class="btn btn-warning">'+
-              '    <i class="fa fa-exclamation-triangle"></i>'+
-              '</button>',
-    classes : 'btn-group-vertical btn-group-sm',
-    style   :
-    {
-        margin: '10px',
-        padding: '0px 0 0 0',
-        cursor: 'pointer',
-    },
-    datas   :
-    {
-        'foo': 'bar',
-    },
+    content: '<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">audiotrack</i></a></p>'
+             +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_bar</i></a></p>'
+             +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_drink</i></a></p>'
+             +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">store</i></a></p>'
+             +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">favorite</i></a></p>'
+             +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">directions_walk</i></a></p>'
+             +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_pizza</i></a></p>'
+             +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">card_giftcard</i></a></p>'
+             +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">loyalty</i></a></p>'
+             +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">my_location</i></a></p>',
+    
     events:
     {
         click: function(data)
         {
-            console.log('wrapper div element clicked');
-            console.log(data);
-        },
-        dblclick: function(data)
-        {
-            console.log('wrapper div element dblclicked');
-            console.log(data);
-        },
-        contextmenu: function(data)
-        {
-            console.log('wrapper div element contextmenu');
-            console.log(data);
+            console.log(data.toElement.outerText);
         },
     }
 })

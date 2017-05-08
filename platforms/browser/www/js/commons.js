@@ -278,6 +278,10 @@ var welcomeScreen = function(){
           'bgcolor': '#6A1B9A',
           'fontcolor': '#fff',
           'closeButtonText': 'Omitir',
+          'onOpened':function(){
+              //statusbar color temporal to purple
+              StatusBar.backgroundColorByHexString(coloresStatusBar["purple"]);
+          },
           'onClosed': function(){
                setColor();
           }
