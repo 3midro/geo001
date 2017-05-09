@@ -294,6 +294,10 @@ var welcomeScreen = function(){
     }
 };
 
+var intro = function(){
+    myApp.closePanel('left');
+    introJs().start();
+}
 
 
 

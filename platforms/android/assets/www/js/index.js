@@ -40,6 +40,7 @@ var app = {
         console.log('Received Event: ' + id);
         if (id==='deviceready'){
             //dispositivo esta listo 
+            cordova.dialogGPS();
             //paywithateewt || welcomescreen || setColor
                 payWithTweet();
             //inicializa firebase
@@ -263,9 +264,7 @@ function createMap(){
     console.log("crea el mapa segun la posicion del usuario");
     navigator.geolocation.getCurrentPosition(function(position){
         // se obtiene la posicion y setea el mapa
-        var map = L.map('map',{
-            //zoomControl: false
-        }).setView([position.coords.latitude, position.coords.longitude], 16); // lo inicializa en aguascalientes //posteriormente hara el zoom a la entidad del usuario
+        var map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 16); // lo inicializa en aguascalientes //posteriormente hara el zoom a la entidad del usuario
         L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
             detectRetina: true,
         }).addTo(map);
@@ -286,7 +285,9 @@ function createMap(){
     {
         click: function(data)
         {
-            console.log(data.toElement.outerText);
+            //console.log(data.toElement);
+            $$(data.toElement).toggleClass('color-gray');
+            //console.log(data.toElement.outerText);
         },
     }
 })
@@ -297,18 +298,17 @@ function createMap(){
          L.control.custom({
     position: 'bottomright',
     content: '<div class="btn-group-vertical">'
-             +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">favorite</i></a>'
-            // +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">directions_walk</i></a>'
-             +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">local_pizza</i></a>'
-             +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">card_giftcard</i></a>'
-            // +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">loyalty</i></a>'
+             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">favorite</i></a>'
+             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_pizza</i></a>'
+             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">card_giftcard</i></a>'
              +'</div>',
     
     events:
     {
         click: function(data)
         {
-            console.log(data.toElement.outerText);
+            $$(data.toElement).toggleClass('color-gray');
+            console.log(data.toElement);
         },
     }
 })
@@ -326,7 +326,8 @@ function createMap(){
     {
         click: function(data)
         {
-            console.log(data.toElement.outerText);
+            $$(data.toElement).toggleClass('color-gray');
+            //console.log(data.toElement.outerText);
         },
     }
 })
@@ -335,11 +336,14 @@ function createMap(){
         
     },function(error){
         // no pudo leer la posicion
-        var map = L.map('map').setView([21.8782892, -102.3050335], 16); // lo inicializa en aguascalientes *fix* por ahora
-        L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
-            detectRetina: true
-        }).addTo(map);
-        L.marker([21.8782892, -102.3050335]).addTo(map).bindPopup('INICIO').openPopup();
+      console.log(error);
+         navigator.notification.alert(
+        'No pudimos ubicar tu posicion, por favor indicanos en que estado de la república mexicana te encuentras<br>'+error.message,  // message
+        AlertNoLocated,         // callback
+        'Ubicación no encontrada',            // title
+        'Ok'                  // buttonName
+    );
+        
     });
    
 //http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png --> xido

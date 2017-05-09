@@ -16,6 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+var watchID; var position;
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -198,25 +201,18 @@ var checkConnection = function(){
 
 
 
-function onPosSuccess(position) {
+function onPosSuccess(coord) {
     storage.removeItem('entidad');
     var currentEntidad = storage.getItem('entidad'); 
-    //console.log(currentEntidad);
-   // currentEntidad = '02';
-     var pt = turf.point([position.coords.longitude, position.coords.latitude]);
-    //pt = turf.point([-502.59,90.755]); 
+    var pt = turf.point([coord.coords.longitude, coord.coords.latitude]);
     if (currentEntidad !== null){
-      //   console.log("eaaah");
-         //verifica que la coordenada pertenezca a esa entidad
-       
         var poly = turf.polygon([entidades[currentEntidad]]);
         var isInside = turf.inside(pt, poly);
          console.log(isInside);
-         if (isInside === false){
+        if (isInside === false){
             storage.removeItem('entidad');
-            onPosSuccess(position);
-         }
-         
+            onPosSuccess(coord);
+        }
      }else{
          //determina la entidad a la que pertenece la coordenada recorriendo el arreglo de entidades
         for (var key in entidades) {
@@ -231,13 +227,20 @@ function onPosSuccess(position) {
         }
      }
         $$(".my-location").val(currentEntidad).trigger("change");  
+        var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
     //$$(".my-location").val(currentEntidad);
      // myApp.initSmartSelects('.page[data-page="panel-left"]');
    
      var element = document.getElementById('geolocation');
-        element.innerHTML = 'Lat: '  + position.coords.latitude      + '<br />' +
-                            'Lon: ' + position.coords.longitude     + '<br />';
+        element.innerHTML = 'Lat: '  + coord.coords.latitude      + '<br />' +
+                            'Lon: ' + coord.coords.longitude     + '<br />';
+    
+     position = (typeof position !== 'undefined')?position.setLatLng([coord.coords.latitude, coord.coords.longitude]).update():new L.marker([coord.coords.latitude, coord.coords.longitude], {icon: myIcon}).addTo(map);
+     map.panTo(new L.LatLng(coord.coords.latitude, coord.coords.longitude));
+    
 }
+
+
 
 function onPosError(error) {
     var element = document.getElementById('geolocation');
@@ -253,103 +256,73 @@ function onPosError(error) {
     
 }
 
+
+
 function AlertNoLocated() {
     // do something
     myApp.openPanel('left');
     $$('#location').click();
 }
 
-
+var map;
 function createMap(){
-    console.log("crea el mapa segun la posicion del usuario");
-    navigator.geolocation.getCurrentPosition(function(position){
-        // se obtiene la posicion y setea el mapa
-        var map = L.map('map',{
-            //zoomControl: false
-        }).setView([position.coords.latitude, position.coords.longitude], 16); // lo inicializa en aguascalientes //posteriormente hara el zoom a la entidad del usuario
+    //crea el mapa con la vista en aguascalientes, posteriormente se cambiará a la posición del usuario
+    map = L.map('map').setView([21.8782892, -102.3050335], 16); 
         L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
-            detectRetina: true,
+            detectRetina: true
         }).addTo(map);
-        var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
-        var m = new L.marker([position.coords.latitude, position.coords.longitude], {icon: myIcon}).addTo(map).bindPopup('TU UBICACIÓN').openPopup();
+       /* var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
+        var m = new L.marker([position.coords.latitude, position.coords.longitude], {icon: myIcon}).addTo(map).bindPopup('TU UBICACIÓN').openPopup();*/
         
         /*FILTROS*/
          L.control.custom({
-    position: 'bottomleft',
-    content: '<div class="btn-group-vertical">'
-             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">audiotrack</i></a>'
-             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_bar</i></a>'
-             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_drink</i></a>'
-             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">store</i></a>'
-             +'</div>',
-    
-    events:
-    {
-        click: function(data)
-        {
-            //console.log(data.toElement);
-            $$(data.toElement).toggleClass('color-gray');
-            //console.log(data.toElement.outerText);
-        },
-    }
-})
-.addTo(map);
+            position: 'bottomleft',
+            content: '<div class="btn-group-vertical" data-step="1" data-intro="Estos son los filtros" data-position="right">'
+                     +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">audiotrack</i></a>'
+                     +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_bar</i></a>'
+                     +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_drink</i></a>'
+                     +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">store</i></a>'
+                     +'</div>',
+             events:{
+                click: function(data){
+                    ($$(data.toElement).hasClass('icon'))?$$(data.toElement).parent().toggleClass('color-gray'):$$(data.toElement).toggleClass('color-gray');    
+                },
+            }
+        }).addTo(map);
         
         
               /*FILTROS*/
          L.control.custom({
-    position: 'bottomright',
-    content: '<div class="btn-group-vertical">'
-             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">favorite</i></a>'
-             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_pizza</i></a>'
-             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">card_giftcard</i></a>'
-             +'</div>',
-    
-    events:
-    {
-        click: function(data)
-        {
-            $$(data.toElement).toggleClass('color-gray');
-            console.log(data.toElement);
-        },
-    }
-})
-.addTo(map);
+            position: 'bottomright',
+            content: '<div class="btn-group-vertical">'
+                     +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">favorite</i></a>'
+                     +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">local_pizza</i></a>'
+                     +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">card_giftcard</i></a>'
+                     +'</div>',
+            events:{
+                click: function(data){
+                    ($$(data.toElement).hasClass('icon'))?$$(data.toElement).parent().toggleClass('color-gray'):$$(data.toElement).toggleClass('color-gray');
+                },
+            }
+        }).addTo(map);
         
         
             /*FILTROS*/
          L.control.custom({
-    position: 'topright',
-    content: '<div class="btn-group-vertical">'
-             +'<a href="#" class="button button-raised bg-white" style="border-radius:7px!important"><i class="icon material-icons">my_location</i></a>'
-             +'</div>',
-    
-    events:
-    {
-        click: function(data)
-        {
-            $$(data.toElement).toggleClass('color-gray');
-            //console.log(data.toElement.outerText);
-        },
-    }
-})
-.addTo(map);
-        
-        
-    },function(error){
-        // no pudo leer la posicion
-        var map = L.map('map').setView([21.8782892, -102.3050335], 16); // lo inicializa en aguascalientes *fix* por ahora
-        L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
-            detectRetina: true
+            position: 'topright',
+            content: '<div class="btn-group-vertical">'
+                     +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">my_location</i></a>'
+                     +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">pan_tool</i></a>'
+                     +'</div>',
+
+            events:{
+                click: function(data){
+                    ($$(data.toElement).hasClass('icon'))?$$(data.toElement).parent().toggleClass('color-gray'):$$(data.toElement).toggleClass('color-gray');
+                },
+            }
         }).addTo(map);
-        L.marker([21.8782892, -102.3050335]).addTo(map).bindPopup('INICIO').openPopup();
-    });
-   
-//http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png --> xido
-    //http://{s}.tile.osm.org/{z}/{x}/{y}.png ---> ejemplo
- //hasta aqui llega la inicializacion
-   
-   
+    
+    watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 60000 });
     return false;
     
     
