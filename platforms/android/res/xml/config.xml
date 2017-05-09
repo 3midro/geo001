@@ -32,6 +32,9 @@
     <feature name="SocialSharing">
         <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
     </feature>
+    <feature name="DialogGPS">
+        <param name="android-package" value="cl.rmd.cordova.dialoggps.DialogGPS" />
+    </feature>
     <name>Brindix Beta</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.

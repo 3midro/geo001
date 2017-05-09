@@ -77,7 +77,7 @@
         <div class="statusbar-overlay"></div>
     <div class="panel-overlay"></div>
     <div class="panel panel-left panel-cover">
-      <div class="view navbar-fixed">
+      <div class="view navbar-fixed view-left">
         <div class="pages">
           <div data-page="panel-left" class="page">
             <div class="page-content">
@@ -91,9 +91,100 @@
                   <p><a href="#" class="button button-big button-raised button-fill" onclick="testPHP();">TEST PHP</a></p>
             </div>
                 
-                 
+                <div class="content-block-title">Ubicaci&oacute;n</div>
+                 <div class="list-block">
+                          <ul>
+                            <li><a href="#" id="location" class="item-link smart-select" data-back-on-select="true">
+                                <select name="location" class="my-location">
+                                    <option value="01" data-display-as="AGU">Aguascalientes</option>
+                                    <option value="02" data-display-as="BCN">Baja California</option>
+                                    <option value="03" data-display-as="BCS">Baja California Sur</option>
+                                    <option value="04" data-display-as="CAM">Campeche</option>
+                                    <option value="05" data-display-as="COA">Coahuila</option>
+                                    <option value="06" data-display-as="COL">Colima</option>
+                                    <option value="07" data-display-as="CHP">Chiapas</option>
+                                    <option value="08" data-display-as="CHH">Chihuahua</option>
+                                    <option value="09" data-display-as="CDMX">CDMX</option>
+                                    <option value="10" data-display-as="DUR">Durango</option>
+                                    <option value="11" data-display-as="GUA">Guanajuato</option>
+                                    <option value="12" data-display-as="GRO">Guerrero</option>
+                                    <option value="13" data-display-as="HID">Hidalgo</option>
+                                    <option value="14" data-display-as="JAL">Jalisco</option>
+                                    <option value="15" data-display-as="MEX">M&eacute;xico</option>
+                                    <option value="16" data-display-as="MIC">Michoac&aacute;n </option>
+                                    <option value="17" data-display-as="MOR">Morelos</option>
+                                    <option value="18" data-display-as="NAY">Nayarit</option>
+                                    <option value="19" data-display-as="NLE">Nuevo Le&oacute;n</option>
+                                    <option value="20" data-display-as="OAX">Oaxaca</option>
+                                    <option value="21" data-display-as="PUE">Puebla</option>
+                                    <option value="22" data-display-as="QUE">Quer&eacute;taro</option>
+                                    <option value="23" data-display-as="ROO">Quintana Roo</option>
+                                    <option value="24" data-display-as="SLP">San Luis Potos&iacute;</option>
+                                    <option value="25" data-display-as="SIN">Sinaloa</option>
+                                    <option value="26" data-display-as="SON">Sonora</option>
+                                    <option value="27" data-display-as="TAB">Tabasco</option>
+                                    <option value="28" data-display-as="TAM">Tamaulipas</option>
+                                    <option value="29" data-display-as="TLA">Tlaxcala</option>
+                                    <option value="30" data-display-as="VER">Veracruz</option>
+                                    <option value="31" data-display-as="YUC">Yucat&aacute;n</option>
+                                    <option value="32" data-display-as="ZAC">Zacatecas</option>
+                                </select>
+                                <div class="item-content">
+                              <div class="item-media"><i class="material-icons color-gray">my_location</i></div>
+                              <div class="item-inner">
+                                <div class="item-title" hidden="hidden">Ubicaci&oacute;n</div>
+                                  <!-- Additional "smart-select-value" class to set selected option depending on this text value -->
+                                   <!-- <div class="item-after smart-select-value"></div>-->
+                              </div>
+                            </div></a></li>
+                          </ul>
+                        </div>
+                
+                
                 <div class="content-block">
-                     <div class="content-block-title">Usuario</div>
+                    
+                   
+                   <!-- 
+                    <div class="content-block-title">Ubicaci&oacute;n</div>
+                    <div class="list-block">
+                        <ul>
+                               <li><a href="#" class="item-link smart-select">
+                                <select name="mac-windows">
+                                  <option value="mac" selected="selected">Mac</option>
+                                  <option value="windows">Windows</option>
+                                </select>
+                                 <div class="item-content">
+                              <div class="item-media"><i class="material-icons color-gray">my_location</i></div>
+                              <div class="item-inner">
+                                <div class="item-title" hidden="hidden">Ubicaci&oacute;n</div>
+                              </div>
+                            </div></a></li>
+                        </ul>
+                    </div>
+                    
+                    
+                    
+                <div class="list-block">
+                      <ul>
+                           <li><a href="#" class="item-link smart-select">
+                            <select name="locationEdo" multiple="multiple">
+                              <optgroup label="Claras">
+                                <option value="honda">Aguascalientes</option>
+                                <option value="mazda">Baja California</option>  
+                                <option value="mazda">Baja California Sur</option>
+                              </optgroup>
+                            </select>
+                            <div class="item-content">
+                              <div class="item-media"><i class="material-icons color-gray">my_location</i></div>
+                              <div class="item-inner">
+                                <div class="item-title" hidden="hidden">Ubicaci&oacute;n</div>
+                              </div>
+                            </div></a></li>
+                      </ul>
+                    </div>  -->
+                    <div class="content-block" id="geolocation"></div>
+                    
+                    <div class="content-block-title">Usuario</div>
                     <div class="list-block">
                         <ul>
                               
@@ -325,7 +416,7 @@
                         <ul>
                             <li><a href="guia-seguridad.html" class="item-link"> 
                                   <div class="item-content">
-                                    <div class="item-media"><i class="material-icons">security<sup>check</sup></i></div>
+                                    <div class="item-media"><i class="material-icons color-gray">security<sup>check</sup></i></div>
                                     <div class="item-inner"> 
                                       <div class="item-title">Seguridad</div>
                                     </div>
@@ -351,11 +442,11 @@
                                       <div class="item-title">Tutorial</div>
                                     </div>
                                   </div></a></li>
-                              <li><a href="color-themes.html" class="item-link"> 
+                              <li><a href="#" class="item-link" onclick="javascript: storage.removeItem('welcome');welcomeScreen();"> 
                                   <div class="item-content">
-                                    <div class="item-media"><i class="material-icons">screen_share</i></div>
+                                    <div class="item-media"><i class="material-icons  color-gray">screen_share<sup>check</sup></i></div>
                                     <div class="item-inner"> 
-                                      <div class="item-title">Intro</div>
+                                      <div class="item-title">Bienvenida</div>
                                     </div>
                                   </div></a></li>
                         </ul>
@@ -408,8 +499,7 @@
                 
                 
                 
-              <div class="content-block-title">Posiciones registradas</div>
-               <div class="content-block" id="geolocation"></div>
+              
                
               
             </div>
@@ -443,7 +533,8 @@
                         </div>
                       </form>
                 </div>-->
-                <div class="content-block-title">Por el giro del establecimiento</div>
+                
+                 <div class="content-block-title">Por el giro del establecimiento</div>
                 <div class="list-block">
                     <ul>
                         <li>
@@ -488,6 +579,44 @@
                         </li>
                       </ul>
                 </div>
+                
+                
+                <div class="content-block-title">Incluir capa de</div>
+                <div class="list-block">
+                    <ul>
+                         <li>
+                          <label class="label-checkbox item-content">
+                            <input type="checkbox" name="ks-checkbox" value="Books" checked="checked"/>
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="item-inner">
+                              <div class="item-title">Favoritos</div>
+                                <div class="item-after"><i class="icon material-icons">favorite</i></div>
+                            </div>
+                          </label>
+                        </li>
+                        <li>
+                          <label class="label-checkbox item-content">
+                            <input type="checkbox" name="ks-checkbox" value="Books" checked="checked"/>
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="item-inner">
+                              <div class="item-title">Fiestas</div>
+                                <div class="item-after"><i class="icon material-icons">local_pizza</i></div>
+                            </div>
+                          </label>
+                        </li>
+                        <li>
+                          <label class="label-checkbox item-content">
+                            <input type="checkbox" name="ks-checkbox" value="B" checked="checked"/>
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="item-inner">
+                              <div class="item-title">Regalos</div>
+                                <div class="item-after"><i class="icon material-icons">card_giftcard</i></div>
+                            </div>
+                          </label>
+                        </li>
+                    </ul>
+                </div>
+               
                 
                    <div class="content-block-title">Por tu presupuesto</div>
                         <div class="list-block">
@@ -715,9 +844,13 @@
                       </form>
                   
                   </div>
-                <div class="right"><a href="#" class="link icon-only" id="btnFlipMap"><i class="icon material-icons">view_list</i></a><a href="#" data-panel="right" class="open-panel link icon-only"><i class="icon material-icons">tune</i></a></div>
+                <div class="right">
+                    <a href="#" class="link icon-only" id="btnFlipMap"><i class="icon material-icons">view_list</i></a>
+                    <!--<a href="#" data-panel="right" class="open-panel link icon-only"><i class="icon material-icons">layers</i></a>-->
+                    <a href="#" data-panel="right" class="open-panel link icon-only"><i class="icon material-icons">tune</i></a></div>
               </div>
             </div>
+            <!--<a href="#" class="floating-button theme-deeppurple"><i class="icon material-icons">layers</i></a>  -->
             <div class="page-content">
                 <div class="flip-container">
                     <div class="flipper">
@@ -1195,9 +1328,12 @@
         
         <!-- scripts welcomescreen-->
         <script src="js/welcomescreen.js"></script>
+         <!-- path Estados-->
+        <script src="js/pathEdos.js"></script>
           <!-- script leaflet-->
-        <script src="bower_components/leaflet/leaflet.js"></script>
+        <script src="bower_components/leaflet/leaflet-src.js"></script>
         <script src="bower_components/leaflet/markercluster/leaflet.markercluster-src.js"></script>
+        <script src="bower_components/leaflet/Leaflet.Control.Custom.js"></script>
         <!-- turf (geoanalitics)-->
         <script src='bower_components/turf/turf.min.js'></script>   
         <!--firebase-->

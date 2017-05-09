@@ -36,6 +36,9 @@
         },
         "nl.x-services.plugins.socialsharing": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cl.rmd.cordova.dialoggps": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },
     "dependent_plugins": {

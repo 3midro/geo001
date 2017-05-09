@@ -16,6 +16,10 @@ var rightView = myApp.addView('.view-right', {
     name: 'right'
 });
 
+var leftView = myApp.addView('.view-left', {
+    name: 'left'
+});
+
 // Show/hide preloader for remote ajax loaded pages
 // Probably should be removed on a production/local app
 $$(document).on('ajaxStart', function (e) {
@@ -435,13 +439,7 @@ $$('.popover a').on('click', function () {
     myApp.closeModal('.popover');
 });
 
-/* ====== FLIP MAP ====== */
 
-$$('#btnFlipMap').on('click', function () {
-    var icn = $$("#btnFlipMap>i").text();
-    (icn === 'map')?$$("#btnFlipMap>i").text('view_list'):$$("#btnFlipMap>i").text('map');
-    document.querySelector(".flip-container").classList.toggle("flip");
-});
 
 
 /* ===== Color themes ===== */
@@ -1132,3 +1130,31 @@ myApp.onPageInit('animation', function (page) {
             );
     });
 });
+
+
+
+// _____ MIS FUNCIONES ------------//
+
+/* ====== FLIP MAP ====== */
+
+$$('#btnFlipMap').on('click', function () {
+    var icn = $$("#btnFlipMap>i").text();
+    (icn === 'map')?$$("#btnFlipMap>i").text('view_list'):$$("#btnFlipMap>i").text('map');
+    document.querySelector(".flip-container").classList.toggle("flip");
+});
+
+/* ======== RANGE ========*/
+
+$$('input[type="range"]').on('input change', function(){
+    var m =  ( this.value == this.max )?'ilimitado':'$ ' + this.value + '.00 MXN';
+    $$( this ).parent().parent().parent().find(".item-title.label").html(m);
+    
+});
+
+$$('.my-location').on('change', function(e){
+     //var optionSelected = $$("option:selected", this);
+     var valueSelected = this.value;
+    console.log("zoom a la entidad " + /*optionSelected + ' - ' +*/ valueSelected);
+});
+
+

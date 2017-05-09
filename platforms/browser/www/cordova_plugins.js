@@ -261,6 +261,14 @@ module.exports = [
         "clobbers": [
             "window.plugins.socialsharing"
         ]
+    },
+    {
+        "file": "plugins/cl.rmd.cordova.dialoggps/www/DialogGPS.js",
+        "id": "cl.rmd.cordova.dialoggps.DialogGPS",
+        "pluginId": "cl.rmd.cordova.dialoggps",
+        "clobbers": [
+            "cordova.dialogGPS"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -276,7 +284,8 @@ module.exports.metadata =
     "cordova-plugin-network-information": "1.3.2",
     "cordova-plugin-statusbar": "2.2.2",
     "nl.madebymark.share": "0.1.1",
-    "nl.x-services.plugins.socialsharing": "5.1.1"
+    "nl.x-services.plugins.socialsharing": "5.1.1",
+    "cl.rmd.cordova.dialoggps": "0.0.2"
 }
 // BOTTOM OF METADATA
 });

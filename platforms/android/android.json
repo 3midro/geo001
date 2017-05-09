@@ -47,6 +47,10 @@
                         {
                             "xml": "<feature name=\"SocialSharing\"><param name=\"android-package\" value=\"nl.xservices.plugins.SocialSharing\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"DialogGPS\"><param name=\"android-package\" value=\"cl.rmd.cordova.dialoggps.DialogGPS\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -75,7 +79,16 @@
                             "count": 1
                         }
                     ],
-                    "/manifest": [],
+                    "/manifest": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />",
+                            "count": 1
+                        }
+                    ],
                     "/manifest/application": []
                 }
             }
@@ -113,6 +126,9 @@
             "PACKAGE_NAME": "io.cordova.hellocordova"
         },
         "nl.x-services.plugins.socialsharing": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cl.rmd.cordova.dialoggps": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },
@@ -369,6 +385,14 @@
             "clobbers": [
                 "window.plugins.socialsharing"
             ]
+        },
+        {
+            "id": "cl.rmd.cordova.dialoggps.DialogGPS",
+            "file": "plugins/cl.rmd.cordova.dialoggps/www/DialogGPS.js",
+            "pluginId": "cl.rmd.cordova.dialoggps",
+            "clobbers": [
+                "cordova.dialogGPS"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -382,6 +406,7 @@
         "cordova-plugin-statusbar": "2.2.2",
         "cordova-plugin-whitelist": "1.3.2",
         "nl.madebymark.share": "0.1.1",
-        "nl.x-services.plugins.socialsharing": "5.1.1"
+        "nl.x-services.plugins.socialsharing": "5.1.1",
+        "cl.rmd.cordova.dialoggps": "0.0.2"
     }
 }

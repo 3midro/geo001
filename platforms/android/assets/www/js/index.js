@@ -40,28 +40,25 @@ var app = {
         console.log('Received Event: ' + id);
         if (id==='deviceready'){
             //dispositivo esta listo 
-            //paywithateewt
+            //paywithateewt || welcomescreen || setColor
                 payWithTweet();
-            
-            // el welcomeScreen
-               // welcomeScreen();
-            
-            //color interfaz
-                //setColor();
             //inicializa firebase
                 initFirebase();
             //inicializa la base de datos local
-                dblocal();
+               // dblocal();
             
             //checkConnection()
-                checkConnection();
+                //checkConnection();
             
             
             //2 lanza el mapa
                 createMap();
-            // lanza a buscar la posición
-        // Options: throw an error if no update is received every 30 seconds.
-            //var watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 1000 });
+            
+            // lanza a buscar la posición con un watcher
+    // Options: throw an error if no update is received every 60 seconds.
+   // var watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 60000 });
+            
+        
         }else{
             console.log("dispositivo no listo");
         }
@@ -201,33 +198,163 @@ var checkConnection = function(){
 
 
 function onPosSuccess(position) {
+    storage.removeItem('entidad');
+    var currentEntidad = storage.getItem('entidad'); 
+    //console.log(currentEntidad);
+   // currentEntidad = '02';
+     var pt = turf.point([position.coords.longitude, position.coords.latitude]);
+    //pt = turf.point([-502.59,90.755]); 
+    if (currentEntidad !== null){
+      //   console.log("eaaah");
+         //verifica que la coordenada pertenezca a esa entidad
+       
+        var poly = turf.polygon([entidades[currentEntidad]]);
+        var isInside = turf.inside(pt, poly);
+         console.log(isInside);
+         if (isInside === false){
+            storage.removeItem('entidad');
+            onPosSuccess(position);
+         }
+         
+     }else{
+         //determina la entidad a la que pertenece la coordenada recorriendo el arreglo de entidades
+        for (var key in entidades) {
+            var poly = turf.polygon([entidades[key]]);
+            var isInside = turf.inside(pt, poly);
+             console.log(key+ ' isInside: ' + isInside);
+            if (isInside === true){
+                currentEntidad = key;
+                storage.setItem('entidad', key);
+                break;
+            }
+        }
+     }
+        $$(".my-location").val(currentEntidad).trigger("change");  
+    //$$(".my-location").val(currentEntidad);
+     // myApp.initSmartSelects('.page[data-page="panel-left"]');
+   
      var element = document.getElementById('geolocation');
-        element.innerHTML = 'Latitude: '  + position.coords.latitude      + '<br />' +
-                            'Longitude: ' + position.coords.longitude     + '<br />' +
-                            '<hr />'      + element.innerHTML;
+        element.innerHTML = 'Lat: '  + position.coords.latitude      + '<br />' +
+                            'Lon: ' + position.coords.longitude     + '<br />';
 }
 
 function onPosError(error) {
     var element = document.getElementById('geolocation');
-        element.innerHTML = 'Code: '  + error.code + '<br />' +
-                            'Message: ' + error.message  + '<br />' +  element.innerHTML;
+       element.innerHTML = 'Code: '  + error.code + '<br />' +
+                            'Message: ' + error.message  + '<br />';
+    //element.innerHTML = ' No pudimos ubicar tu posición'
+    navigator.notification.alert(
+        'No pudimos ubicar tu posicion, por favor indicanos en que estado de la república mexicana te encuentras',  // message
+        AlertNoLocated,         // callback
+        'Ubicación no encontrada',            // title
+        'Ok'                  // buttonName
+    );
+    
 }
 
+function AlertNoLocated() {
+    // do something
+    myApp.openPanel('left');
+    $$('#location').click();
+}
+
+
 function createMap(){
+    console.log("crea el mapa segun la posicion del usuario");
+    navigator.geolocation.getCurrentPosition(function(position){
+        // se obtiene la posicion y setea el mapa
+        var map = L.map('map',{
+            //zoomControl: false
+        }).setView([position.coords.latitude, position.coords.longitude], 16); // lo inicializa en aguascalientes //posteriormente hara el zoom a la entidad del usuario
+        L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+            detectRetina: true,
+        }).addTo(map);
+        var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
+        var m = new L.marker([position.coords.latitude, position.coords.longitude], {icon: myIcon}).addTo(map).bindPopup('TU UBICACIÓN').openPopup();
+        
+        /*FILTROS*/
+         L.control.custom({
+    position: 'bottomleft',
+    content: '<div class="btn-group-vertical">'
+             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">audiotrack</i></a>'
+             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_bar</i></a>'
+             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_drink</i></a>'
+             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">store</i></a>'
+             +'</div>',
     
-    var map = L.map('map').setView([21.8782892, -102.3050335], 16);
+    events:
+    {
+        click: function(data)
+        {
+            console.log(data.toElement.outerText);
+        },
+    }
+})
+.addTo(map);
+        
+        
+              /*FILTROS*/
+         L.control.custom({
+    position: 'bottomright',
+    content: '<div class="btn-group-vertical">'
+             +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">favorite</i></a>'
+            // +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">directions_walk</i></a>'
+             +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">local_pizza</i></a>'
+             +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">card_giftcard</i></a>'
+            // +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">loyalty</i></a>'
+             +'</div>',
+    
+    events:
+    {
+        click: function(data)
+        {
+            console.log(data.toElement.outerText);
+        },
+    }
+})
+.addTo(map);
+        
+        
+            /*FILTROS*/
+         L.control.custom({
+    position: 'topright',
+    content: '<div class="btn-group-vertical">'
+             +'<a href="#" class="button button-raised bg-white" style="border-radius:7px!important"><i class="icon material-icons">my_location</i></a>'
+             +'</div>',
+    
+    events:
+    {
+        click: function(data)
+        {
+            console.log(data.toElement.outerText);
+        },
+    }
+})
+.addTo(map);
+        
+        
+    },function(error){
+        // no pudo leer la posicion
+        var map = L.map('map').setView([21.8782892, -102.3050335], 16); // lo inicializa en aguascalientes *fix* por ahora
+        L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+            detectRetina: true
+        }).addTo(map);
+        L.marker([21.8782892, -102.3050335]).addTo(map).bindPopup('INICIO').openPopup();
+    });
+   
 //http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png --> xido
     //http://{s}.tile.osm.org/{z}/{x}/{y}.png ---> ejemplo
-L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
-    detectRetina: true
-}).addTo(map);
+ //hasta aqui llega la inicializacion
+   
+   
+    return false;
+    
+    
     bbox = map.getBounds();
 
-var points = turf.random('points', 120, {
+var points = turf.random('points', 150, {
   bbox: [bbox._southWest.lat, bbox._southWest.lng, bbox._northEast.lat, bbox._northEast.lng]
-});    
-
-    //L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {}).addTo(map);
+}); 
   
 var markerNormal = {
             radius: 6,
@@ -237,14 +364,7 @@ var markerNormal = {
             opacity: 1,
             fillOpacity: 0.8
     };
-
-//var leafletView = new PruneClusterForLeaflet();
 var leafletView = L.markerClusterGroup({disableClusteringAtZoom: 17});
-    //console.log(leafletView);
-    
-    
-    
-    
 var from = {
   "type": "Feature",
   "properties": {},
@@ -254,14 +374,7 @@ var from = {
     }
    };
 var units = "kilometers";  
-  
-   
-    
 for (i=0; i < points.features.length; i++){
-
-    
-   // var categoria = Math.round(Math.random() * (4 - 1) + 1);
-    //console.log(categoria);
     var to = points.features[i];
     var distancia = turf.distance(from, to, units);
     distancia = parseFloat(distancia.toFixed(2));
@@ -274,56 +387,15 @@ for (i=0; i < points.features.length; i++){
     var random_cte = Math.round(Math.random() * (4 - 1) + 1);
     if (random_cte == 1){
         var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pin"></div><div class="pulse"></div>'});
-        //myIcon += L.divIcon({className: 'pulse'});
     }else{
         var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pin-no"></div>'});
     }
-    
-    
-    //var myIcon = L.divIcon({className: 'my-div-icon'});
     var m = new L.marker([points.features[i].geometry.coordinates[0],points.features[i].geometry.coordinates[1]], {icon: myIcon}).addTo(leafletView).bindPopup('PUNTO ' + i + ' <i class="icon material-icons">directions_walk</i>  ' + distancia);
-
-    
-  //  L.circleMarker([points.features[i].geometry.coordinates[0],points.features[i].geometry.coordinates[1]],markerNormal).addTo(map).bindPopup('PUNTO ' + i + ' <i class="icon material-icons">directions_walk</i>  ' + distancia);
-    
-    
-   
 }   
      
-    //var color = storage.getItem('color');    
-    //cambia todos los clientes al color de la app
-    //$$(".my-div-icon-cte").addClass('bg-' + color);
-    
-    //console.log(leafletView);
     map.addLayer(leafletView);
-    
-/*var to = {
-  "type": "Feature",
-  "properties": {},
-  "geometry": {
-    "type": "Point",
-    "coordinates": [21.8815218, -102.29742565]
-  }
-};*/
+    L.marker([21.8782892, -102.3050335]).addTo(map).bindPopup('INICIO').openPopup();
 
-/*
-var points = {
-  "type": "FeatureCollection",
-  "features": [from, to]
-};*/
-
-
-
-
-    
-    
-//console.log('Distancia en km desde punto A a PUNTO B: ' + distancia );    
-    
-    
-    
-    
-L.marker([21.8782892, -102.3050335]).addTo(map).bindPopup('INICIO').openPopup();
-//L.marker([21.8815218, -102.29742565]).addTo(map).bindPopup('PUNTO B').openPopup();
 }
 
 

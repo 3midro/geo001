@@ -40,6 +40,7 @@ var app = {
         console.log('Received Event: ' + id);
         if (id==='deviceready'){
             //dispositivo esta listo 
+            cordova.dialogGPS();
             //paywithateewt || welcomescreen || setColor
                 payWithTweet();
             //inicializa firebase
@@ -286,7 +287,9 @@ function createMap(){
     {
         click: function(data)
         {
-            console.log(data.toElement.outerText);
+            //console.log(data.toElement);
+            $$(data.toElement).toggleClass('color-gray');
+            //console.log(data.toElement.outerText);
         },
     }
 })
@@ -297,18 +300,17 @@ function createMap(){
          L.control.custom({
     position: 'bottomright',
     content: '<div class="btn-group-vertical">'
-             +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">favorite</i></a>'
-            // +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">directions_walk</i></a>'
-             +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">local_pizza</i></a>'
-             +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">card_giftcard</i></a>'
-            // +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">loyalty</i></a>'
+             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">favorite</i></a>'
+             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_pizza</i></a>'
+             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">card_giftcard</i></a>'
              +'</div>',
     
     events:
     {
         click: function(data)
         {
-            console.log(data.toElement.outerText);
+            $$(data.toElement).toggleClass('color-gray');
+            console.log(data.toElement);
         },
     }
 })
@@ -326,7 +328,8 @@ function createMap(){
     {
         click: function(data)
         {
-            console.log(data.toElement.outerText);
+            $$(data.toElement).toggleClass('color-gray');
+            //console.log(data.toElement.outerText);
         },
     }
 })
