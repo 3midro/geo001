@@ -272,35 +272,55 @@ function createMap(){
         var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
         var m = new L.marker([position.coords.latitude, position.coords.longitude], {icon: myIcon}).addTo(map).bindPopup('TU UBICACIÓN').openPopup();
         
-        /* zoomIn & zoomOut controls con estilo propio*/
-       /* L.control.custom({
-            position: 'topleft',
-            content: '<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">add</i></a></p>'
-                     +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">remove</i></a></p>',
-            events:
-            {
-                click: function(data)
-                {
-                    console.log('wrapper div element clicked');
-                    console.log(data);
-                }
-            }
-        })
-    .addTo(map);*/
-        
         /*FILTROS*/
          L.control.custom({
     position: 'bottomleft',
-    content: '<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">audiotrack</i></a></p>'
-             +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_bar</i></a></p>'
-             +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_drink</i></a></p>'
-             +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">store</i></a></p>'
-             +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">favorite</i></a></p>'
-             +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">directions_walk</i></a></p>'
-             +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_pizza</i></a></p>'
-             +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">card_giftcard</i></a></p>'
-             +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">loyalty</i></a></p>'
-             +'<p class="buttons-row"><a href="#" class="button button-raised bg-white"><i class="icon material-icons">my_location</i></a></p>',
+    content: '<div class="btn-group-vertical">'
+             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">audiotrack</i></a>'
+             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_bar</i></a>'
+             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_drink</i></a>'
+             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">store</i></a>'
+             +'</div>',
+    
+    events:
+    {
+        click: function(data)
+        {
+            console.log(data.toElement.outerText);
+        },
+    }
+})
+.addTo(map);
+        
+        
+              /*FILTROS*/
+         L.control.custom({
+    position: 'bottomright',
+    content: '<div class="btn-group-vertical">'
+             +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">favorite</i></a>'
+            // +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">directions_walk</i></a>'
+             +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">local_pizza</i></a>'
+             +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">card_giftcard</i></a>'
+            // +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">loyalty</i></a>'
+             +'</div>',
+    
+    events:
+    {
+        click: function(data)
+        {
+            console.log(data.toElement.outerText);
+        },
+    }
+})
+.addTo(map);
+        
+        
+            /*FILTROS*/
+         L.control.custom({
+    position: 'topright',
+    content: '<div class="btn-group-vertical">'
+             +'<a href="#" class="button button-raised bg-white" style="border-radius:7px!important"><i class="icon material-icons">my_location</i></a>'
+             +'</div>',
     
     events:
     {

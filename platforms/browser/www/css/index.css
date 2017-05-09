@@ -244,3 +244,17 @@ h1 {
 .back_ {
 	transform: rotateY(180deg);
 }
+
+/* btn-group*/
+.btn-group-vertical a {
+    /*border: 1px solid rgba(0,0,0,0.2); */
+    border-bottom: 1px solid #ccc
+}
+
+.btn-group-vertical a:first-child {
+    border-radius: 7px 7px 0px 0px; 
+}
+
+.btn-group-vertical a:last-child {
+    border-radius: 0px 0px 7px 7px; 
+}
