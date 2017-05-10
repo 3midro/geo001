@@ -63,8 +63,6 @@
         <!-- leaflet clusters-->
 	    <link rel="stylesheet" href="bower_components/leaflet/markercluster/MarkerCluster.css" />
 	    <link rel="stylesheet" href="bower_components/leaflet/markercluster/MarkerCluster.Default.css" />
-        <!--<link rel="stylesheet" href="bower_components/leaflet/pruneCluster/LeafletStyleSheet.css">-->
-        
         
         <!--font awsome -->
         <link rel="stylesheet" href="bower_components/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -535,7 +533,7 @@
                       </form>
                 </div>-->
                 
-                 <div class="content-block-title">Por el giro del establecimiento</div>
+                 <div class="content-block-title">Giro Establecimiento</div>
                 <div class="list-block">
                     <ul>
                         <li>
@@ -581,53 +579,15 @@
                       </ul>
                 </div>
                 
-                
-                <div class="content-block-title">Incluir capa de</div>
-                <div class="list-block">
-                    <ul>
-                         <li>
-                          <label class="label-checkbox item-content">
-                            <input type="checkbox" name="ks-checkbox" value="Books" checked="checked"/>
-                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
-                            <div class="item-inner">
-                              <div class="item-title">Favoritos</div>
-                                <div class="item-after"><i class="icon material-icons">favorite</i></div>
-                            </div>
-                          </label>
-                        </li>
-                        <li>
-                          <label class="label-checkbox item-content">
-                            <input type="checkbox" name="ks-checkbox" value="Books" checked="checked"/>
-                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
-                            <div class="item-inner">
-                              <div class="item-title">Fiestas</div>
-                                <div class="item-after"><i class="icon material-icons">local_pizza</i></div>
-                            </div>
-                          </label>
-                        </li>
-                        <li>
-                          <label class="label-checkbox item-content">
-                            <input type="checkbox" name="ks-checkbox" value="B" checked="checked"/>
-                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
-                            <div class="item-inner">
-                              <div class="item-title">Regalos</div>
-                                <div class="item-after"><i class="icon material-icons">card_giftcard</i></div>
-                            </div>
-                          </label>
-                        </li>
-                    </ul>
-                </div>
-               
-                
-                   <div class="content-block-title">Por tu presupuesto</div>
+                 <div class="content-block-title">Por cercania</div>
                         <div class="list-block">
                             <div class="item-content">
-                            <div class="item-media"><i class="icon material-icons color-gray">account_balance_wallet</i></div>
+                            <div class="item-media"><i class="icon material-icons color-gray">directions_walk</i></div>
                             <div class="item-inner">
-                              <div class="item-title label center">ilimitado</div>
+                              <div class="item-title label center">3 km</div>
                               <div class="item-input">
                                 <div class="range-slider">
-                                  <input type="range" min="50" max="1000" value="1000" step="50"/>
+                                  <input type="range" min="1" max="8" value="3" step="1" data-text-min data-text-max data-prefix data-postfix=" km"/>
                                 </div>
                               </div>
                             </div>
@@ -635,53 +595,24 @@
                         </div>
                 
                 
-                <div class="content-block-title">Por tus preferencias</div>
-                <div class="list-block">
-                    <ul>
-                        <li>
-                          <label class="label-radio item-content">
-                            <input type="radio" name="ks-radio" value="Todos" checked="checked"/>
-                            <div class="item-media"><i class="icon icon-form-radio"></i></div>
-                            <div class="item-inner">
-                              <div class="item-title">Ninguno</div>
-                              <div class="item-after"><i class="icon material-icons">filter_none</i></div>
-                            </div>
-                          </label>
-                        </li>
-                        <li>
-                          <label class="label-radio item-content">
-                            <input type="radio" name="ks-radio" value="Books" />
-                            <div class="item-media"><i class="icon icon-form-radio"></i></div>
-                            <div class="item-inner">
-                              <div class="item-title">Favoritos</div>
-                              <div class="item-after"><i class="icon material-icons">favorite</i></div>
-                            </div>
-                          </label>
-                        </li>
-                       <li>
-                          <label class="label-radio item-content">
-                            <input type="radio" name="ks-radio" value="Movies"/>
-                            <div class="item-media"><i class="icon icon-form-radio"></i></div>
-                            <div class="item-inner">
-                              <div class="item-title">Cercanos</div>
-                              <div class="item-after"><i class="icon material-icons">directions_walk</i></div>
-                            </div>
-                          </label>
-                        </li>
-                        <li>
-                          <label class="label-radio item-content">
-                            <input type="radio" name="ks-radio" value="Food"/>
-                            <div class="item-media"><i class="icon icon-form-radio"></i></div>
-                            <div class="item-inner">
-                              <div class="item-title">En la mira</div>
-                              <div class="item-after"><i class="icon material-icons">local_offer</i></div>
-                            </div>
-                          </label>
-                        </li>
-                      </ul>
-                </div>
                 
-                 <div class="content-block-title">Por tus gustos</div>
+                <div class="content-block-title">Presupuesto</div>
+                        <div class="list-block">
+                            <div class="item-content">
+                            <div class="item-media"><i class="icon material-icons color-gray">account_balance_wallet</i></div>
+                            <div class="item-inner">
+                              <div class="item-title label center">vida de papu</div>
+                              <div class="item-input">
+                                <div class="range-slider">
+                                  <input type="range" min="50" max="1000" value="1000" step="50" data-text-min="vida de sholo" data-text-max="vida de papu" data-prefix="$ " data-postfix=".00 MXN"/>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                
+                
+                <div class="content-block-title">Gustos</div>
                 <div class="list-block">
                       <ul>
                         <li><a href="#" class="item-link smart-select">
@@ -741,7 +672,7 @@
                       </ul>
                     </div>
                             
-                <div class="content-block-title">Por la etiqueta</div>
+                <div class="content-block-title">Marca</div>
                 <div class="list-block">
                       <ul>
                            <li><a href="#" class="item-link smart-select">
@@ -1332,11 +1263,11 @@
          <!-- path Estados-->
         <script src="js/pathEdos.js"></script>
           <!-- script leaflet-->
-        <script src="bower_components/leaflet/leaflet-src.js"></script>
+        <script src="bower_components/leaflet/leaflet.js"></script>
         <script src="bower_components/leaflet/markercluster/leaflet.markercluster-src.js"></script>
         <script src="bower_components/leaflet/Leaflet.Control.Custom.js"></script>
         <!-- turf (geoanalitics)-->
-        <script src='bower_components/turf/turf.min.js'></script>   
+        <script src='bower_components/turf/turf.min.js'></script>  
         <!--firebase-->
         <script src="bower_components/firebase/firebase.js"></script>
         <!--introjs-->

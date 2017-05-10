@@ -209,7 +209,7 @@ function onPosSuccess(coord) {
     if (currentEntidad !== null){
         var poly = turf.polygon([entidades[currentEntidad]]);
         var isInside = turf.inside(pt, poly);
-         console.log(isInside);
+         //console.log(isInside);
         if (isInside === false){
             storage.removeItem('entidad');
             onPosSuccess(coord);
@@ -219,7 +219,7 @@ function onPosSuccess(coord) {
         for (var key in entidades) {
             var poly = turf.polygon([entidades[key]]);
             var isInside = turf.inside(pt, poly);
-             console.log(key+ ' isInside: ' + isInside);
+            // console.log(key+ ' isInside: ' + isInside);
             if (isInside === true){
                 currentEntidad = key;
                 storage.setItem('entidad', key);
@@ -261,7 +261,10 @@ var map;
 function createMap(){
     if (typeof map === 'undefined'){
         //crea el mapa con la vista en aguascalientes, posteriormente se cambiará a la posición del usuario
-        map = L.map('map').setView([21.8782892, -102.3050335], 16); 
+        map = L.map('map',{
+            dragging:true,
+            zoomControl:true
+        }).setView([21.8782892, -102.3050335], 16); 
             L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
                 detectRetina: true
             }).addTo(map);
@@ -285,7 +288,7 @@ function createMap(){
             }).addTo(map);
 
 
-                  /*FILTROS*/
+                 
              L.control.custom({
                 position: 'bottomright',
                 content: '<div class="btn-group-vertical">'
@@ -302,7 +305,7 @@ function createMap(){
             }).addTo(map);
 
 
-                /*FILTROS*/
+               
              L.control.custom({
                 position: 'topright',
                 content: '<div class="btn-group-vertical">'
@@ -378,7 +381,7 @@ var myPosition = function(val){
     val = (typeof val==='undefined')?false:val;
     if (platform === 'browser'){
         watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 6000 });
-    }else if(platform === 'android'){
+    }else if(platform === 'Android'){
          cordova.plugins.diagnostic.isGpsLocationEnabled(function(enabled){
         if (enabled){
             //obtiene las coordenadas

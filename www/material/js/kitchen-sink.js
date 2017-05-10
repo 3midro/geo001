@@ -1146,8 +1146,18 @@ $$('#btnFlipMap').on('click', function () {
 /* ======== RANGE ========*/
 
 $$('input[type="range"]').on('input change', function(){
-    var m =  ( this.value == this.max )?'ilimitado':'$ ' + this.value + '.00 MXN';
-    $$( this ).parent().parent().parent().find(".item-title.label").html(m);
+    var prefix  = $$(this).data("prefix");
+    var postfix  = $$(this).data("postfix");
+    var _text  = $$(this).data("text-min");
+    var text_  = $$(this).data("text-max");
+    var label = this.value;
+    label = (typeof prefix !== 'undefined')?prefix +label:label;
+    label = (typeof postfix !== 'undefined')?label +postfix:label;
+    
+    label = (this.value == this.min && typeof _text !== 'undefined')?_text:label;
+    label = (this.value == this.max && typeof text_ !== 'undefined')?text_:label;
+    //console.log(prefix + '|' + postfix + '|' + _text +'|' + text_);
+    $$( this ).parent().parent().parent().find(".item-title.label").html(label);
     
 });
 

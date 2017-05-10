@@ -209,7 +209,7 @@ function onPosSuccess(coord) {
     if (currentEntidad !== null){
         var poly = turf.polygon([entidades[currentEntidad]]);
         var isInside = turf.inside(pt, poly);
-         console.log(isInside);
+         //console.log(isInside);
         if (isInside === false){
             storage.removeItem('entidad');
             onPosSuccess(coord);
@@ -219,7 +219,7 @@ function onPosSuccess(coord) {
         for (var key in entidades) {
             var poly = turf.polygon([entidades[key]]);
             var isInside = turf.inside(pt, poly);
-             console.log(key+ ' isInside: ' + isInside);
+            // console.log(key+ ' isInside: ' + isInside);
             if (isInside === true){
                 currentEntidad = key;
                 storage.setItem('entidad', key);
