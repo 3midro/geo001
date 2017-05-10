@@ -275,14 +275,23 @@ function createMap(){
              L.control.custom({
                 position: 'bottomleft',
                 content: '<div class="btn-group-vertical" data-step="1" data-intro="Estos son los filtros" data-position="right">'
-                         +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">audiotrack</i></a>'
-                         +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_bar</i></a>'
-                         +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_drink</i></a>'
-                         +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">store</i></a>'
+                         +'<a href="#" id="map_audiotrack" class="button button-raised bg-white"><i class="icon material-icons">audiotrack</i></a>'
+                         +'<a href="#" id="map_local_bar" class="button button-raised bg-white"><i class="icon material-icons">local_bar</i></a>'
+                         +'<a href="#" id="map_local_drink" class="button button-raised bg-white"><i class="icon material-icons">local_drink</i></a>'
+                         +'<a href="#" id="map_store" class="button button-raised bg-white"><i class="icon material-icons">store</i></a>'
                          +'</div>',
                  events:{
                     click: function(data){
-                        ($$(data.toElement).hasClass('icon'))?$$(data.toElement).parent().toggleClass('color-gray'):$$(data.toElement).toggleClass('color-gray');    
+                        if ($$(data.toElement).hasClass('icon')){
+                            //$$(data.toElement).parent().toggleClass('color-gray');  
+                            //console.log(data.toElement.innerText+'|'+$$(data.toElement).parent().hasClass('color-gray'));
+                            syncFiltros(data.toElement.innerText,($$(data.toElement).parent().hasClass('color-gray')));
+                        }else{
+                            //$$(data.toElement).toggleClass('color-gray');
+                            //console.log(data.toElement.innerText+'|'+$$(data.toElement).hasClass('color-gray'));
+                            syncFiltros(data.toElement.innerText,($$(data.toElement).hasClass('color-gray')));
+                        }
+                        
                     },
                 }
             }).addTo(map);
@@ -298,7 +307,6 @@ function createMap(){
                          +'</div>',
                 events:{
                     click: function(data){
-                        console.log(data.toElement.innerText);
                         ($$(data.toElement).hasClass('icon'))?$$(data.toElement).parent().toggleClass('color-gray'):$$(data.toElement).toggleClass('color-gray');
                     },
                 }
@@ -310,7 +318,7 @@ function createMap(){
                 position: 'topright',
                 content: '<div class="btn-group-vertical">'
                          +'<a href="#" class="button button-raised bg-white" id="testigoPosition"><i class="icon material-icons" >my_location</i></a>'
-                         +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">pan_tool</i></a>'
+                         +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">cloud_download</i></a>'
                          +'</div>',
 
                 events:{
@@ -447,4 +455,10 @@ function testPHP(){
     });
 };
 
+var syncFiltros = function (filtro, ch){
+    console.log(filtro +'|'+ch);
+    $$('input[type=checkbox][name=ks-giro][value='+filtro+']').prop("checked", ch);
+    //(ch)?$$('#map_'+filtro+'').addClass('color-gray'):$$('#map_'+filtro+'').removeClass('color-')
+    $$('#map_'+filtro+'').toggleClass('color-gray');
+}
 
