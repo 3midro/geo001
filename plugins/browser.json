@@ -39,6 +39,12 @@
         },
         "cl.rmd.cordova.dialoggps": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova.plugins.diagnostic": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },
     "dependent_plugins": {

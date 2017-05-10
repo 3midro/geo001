@@ -16,12 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+var watchID; var position;
+
 var app = {
     // Application Constructor
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
-        document.addEventListener("offline", whenOffline, false);
-        document.addEventListener("online", whenOnline, false);
+        /*document.addEventListener("offline", whenOffline, false);
+        document.addEventListener("online", whenOnline, false);*/
     },
 
     // deviceready Event Handler
@@ -40,11 +43,10 @@ var app = {
         console.log('Received Event: ' + id);
         if (id==='deviceready'){
             //dispositivo esta listo 
-            cordova.dialogGPS();
             //paywithateewt || welcomescreen || setColor
                 payWithTweet();
             //inicializa firebase
-                initFirebase();
+              //  initFirebase();
             //inicializa la base de datos local
                // dblocal();
             
@@ -53,7 +55,7 @@ var app = {
             
             
             //2 lanza el mapa
-                createMap();
+               // createMap();
             
             // lanza a buscar la posición con un watcher
     // Options: throw an error if no update is received every 60 seconds.
@@ -198,25 +200,20 @@ var checkConnection = function(){
 
 
 
-function onPosSuccess(position) {
+function onPosSuccess(coord) {
+    //map.panTo(position._latlng) -->envia al punto donde esta el usuario
     storage.removeItem('entidad');
     var currentEntidad = storage.getItem('entidad'); 
-    //console.log(currentEntidad);
-   // currentEntidad = '02';
-     var pt = turf.point([position.coords.longitude, position.coords.latitude]);
-    //pt = turf.point([-502.59,90.755]); 
+    var pt = turf.point([coord.coords.longitude, coord.coords.latitude]);
+    console.log(pt);
     if (currentEntidad !== null){
-      //   console.log("eaaah");
-         //verifica que la coordenada pertenezca a esa entidad
-       
         var poly = turf.polygon([entidades[currentEntidad]]);
         var isInside = turf.inside(pt, poly);
          console.log(isInside);
-         if (isInside === false){
+        if (isInside === false){
             storage.removeItem('entidad');
-            onPosSuccess(position);
-         }
-         
+            onPosSuccess(coord);
+        }
      }else{
          //determina la entidad a la que pertenece la coordenada recorriendo el arreglo de entidades
         for (var key in entidades) {
@@ -231,27 +228,28 @@ function onPosSuccess(position) {
         }
      }
         $$(".my-location").val(currentEntidad).trigger("change");  
-    //$$(".my-location").val(currentEntidad);
-     // myApp.initSmartSelects('.page[data-page="panel-left"]');
-   
+        var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
      var element = document.getElementById('geolocation');
-        element.innerHTML = 'Lat: '  + position.coords.latitude      + '<br />' +
-                            'Lon: ' + position.coords.longitude     + '<br />';
+        element.innerHTML = 'Lat: '  + coord.coords.latitude      + '<br />' +
+                            'Lon: ' + coord.coords.longitude     + '<br />';
+    
+     position = (typeof position !== 'undefined')?position.setLatLng([coord.coords.latitude, coord.coords.longitude]).update():new L.marker([coord.coords.latitude, coord.coords.longitude], {icon: myIcon}).addTo(map);
+    panToPoint();
+    
+}
+
+function panToPoint(){
+    if (!$$("#testigoPosition").hasClass('color-gray')){
+        map.panTo(position._latlng);
+        /*map.panTo(new L.LatLng(coord.coords.latitude, coord.coords.longitude));*/
+    }
 }
 
 function onPosError(error) {
-    var element = document.getElementById('geolocation');
-       element.innerHTML = 'Code: '  + error.code + '<br />' +
-                            'Message: ' + error.message  + '<br />';
-    //element.innerHTML = ' No pudimos ubicar tu posición'
-    navigator.notification.alert(
-        'No pudimos ubicar tu posicion, por favor indicanos en que estado de la república mexicana te encuentras',  // message
-        AlertNoLocated,         // callback
-        'Ubicación no encontrada',            // title
-        'Ok'                  // buttonName
-    );
-    
+    cordova.dialogGPS();
 }
+
+
 
 function AlertNoLocated() {
     // do something
@@ -259,98 +257,73 @@ function AlertNoLocated() {
     $$('#location').click();
 }
 
-
+var map;
 function createMap(){
-    console.log("crea el mapa segun la posicion del usuario");
-    navigator.geolocation.getCurrentPosition(function(position){
-        // se obtiene la posicion y setea el mapa
-        var map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 16); // lo inicializa en aguascalientes //posteriormente hara el zoom a la entidad del usuario
-        L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
-            detectRetina: true,
-        }).addTo(map);
-        var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
-        var m = new L.marker([position.coords.latitude, position.coords.longitude], {icon: myIcon}).addTo(map).bindPopup('TU UBICACIÓN').openPopup();
-        
-        /*FILTROS*/
-         L.control.custom({
-    position: 'bottomleft',
-    content: '<div class="btn-group-vertical">'
-             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">audiotrack</i></a>'
-             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_bar</i></a>'
-             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_drink</i></a>'
-             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">store</i></a>'
-             +'</div>',
-    
-    events:
-    {
-        click: function(data)
-        {
-            //console.log(data.toElement);
-            $$(data.toElement).toggleClass('color-gray');
-            //console.log(data.toElement.outerText);
-        },
-    }
-})
-.addTo(map);
-        
-        
-              /*FILTROS*/
-         L.control.custom({
-    position: 'bottomright',
-    content: '<div class="btn-group-vertical">'
-             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">favorite</i></a>'
-             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_pizza</i></a>'
-             +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">card_giftcard</i></a>'
-             +'</div>',
-    
-    events:
-    {
-        click: function(data)
-        {
-            $$(data.toElement).toggleClass('color-gray');
-            console.log(data.toElement);
-        },
-    }
-})
-.addTo(map);
-        
-        
+    if (typeof map === 'undefined'){
+        //crea el mapa con la vista en aguascalientes, posteriormente se cambiará a la posición del usuario
+        map = L.map('map',{
+            dragging:true,
+            zoomControl:true
+        }).setView([21.8782892, -102.3050335], 16); 
+            L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+                detectRetina: true
+            }).addTo(map);
+           /* var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
+            var m = new L.marker([position.coords.latitude, position.coords.longitude], {icon: myIcon}).addTo(map).bindPopup('TU UBICACIÓN').openPopup();*/
+
             /*FILTROS*/
-         L.control.custom({
-    position: 'topright',
-    content: '<div class="btn-group-vertical">'
-             +'<a href="#" class="button button-raised bg-white" style="border-radius:7px!important"><i class="icon material-icons">my_location</i></a>'
-             +'</div>',
-    
-    events:
-    {
-        click: function(data)
-        {
-            $$(data.toElement).toggleClass('color-gray');
-            //console.log(data.toElement.outerText);
-        },
+             L.control.custom({
+                position: 'bottomleft',
+                content: '<div class="btn-group-vertical" data-step="1" data-intro="Estos son los filtros" data-position="right">'
+                         +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">audiotrack</i></a>'
+                         +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_bar</i></a>'
+                         +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">local_drink</i></a>'
+                         +'<a href="#" class="button button-raised bg-white"><i class="icon material-icons">store</i></a>'
+                         +'</div>',
+                 events:{
+                    click: function(data){
+                        ($$(data.toElement).hasClass('icon'))?$$(data.toElement).parent().toggleClass('color-gray'):$$(data.toElement).toggleClass('color-gray');    
+                    },
+                }
+            }).addTo(map);
+
+
+                 
+             L.control.custom({
+                position: 'bottomright',
+                content: '<div class="btn-group-vertical">'
+                         +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">favorite</i></a>'
+                         +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">local_pizza</i></a>'
+                         +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">card_giftcard</i></a>'
+                         +'</div>',
+                events:{
+                    click: function(data){
+                        console.log(data.toElement.innerText);
+                        ($$(data.toElement).hasClass('icon'))?$$(data.toElement).parent().toggleClass('color-gray'):$$(data.toElement).toggleClass('color-gray');
+                    },
+                }
+            }).addTo(map);
+
+
+               
+             L.control.custom({
+                position: 'topright',
+                content: '<div class="btn-group-vertical">'
+                         +'<a href="#" class="button button-raised bg-white" id="testigoPosition"><i class="icon material-icons" >my_location</i></a>'
+                         +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">pan_tool</i></a>'
+                         +'</div>',
+
+                events:{
+                    click: function(data){
+                        ($$(data.toElement).hasClass('icon'))?$$(data.toElement).parent().toggleClass('color-gray'):$$(data.toElement).toggleClass('color-gray');
+                        if (data.toElement.innerText === 'my_location') panToPoint();
+                    },
+                }
+            }).addTo(map);
+        myPosition();
+       // watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 60000 });
     }
-})
-.addTo(map);
-        
-        
-    },function(error){
-        // no pudo leer la posicion
-      console.log(error);
-         navigator.notification.alert(
-        'No pudimos ubicar tu posicion, por favor indicanos en que estado de la república mexicana te encuentras<br>'+error.message,  // message
-        AlertNoLocated,         // callback
-        'Ubicación no encontrada',            // title
-        'Ok'                  // buttonName
-    );
-        
-    });
-   
-//http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png --> xido
-    //http://{s}.tile.osm.org/{z}/{x}/{y}.png ---> ejemplo
- //hasta aqui llega la inicializacion
-   
-   
+    
     return false;
     
     
@@ -403,7 +376,40 @@ for (i=0; i < points.features.length; i++){
 }
 
 
+var myPosition = function(val){
+    var platform = device.platform;
+    val = (typeof val==='undefined')?false:val;
+    if (platform === 'browser'){
+        watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 6000 });
+    }else if(platform === 'Android'){
+         cordova.plugins.diagnostic.isGpsLocationEnabled(function(enabled){
+        if (enabled){
+            //obtiene las coordenadas
+            watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 6000 });
+        }else{
+            //manda a encender el gps
+             cordova.dialogGPS("Your GPS is Disabled, this app needs to be enable to works.",//message
+                    "Use GPS, with wifi or 3G.",//description
+                    function(buttonIndex){//callback
+                      switch(buttonIndex) {
+                        case 0: break;//cancel
+                        case 1: break;//neutro option
+                        case 2: 
+                              console.log("regreso de la configuración");
+                              break;//user go to configuration
+                      }},
+                      "Please Turn on GPS",//title
+                      ["Cancel","Later","Go"]);//buttons
+        }
+        console.log("GPS location is " + (enabled ? "enabled" : "disabled"));
+    }, function(error){
+        console.error("The following error occurred: "+error);
+    });    
+    }
+   
+   
 
+};
 
 
 

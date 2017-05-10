@@ -269,6 +269,20 @@ module.exports = [
         "clobbers": [
             "cordova.dialogGPS"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-device/www/device.js",
+        "id": "cordova-plugin-device.device",
+        "pluginId": "cordova-plugin-device",
+        "clobbers": [
+            "device"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-device/src/browser/DeviceProxy.js",
+        "id": "cordova-plugin-device.DeviceProxy",
+        "pluginId": "cordova-plugin-device",
+        "runs": true
     }
 ];
 module.exports.metadata = 
@@ -285,7 +299,9 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "2.2.2",
     "nl.madebymark.share": "0.1.1",
     "nl.x-services.plugins.socialsharing": "5.1.1",
-    "cl.rmd.cordova.dialoggps": "0.0.2"
+    "cl.rmd.cordova.dialoggps": "0.0.2",
+    "cordova.plugins.diagnostic": "3.6.0",
+    "cordova-plugin-device": "1.1.6"
 }
 // BOTTOM OF METADATA
 });

@@ -206,7 +206,7 @@ var setColor = function(colprev){
          }
         //statusbar color
         StatusBar.backgroundColorByHexString(coloresStatusBar[color]);
-        
+        createMap();
     }else{
         // inicializa el color en purpura
         storage.setItem('color', 'deeppurple');
@@ -235,7 +235,7 @@ var payWithTweet = function(){
           'closeButtonText': '',
           'onOpened':function(){
               //statusbar color temporal to purple
-              StatusBar.backgroundColorByHexString(coloresStatusBar["purple"]);
+              StatusBar.backgroundColorByHexString(coloresStatusBar["gray"]);
           },
           'onClosed': function(){
                welcomeScreen();
@@ -294,6 +294,10 @@ var welcomeScreen = function(){
     }
 };
 
+var intro = function(){
+    myApp.closePanel('left');
+    introJs().start();
+}
 
 
 
