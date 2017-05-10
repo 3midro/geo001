@@ -241,7 +241,7 @@ function onPosSuccess(coord) {
 function panToPoint(){
     if (!$$("#testigoPosition").hasClass('color-gray')){
         map.panTo(position._latlng);
-        /*map.panTo(new L.LatLng(coord.coords.latitude, coord.coords.longitude));*/
+        localLayers();
     }
 }
 
@@ -329,6 +329,7 @@ function createMap(){
                 }
             }).addTo(map);
         myPosition();
+       
        // watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 60000 });
     }
     
@@ -415,7 +416,7 @@ var myPosition = function(val){
     });    
     }
    
-   
+    
 
 };
 
@@ -462,3 +463,40 @@ var syncFiltros = function (filtro, ch){
     $$('#map_'+filtro+'').toggleClass('color-gray');
 }
 
+var localLayers = function(){
+    //ahorita las generaré random
+        bbox = map.getBounds();
+        var favL = new L.LayerGroup();
+        var parL = new L.LayerGroup();
+        var gifL = new L.LayerGroup();
+        
+    
+        var favs = turf.random('points', 10, {
+          bbox: [bbox._southWest.lat, bbox._southWest.lng, bbox._northEast.lat, bbox._northEast.lng]
+        });
+    
+        for (i=0; i < favs.features.length; i++){
+            L.marker([favs.features[i].geometry.coordinates[0],favs.features[i].geometry.coordinates[1]]).bindPopup('This is a fav!').addTo(favL);
+        }
+        //favL.addTo(map);
+    
+        var parties = turf.random('points', 3, {
+          bbox: [bbox._southWest.lat, bbox._southWest.lng, bbox._northEast.lat, bbox._northEast.lng]
+        }); 
+        for (i=0; i < parties.features.length; i++){
+                L.marker([parties.features[i].geometry.coordinates[0],parties.features[i].geometry.coordinates[1]]).bindPopup('This is a Partie!').addTo(parL);
+        }
+       // parL.addTo(map);
+        var gifts = turf.random('points', 6, {
+          bbox: [bbox._southWest.lat, bbox._southWest.lng, bbox._northEast.lat, bbox._northEast.lng]
+        });
+        for (i=0; i < gifts.features.length; i++){
+                L.marker([gifts.features[i].geometry.coordinates[0],gifts.features[i].geometry.coordinates[1]]).bindPopup('This is a gift!').addTo(gifL);
+        }
+    var overlays = {
+			"<i class='icon material-icons'>favorite</i>": favL, "Fiestas": parL,"Regalos": gifL
+		};
+    L.control.layers(null,overlays).addTo(map);
+      
+    
+};
