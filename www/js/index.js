@@ -43,8 +43,10 @@ var app = {
         console.log('Received Event: ' + id);
         if (id==='deviceready'){
             //dispositivo esta listo 
+                moment.locale('es');
             //paywithateewt || welcomescreen || setColor
                 payWithTweet();
+                localLayers();
             //inicializa firebase
               //  initFirebase();
             //inicializa la base de datos local
@@ -241,7 +243,6 @@ function onPosSuccess(coord) {
 function panToPoint(){
     if (!$$("#testigoPosition").hasClass('color-gray')){
         map.panTo(position._latlng);
-        localLayers();
     }
 }
 
@@ -283,37 +284,30 @@ function createMap(){
                  events:{
                     click: function(data){
                         if ($$(data.toElement).hasClass('icon')){
-                            //$$(data.toElement).parent().toggleClass('color-gray');  
-                            //console.log(data.toElement.innerText+'|'+$$(data.toElement).parent().hasClass('color-gray'));
                             syncFiltros(data.toElement.innerText,($$(data.toElement).parent().hasClass('color-gray')));
                         }else{
-                            //$$(data.toElement).toggleClass('color-gray');
-                            //console.log(data.toElement.innerText+'|'+$$(data.toElement).hasClass('color-gray'));
                             syncFiltros(data.toElement.innerText,($$(data.toElement).hasClass('color-gray')));
                         }
-                        
                     },
                 }
-            }).addTo(map);
-
-
-                 
+            }).addTo(map);    
              L.control.custom({
                 position: 'bottomright',
                 content: '<div class="btn-group-vertical">'
-                         +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">favorite</i></a>'
-                         +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">local_pizza</i></a>'
-                         +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">card_giftcard</i></a>'
+                         +'<a href="#" class="button button-raised bg-white color-gray" id="map_favorite"><i class="icon material-icons">favorite</i></a>'
+                         +'<a href="#" class="button button-raised bg-white color-gray" id="map_local_pizza"><i class="icon material-icons">local_pizza</i></a>'
+                         +'<a href="#" class="button button-raised bg-white color-gray" id="map_card_giftcard"><i class="icon material-icons">card_giftcard</i></a>'
                          +'</div>',
                 events:{
                     click: function(data){
-                        ($$(data.toElement).hasClass('icon'))?$$(data.toElement).parent().toggleClass('color-gray'):$$(data.toElement).toggleClass('color-gray');
+                        if ($$(data.toElement).hasClass('icon')){
+                            syncLayers(data.toElement.innerText,($$(data.toElement).parent().hasClass('color-gray')));
+                        }else{
+                            syncLayers(data.toElement.innerText,($$(data.toElement).hasClass('color-gray')));
+                        }
                     },
                 }
             }).addTo(map);
-
-
-               
              L.control.custom({
                 position: 'topright',
                 content: '<div class="btn-group-vertical">'
@@ -463,6 +457,22 @@ var syncFiltros = function (filtro, ch){
     $$('#map_'+filtro+'').toggleClass('color-gray');
 }
 
+var syncLayers = function (layer, ch){
+    console.log(layer +'|'+ch);
+    var elements = $$(".leaflet-control-layers-overlays>label").find('.icon');
+    for (i=0; i<elements.length;i++){
+        if ($$(elements[i]).text() === layer){
+              $$(elements[i]).click();
+            //$$($$(".leaflet-control-layers-overlays>label").find('.leaflet-control-layers-selector')[i]).prop("checked", ch).trigger('change');
+            //$$(".leaflet-control-layers-overlays>label").find('.leaflet-control-layers-selector')[i].click();
+            i = elements.length;
+        }
+    }
+    //$$('input[type=checkbox][name=ks-giro][value='+filtro+']').prop("checked", ch);
+    //(ch)?$$('#map_'+filtro+'').addClass('color-gray'):$$('#map_'+filtro+'').removeClass('color-')
+    $$('#map_'+layer+'').toggleClass('color-gray');
+}
+
 var localLayers = function(){
     //ahorita las generaré random
         bbox = map.getBounds();
@@ -493,10 +503,33 @@ var localLayers = function(){
         for (i=0; i < gifts.features.length; i++){
                 L.marker([gifts.features[i].geometry.coordinates[0],gifts.features[i].geometry.coordinates[1]]).bindPopup('This is a gift!').addTo(gifL);
         }
-    var overlays = {
-			"<i class='icon material-icons'>favorite</i>": favL, "Fiestas": parL,"Regalos": gifL
+   var overlays = {
+			"<i class='icon material-icons'>favorite</i>": favL, "<i class='icon material-icons'>local_pizza</i>": parL,"<i class='icon material-icons'>card_giftcard</i>": gifL
 		};
     L.control.layers(null,overlays).addTo(map);
       
     
+};
+
+
+var getDenue = function(entidad){
+  //obtiene el json que necesita
+    var t = '2017-05-11T12:45:00-05:00';
+    var tr = moment(t,"YYYYMMdd[T]h:mm:ss").fromNow();
+    console.log(tr);
+    console.log("php/denue/descarga denue_"+parseInt(entidad)+'.json');
+    $$.getJSON('php/denue/denue_'+parseInt(entidad)+'.json', function (data) {
+        console.log(data.features);
+        L.geoJson(data.features, {
+            pointToLayer: function(feature, latlng) {
+                L.marker(latlng, {
+                    tags: ['small', 'red', 'sweet']
+                });
+            }
+        }).addTo( map );
+
+        L.control.tagFilterButton({
+            data: ['small', 'red', 'sweet']
+        }).addTo( map );
+    });  
 };

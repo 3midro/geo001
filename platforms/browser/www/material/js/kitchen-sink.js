@@ -1165,6 +1165,7 @@ $$('.my-location').on('change', function(e){
      //var optionSelected = $$("option:selected", this);
      var valueSelected = this.value;
     console.log("zoom a la entidad " + /*optionSelected + ' - ' +*/ valueSelected);
+    getDenue(valueSelected);
 });
 
 $$('input[type=checkbox][name=ks-giro]').on('change',function(){
