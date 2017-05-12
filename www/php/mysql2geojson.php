@@ -30,7 +30,7 @@ for ($i = 1; $i<=32; $i++){
             'type' => 'Feature', 
             'geometry' => array(
             'type' => 'Point',
-            'coordinates' => array((float)$fila['Latitud'], (float)$fila['Longitud'])
+            'coordinates' => array((float)$fila['Longitud'], (float)$fila['Latitud'])
                         ),
           'properties' => array(
                 'name' => htmlentities($fila['NombreUE']),
@@ -57,7 +57,7 @@ for ($i = 1; $i<=32; $i++){
 
      //echo json_encode($geojson);
     
-    if($archivo = fopen($nombre_archivo, "w")){
+    if($archivo = fopen("denue/".$nombre_archivo, "w")){
         if(fwrite($archivo, json_encode($geojson))){
             echo $nombre_archivo. " generado correctamente<br>";
         }else{

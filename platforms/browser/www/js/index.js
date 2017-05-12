@@ -264,7 +264,8 @@ function createMap(){
         //crea el mapa con la vista en aguascalientes, posteriormente se cambiará a la posición del usuario
         map = L.map('map',{
             dragging:true,
-            zoomControl:true
+            zoomControl:true,
+            layers:[]
         }).setView([21.8782892, -102.3050335], 16); 
             L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
                 detectRetina: true
@@ -273,7 +274,7 @@ function createMap(){
             var m = new L.marker([position.coords.latitude, position.coords.longitude], {icon: myIcon}).addTo(map).bindPopup('TU UBICACIÓN').openPopup();*/
 
             /*FILTROS*/
-             L.control.custom({
+            L.control.custom({
                 position: 'bottomleft',
                 content: '<div class="btn-group-vertical" data-step="1" data-intro="Estos son los filtros" data-position="right">'
                          +'<a href="#" id="map_audiotrack" class="button button-raised bg-white"><i class="icon material-icons">audiotrack</i></a>'
@@ -518,18 +519,47 @@ var getDenue = function(entidad){
     var tr = moment(t,"YYYYMMdd[T]h:mm:ss").fromNow();
     console.log(tr);
     console.log("php/denue/descarga denue_"+parseInt(entidad)+'.json');
+    
+    //test success
+    
+  /*  var geojsonLayer = new L.GeoJSON.AJAX('php/denue/denue_'+parseInt(entidad)+'.json');       
+    geojsonLayer.addTo(map)
+    console.log(geojsonLayer);
+    geojsonLayer.refilter(function(feature){
+        console.log(feature.properties.category);
+        return feature.properties.category === '722411';
+    });
+*/    
+    
+    
+    
+    
     $$.getJSON('php/denue/denue_'+parseInt(entidad)+'.json', function (data) {
-        console.log(data);
-        L.geoJson(data.features, {
-            pointToLayer: function(feature, latlng) {
-                L.marker(latlng, {
-                    tags: ['small', 'red', 'sweet']
-                });
+        console.log(map);
+        var geojsonLayer = new L.GeoJSON();
+        var geojsonFeature = {
+            "type": "Feature",
+            "properties": {
+                "name": "Coors Field",
+                "amenity": "Baseball Stadium",
+                "popupContent": "This is where the Rockies play!"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [position._latlng.lng, position._latlng.lat]
             }
-        }).addTo( map );
-
-        L.control.tagFilterButton({
-            data: ['small', 'red', 'sweet']
-        }).addTo( map );
+            };
+        geojsonLayer.addData(geojsonFeature);
+        geojsonLayer.addTo(map);
+       // var antros = new L.LayerGroup();
+    //    var bares = new L.LayerGroup();
+      //  var cerveza = new L.LayerGroup();
+    //    var vinaterias = new L.LayerGroup();
+        
+        
+       
+        
+        //end test
+              
     });  
 };
