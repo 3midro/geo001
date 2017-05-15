@@ -1,4 +1,7 @@
 var urlServices = {
+    serviceGetDenue:{
+        url: 'http://geo001.geopanda.com.mx/php/test.php'
+    },
     serviceTest:{
         url:'http://10.106.12.66/geoapps/geo001/www/php/test.php',
         //url:'http://localhost/geoapps/geo001/www/php/test.php',

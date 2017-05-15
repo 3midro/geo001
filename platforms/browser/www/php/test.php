@@ -1,13 +1,24 @@
 <?php
 header('Access-Control-Allow-Origin: http://localhost:8000', false);
-$a = $_POST['a'];
-$b = 456;
-$c = $a + $b;
-$f = array(
-    "code" =>200,
-	"msj" => "R=".$c
-    );
-$resp=json_encode($f);
-echo $resp;
+function __autoload($classname) {
+    $filename = "clases/" . $classname . ".class.php";
+    include_once($filename);
+}
+//recibe variables
+$bbox= $_GET["bbox"];
+$notIn = $_GET["notIn"];
+
+
+
+$conmay = new maysql();
+$conmay->conecta_vinom();
+
+$q = 'SELECT * FROM denue where ID = 32';
+$r = $conmay->consulta($q);
+$n = $conmay->filas($r);
+
+echo $n.'|'.$bbox.'|'.$notIn;
+$conmay->cierra_conexion();
+
 
 ?>

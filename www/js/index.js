@@ -513,13 +513,16 @@ var localLayers = function(){
 };
 
 
+var notIn ='';
+
 var getDenue = function(entidad){
-  //obtiene el json que necesita
-    var t = '2017-05-11T12:45:00-05:00';
-    var tr = moment(t,"YYYYMMdd[T]h:mm:ss").fromNow();
-    console.log(tr);
-    console.log("php/denue/descarga denue_"+parseInt(entidad)+'.json');
-    
+    var bbox = map.getBounds().toBBoxString();
+    $$.get(urlServices['serviceGetDenue'].url, {bbox:bbox, notIn:notIn}, function (data, status, xhr) {
+        console.log(data);
+    }, function(xhr, status){
+        console.log(status);
+    });
+    return false;
     //test success
     
   /*  var geojsonLayer = new L.GeoJSON.AJAX('php/denue/denue_'+parseInt(entidad)+'.json');       
@@ -532,10 +535,9 @@ var getDenue = function(entidad){
 */    
     
     
-    
-    
-    $$.getJSON('php/denue/denue_'+parseInt(entidad)+'.json', function (data) {
-        console.log(position);
+    return false;
+    $$.getJSON('http://geo001.geopanda.com.mx/denue/denue_'+parseInt(entidad)+'.json',{foo:'bar', id:5}, function (data) {
+        console.log(data);
         var geojsonLayer = new L.GeoJSON();
         var geojsonFeature = {
             "type": "Feature",
@@ -561,5 +563,7 @@ var getDenue = function(entidad){
         
         //end test
               
+    },{
+        crossDomain:true
     });  
 };
