@@ -19,99 +19,7 @@ var sendAJAX = function (URL, data, type, myfunction) {
     xhttp.open(type, URL, true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(data);
-    
-    
-    
-  /*  
-    
-    $$.ajax({
-        type: type.toString(),
-        url: URL,
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', //multipart/form-data, or text/plain
-		//contentType: 'text/plain',
-        dataType: 'json', //(xml, json, script, or html
-        cache: false,
-        async: true,
-        xhrFields: {withCredentials: credential},
-        crossDomain: true, //false si es mismo dominio, true  para forzar el uso de cross domain usar sonp
-        data: data,
-        beforeSend: function () {
-            if (bs !== null && bs !== '') {
-                bs(); //beforeSend function 
-            }
-        },
-        success: function (dataJSON) {
-            var dataBack = [{}];
-            dataBack[0].operation = true;
-            dataBack[0].datos = dataJSON;
-            myfunction(dataBack);
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-			var dataBack = [{}];
-            dataBack[0].operation = false;
-            dataBack[0].messages = ['Error de conexión'];
-			myfunction(dataBack);
-        },
-        complete: function (xhr, status){
-            //console.log(xhr + " | " + status);
-        }
-
-    });*/
 };
-
-/*var sendAJAXORIGINAL = function (URL, data, type, myfunction, bs, withCredentials) {
-    if (type !== null && type !== '') {
-        type = type.toUpperCase();
-    }
-    if (URL === null && URL === '') {
-        return '';
-    }
-    var credential = false;
-    if (typeof withCredentials !== 'undefined') {
-        credential = false || withCredentials;
-
-    }
-    $$.ajax({
-        type: type.toString(),
-        url: URL,
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', //multipart/form-data, or text/plain
-		//contentType: 'text/plain',
-        dataType: 'json', //(xml, json, script, or html
-        cache: false,
-        async: true,
-        xhrFields: {withCredentials: credential},
-        crossDomain: true, //false si es mismo dominio, true  para forzar el uso de cross domain usar sonp
-        data: data,
-        headers:{
-            'Access-Control-Allow-Credentials':true
-        },
-        beforeSend: function () {
-            if (bs !== null && bs !== '') {
-                bs(); //beforeSend function 
-            }
-        },
-        success: function (dataJSON) {
-            var dataBack = [{}];
-            dataBack[0].operation = true;
-            dataBack[0].datos = dataJSON;
-            myfunction(dataBack);
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-			console.log(xhr);
-			console.log(thrownError);
-            console.log(ajaxOptions);
-            var dataBack = [{}];
-            dataBack[0].operation = false;
-            dataBack[0].messages = ['Error de conexión'];
-			//dataBack[0].messages =[thrownError];
-            myfunction(dataBack);
-        },
-        complete: function (xhr, status){
-            //console.log(xhr + " | " + status);
-        }
-
-    });
-};*/
 
 function $_GET(param) {
     url = document.URL;
@@ -181,40 +89,6 @@ var coloresStatusBar = {
     "bluegray": "#455A64",
     "black": "#212121",
 };
-
-var setColor = function(colprev){
-    colprev = (typeof colprev !== 'undefined')?colprev:'deeppurple';
-    var color = storage.getItem('color');
-    if (color !== null){
-        console.log("colprev:" + colprev + " a color " + color);
-        var classList = $$('body')[0].classList;
-        console.log(classList);
-        for (var i = 0; i < classList.length; i++) {
-           // console.log(classList[i]);
-            if (classList[i].indexOf('theme') === 0) classList.remove(classList[i]);
-        }
-        classList.add('theme-' + color);
-        //chip user
-        $$('#chipUser').removeClass('bg-' + colprev).addClass('bg-' + color); 
-       // $$(".my-div-icon-cte").removeClass('bg-' + colprev).addClass('bg-' + color);
-        //badges y elements
-        var elements = document.getElementsByClassName("theme-" + colprev);
-        var total = elements.length;
-        for (var j = 0; j < total; j++) {
-                $$(elements[0]).removeClass('theme-' + colprev).addClass('theme-' + color);
-                
-         }
-        //statusbar color
-        StatusBar.backgroundColorByHexString(coloresStatusBar[color]);
-        createMap();
-    }else{
-        // inicializa el color en purpura
-        storage.setItem('color', 'deeppurple');
-        setColor('deeppurple');
-    }
-}
-
-
 var payWithTweet = function(){
     var p = storage.getItem('pay');
     //p = false;
@@ -248,7 +122,6 @@ var payWithTweet = function(){
     }
    
 };
-
 var welcomeScreen = function(){
     var w = storage.getItem('welcome');
     //w = false;
@@ -293,6 +166,37 @@ var welcomeScreen = function(){
         setColor();
     }
 };
+var setColor = function(colprev){
+    colprev = (typeof colprev !== 'undefined')?colprev:'deeppurple';
+    var color = storage.getItem('color');
+    if (color !== null){
+        //console.log("colprev:" + colprev + " a color " + color);
+        var classList = $$('body')[0].classList;
+        //console.log(classList);
+        for (var i = 0; i < classList.length; i++) {
+           // console.log(classList[i]);
+            if (classList[i].indexOf('theme') === 0) classList.remove(classList[i]);
+        }
+        classList.add('theme-' + color);
+        //chip user
+        $$('#chipUser').removeClass('bg-' + colprev).addClass('bg-' + color); 
+       // $$(".my-div-icon-cte").removeClass('bg-' + colprev).addClass('bg-' + color);
+        //badges y elements
+        var elements = document.getElementsByClassName("theme-" + colprev);
+        var total = elements.length;
+        for (var j = 0; j < total; j++) {
+                $$(elements[0]).removeClass('theme-' + colprev).addClass('theme-' + color);
+                
+         }
+        //statusbar color
+        StatusBar.backgroundColorByHexString(coloresStatusBar[color]);
+        createMap();
+    }else{
+        // inicializa el color en purpura
+        storage.setItem('color', 'deeppurple');
+        setColor('deeppurple');
+    }
+}
 
 var intro = function(){
     myApp.closePanel('left');

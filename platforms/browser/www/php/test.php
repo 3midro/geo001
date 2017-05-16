@@ -18,6 +18,7 @@ $r = $conmay->consulta($q);
 $n = $conmay->filas($r);
 
 echo $n.'|'.$bbox.'|'.$notIn;
+echo "cambio al vuelo sobre php sin volver a compilar"; 
 $conmay->cierra_conexion();
 
 

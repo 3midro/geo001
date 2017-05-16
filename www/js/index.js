@@ -40,42 +40,29 @@ var app = {
 
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        console.log('Received Event: ' + id);
-        if (id==='deviceready'){
-            //dispositivo esta listo 
-                moment.locale('es');
-            //paywithateewt || welcomescreen || setColor
-                payWithTweet();
-                localLayers();
-            //inicializa firebase
-              //  initFirebase();
-            //inicializa la base de datos local
-               // dblocal();
-            
-            //checkConnection()
-                //checkConnection();
-            
-            
-            //2 lanza el mapa
-               // createMap();
-            
-            // lanza a buscar la posición con un watcher
-    // Options: throw an error if no update is received every 60 seconds.
-   // var watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 60000 });
-            
-        
-        }else{
-            console.log("dispositivo no listo");
+        moment.locale('es');
+        //console.log('Received Event: ' + id);
+        switch ( id ){
+            case "deviceready":
+                    payWithTweet();
+                break;
+            case "pause":
+                console.log("pause event");
+                break;
+            case "resume":
+                console.log("resume event");
+                break;
         }
         
-        /*
-        var parentElement = document.getElementById(id);
+        
+        /*coloca en dispositivo inicializado la capa de cordova */
+        /*var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
 
         listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-*/
+        receivedElement.setAttribute('style', 'display:block;');*/
+
         
      
         
@@ -109,7 +96,7 @@ var initFirebase =  function(){
       });
 }
 
-var dblocal = function(){
+/*var dblocal = function(){
  
     return false;
     var db;
@@ -169,17 +156,17 @@ var dblocal = function(){
             });
         };
     };
-};
+};*/
 
-function whenOffline() {
+/*function whenOffline() {
     // Handle the offline event
     console.log("La app se puso en modo offline");
-}
+} //not in use
 
 function whenOnline() {
     // Handle the offline event
     console.log("La app se puso en modo online");
-}
+} // not in use
 
 var checkConnection = function(){
     console.log();
@@ -195,14 +182,14 @@ var checkConnection = function(){
     states[Connection.NONE]     = 'No network connection';
 
     console.log('Connection type: ' + states[networkState]);
-};
+}; // not in use
+
+*/
 
 
 
 
-
-
-function onPosSuccess(coord) {
+/*function onPosSuccess(coord) {
     //map.panTo(position._latlng) -->envia al punto donde esta el usuario
     storage.removeItem('entidad');
     var currentEntidad = storage.getItem('entidad'); 
@@ -238,41 +225,36 @@ function onPosSuccess(coord) {
      position = (typeof position !== 'undefined')?position.setLatLng([coord.coords.latitude, coord.coords.longitude]).update():new L.marker([coord.coords.latitude, coord.coords.longitude], {icon: myIcon}).addTo(map);
     panToPoint();
     
-}
+}*/
 
-function panToPoint(){
+/*function panToPoint(){
     if (!$$("#testigoPosition").hasClass('color-gray')){
         map.panTo(position._latlng);
     }
-}
+}*/
 
-function onPosError(error) {
+/*function onPosError(error) {
     cordova.dialogGPS();
-}
+}*/
 
 
 
-function AlertNoLocated() {
+/*function AlertNoLocated() {
     // do something
     myApp.openPanel('left');
     $$('#location').click();
-}
+}*/ // not in use
 
 var map;
 function createMap(){
     if (typeof map === 'undefined'){
-        //crea el mapa con la vista en aguascalientes, posteriormente se cambiará a la posición del usuario
         map = L.map('map',{
             dragging:true,
-            zoomControl:true,
-            layers:[]
+            zoomControl:true
         }).setView([21.8782892, -102.3050335], 16); 
             L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
                 detectRetina: true
             }).addTo(map);
-           /* var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
-            var m = new L.marker([position.coords.latitude, position.coords.longitude], {icon: myIcon}).addTo(map).bindPopup('TU UBICACIÓN').openPopup();*/
-
             /*FILTROS*/
             L.control.custom({
                 position: 'bottomleft',
@@ -292,7 +274,7 @@ function createMap(){
                     },
                 }
             }).addTo(map);    
-             L.control.custom({
+            L.control.custom({
                 position: 'bottomright',
                 content: '<div class="btn-group-vertical">'
                          +'<a href="#" class="button button-raised bg-white color-gray" id="map_favorite"><i class="icon material-icons">favorite</i></a>'
@@ -309,7 +291,7 @@ function createMap(){
                     },
                 }
             }).addTo(map);
-             L.control.custom({
+            L.control.custom({
                 position: 'topright',
                 content: '<div class="btn-group-vertical">'
                          +'<a href="#" class="button button-raised bg-white" id="testigoPosition"><i class="icon material-icons" >my_location</i></a>'
@@ -323,13 +305,10 @@ function createMap(){
                     },
                 }
             }).addTo(map);
-        myPosition();
-       
-       // watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 60000 });
+        
     }
-    
-    return false;
-    
+}
+    /*
     
     bbox = map.getBounds();
 
@@ -375,14 +354,14 @@ for (i=0; i < points.features.length; i++){
 }   
      
     map.addLayer(leafletView);
-    L.marker([21.8782892, -102.3050335]).addTo(map).bindPopup('INICIO').openPopup();
-
-}
+    L.marker([21.8782892, -102.3050335]).addTo(map).bindPopup('INICIO').openPopup();*/
 
 
-var myPosition = function(val){
+
+
+/*var myPosition = function(){
     var platform = device.platform;
-    val = (typeof val==='undefined')?false:val;
+   
     if (platform === 'browser'){
         watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 6000 });
     }else if(platform === 'Android'){
@@ -410,10 +389,8 @@ var myPosition = function(val){
         console.error("The following error occurred: "+error);
     });    
     }
-   
-    
+};*/
 
-};
 
 
 
@@ -449,17 +426,16 @@ function testPHP(){
    sendAJAX(urlServices['serviceTestPOST'].url, datos, urlServices['serviceTestPOST'].type, function (data) {
         console.log(data);
     });
-};
+}; // not in use
 
 var syncFiltros = function (filtro, ch){
     console.log(filtro +'|'+ch);
     $$('input[type=checkbox][name=ks-giro][value='+filtro+']').prop("checked", ch);
-    //(ch)?$$('#map_'+filtro+'').addClass('color-gray'):$$('#map_'+filtro+'').removeClass('color-')
     $$('#map_'+filtro+'').toggleClass('color-gray');
 }
 
 var syncLayers = function (layer, ch){
-    console.log(layer +'|'+ch);
+    //console.log(layer +'|'+ch);
     var elements = $$(".leaflet-control-layers-overlays>label").find('.icon');
     for (i=0; i<elements.length;i++){
         if ($$(elements[i]).text() === layer){
@@ -522,48 +498,4 @@ var getDenue = function(entidad){
     }, function(xhr, status){
         console.log(status);
     });
-    return false;
-    //test success
-    
-  /*  var geojsonLayer = new L.GeoJSON.AJAX('php/denue/denue_'+parseInt(entidad)+'.json');       
-    geojsonLayer.addTo(map)
-    console.log(geojsonLayer);
-    geojsonLayer.refilter(function(feature){
-        console.log(feature.properties.category);
-        return feature.properties.category === '722411';
-    });
-*/    
-    
-    
-    return false;
-    $$.getJSON('http://geo001.geopanda.com.mx/denue/denue_'+parseInt(entidad)+'.json',{foo:'bar', id:5}, function (data) {
-        console.log(data);
-        var geojsonLayer = new L.GeoJSON();
-        var geojsonFeature = {
-            "type": "Feature",
-            "properties": {
-                "name": "Coors Field",
-                "amenity": "Baseball Stadium",
-                "popupContent": "This is where the Rockies play!"
-            },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [position._latlng.lng, position._latlng.lat]
-            }
-            };
-        geojsonLayer.addData(geojsonFeature);
-        geojsonLayer.addTo(map);
-       // var antros = new L.LayerGroup();
-    //    var bares = new L.LayerGroup();
-      //  var cerveza = new L.LayerGroup();
-    //    var vinaterias = new L.LayerGroup();
-        
-        
-       
-        
-        //end test
-              
-    },{
-        crossDomain:true
-    });  
 };
