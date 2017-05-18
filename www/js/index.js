@@ -190,10 +190,20 @@ var checkConnection = function(){
 
 
 function onPosSuccess(coord) {
-    console.log("watcher pos");
-    console.log(coord.coords);
-     var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
-     position = (typeof position !== 'undefined')?position.setLatLng([coord.coords.latitude, coord.coords.longitude]).update():new L.marker([coord.coords.latitude, coord.coords.longitude], {icon: myIcon}).addTo(map);
+    //console.log("watcher pos");
+    //console.log(coord.coords);
+    lat = coord.coords.latitude;
+    lon = coord.coords.longitude;
+    var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
+    position = (typeof position !== 'undefined')?position.setLatLng([coord.coords.latitude, coord.coords.longitude]).update():new L.marker([coord.coords.latitude, coord.coords.longitude], {icon: myIcon}).addTo(map);
+    // si auto refresh esta encendido baja los establecimientos
+    if (!$$("#map_refresh").hasClass('color-gray')) getDenue();
+    
+    
+    
+    
+    
+    
     //map.panTo(position._latlng) -->envia al punto donde esta el usuario
     /*storage.removeItem('entidad');
     var currentEntidad = storage.getItem('entidad'); 
@@ -238,8 +248,12 @@ function onPosSuccess(coord) {
 }*/
 
 function onPosError(error) {
-    console.log("No se pudo determinar la posicion");
-    $$(".pulse-me").hide();
+    console.log("No se pudo determinar la posicion " + error.message);
+    if (lat !== '' && lon !== ''){
+        navigator.geolocation.clearWatch(watchID);
+        startWatcher();
+    } 
+    //$$(".pulse-me").hide();
 }
 
 
@@ -279,7 +293,7 @@ function createMap(){
                     },
                 }
             }).addTo(map);    
-            L.control.custom({
+            /*L.control.custom({
                 position: 'bottomright',
                 content: '<div class="btn-group-vertical">'
                          +'<a href="#" class="button button-raised bg-white color-gray" id="map_favorite"><i class="icon material-icons">favorite</i></a>'
@@ -295,23 +309,33 @@ function createMap(){
                         }
                     },
                 }
-            }).addTo(map);
+            }).addTo(map);*/
             L.control.custom({
                 position: 'topright',
                 content: '<div class="btn-group-vertical">'
-                         +'<a href="#" class="button button-raised bg-white" id="testigoPosition"><i class="icon material-icons" >my_location</i></a>'
-                         +'<a href="#" class="button button-raised bg-white color-gray"><i class="icon material-icons">cloud_download</i></a>'
+                         +'<a href="#" class="button button-raised bg-white" id="map_my_location"><i class="icon material-icons" >my_location</i></a>'
+                         +'<a href="#" class="button button-raised bg-white" id="map_refresh"><i class="icon material-icons">refresh</i></a>'
                          +'</div>',
 
                 events:{
                     click: function(data){
-                        ($$(data.toElement).hasClass('icon'))?$$(data.toElement).parent().toggleClass('color-gray'):$$(data.toElement).toggleClass('color-gray');
-                        if (data.toElement.innerText === 'my_location') panToPoint();
+                        if ($$(data.toElement).hasClass('icon')){
+                            syncMyPos(data.toElement.innerText,($$(data.toElement).parent().hasClass('color-gray')));
+                        }else{
+                            syncMyPos(data.toElement.innerText,($$(data.toElement).hasClass('color-gray')));
+                        }
+                        //if (data.toElement.innerText === 'my_location') ;
                     },
                 }
             }).addTo(map);
+        
+        //agrega los listen para los zoom y los dragend
+        map.on('zoomend', function() {getDenue();});
+        map.on('dragend', function() {getDenue();});
         setInitialView();
     }
+    
+    try {
     //registra la funcion que detecta si la ubicacion GPS esta disponible
      cordova.plugins.diagnostic.registerLocationStateChangeHandler(function(state){
         if((device.platform === "Android" && state !== cordova.plugins.diagnostic.locationMode.LOCATION_OFF)
@@ -324,22 +348,25 @@ function createMap(){
                 console.log("Location is not available");
                 //$$(".pulse-me").hide();
                 navigator.geolocation.clearWatch(watchID);
-                
-                
             }
         });
+    }catch(err){
+        console.log(err.message);
+    }
 }
+
 
 function startWatcher(){
     watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 3000 });
 };
+
 
 function setInitialView() {
     navigator.geolocation.getCurrentPosition(function(position){
         lat = position.coords.latitude;
         lon = position.coords.longitude;
         map.panTo([lat,lon]);
-        console.log(lat + '|' + lon);
+        //console.log(lat + '|' + lon);
         startWatcher();
     }, function(error){
         switch(error.code){
@@ -481,6 +508,13 @@ var syncFiltros = function (filtro, ch){
     $$('#map_'+filtro+'').toggleClass('color-gray');
 }
 
+var syncMyPos = function (filtro, ch){
+    console.log(filtro +'|'+ch);
+    $$('#map_'+filtro+'').toggleClass('color-gray');
+    if (filtro === 'my_location'){if(ch){$$(".pulse-me").show();map.panTo(position._latlng);}else{$$(".pulse-me").hide();}}
+}
+
+
 var syncLayers = function (layer, ch){
     //console.log(layer +'|'+ch);
     var elements = $$(".leaflet-control-layers-overlays>label").find('.icon');
@@ -537,12 +571,20 @@ var localLayers = function(){
 
 
 var notIn ='';
-
-var getDenue = function(entidad){
+var getDenue = function(){
+    if (!map.getBounds().contains([lat,lon])){$$("#map_my_location").addClass("color-gray")};
     var bbox = map.getBounds().toBBoxString();
-    $$.get(urlServices['serviceGetDenue'].url, {bbox:bbox, notIn:notIn}, function (data, status, xhr) {
-        console.log(data);
-    }, function(xhr, status){
-        console.log(status);
-    });
+    if (!$$("#map_refresh").hasClass("color-gray")){
+       $$.get(urlServices['serviceGetDenue'].url, {bbox:bbox, notIn:notIn}, function (data, status, xhr) {
+            console.log(data);
+       }, function(xhr, status){
+            console.log(status);
+       });
+    }else{
+        console.log("No manda pedir nada");
+    }
+    
+    
+   
 };
+
