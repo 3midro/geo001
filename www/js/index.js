@@ -17,7 +17,7 @@
  * under the License.
  */
 
-var watchID; var position;
+var watchID; var lat; var lon; var position;
 
 var app = {
     // Application Constructor
@@ -189,9 +189,13 @@ var checkConnection = function(){
 
 
 
-/*function onPosSuccess(coord) {
+function onPosSuccess(coord) {
+    console.log("watcher pos");
+    console.log(coord.coords);
+     var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
+     position = (typeof position !== 'undefined')?position.setLatLng([coord.coords.latitude, coord.coords.longitude]).update():new L.marker([coord.coords.latitude, coord.coords.longitude], {icon: myIcon}).addTo(map);
     //map.panTo(position._latlng) -->envia al punto donde esta el usuario
-    storage.removeItem('entidad');
+    /*storage.removeItem('entidad');
     var currentEntidad = storage.getItem('entidad'); 
     var pt = turf.point([coord.coords.longitude, coord.coords.latitude]);
     console.log(pt);
@@ -223,9 +227,9 @@ var checkConnection = function(){
                             'Lon: ' + coord.coords.longitude     + '<br />';
     
      position = (typeof position !== 'undefined')?position.setLatLng([coord.coords.latitude, coord.coords.longitude]).update():new L.marker([coord.coords.latitude, coord.coords.longitude], {icon: myIcon}).addTo(map);
-    panToPoint();
+    panToPoint();*/
     
-}*/
+}
 
 /*function panToPoint(){
     if (!$$("#testigoPosition").hasClass('color-gray')){
@@ -233,9 +237,10 @@ var checkConnection = function(){
     }
 }*/
 
-/*function onPosError(error) {
-    cordova.dialogGPS();
-}*/
+function onPosError(error) {
+    console.log("No se pudo determinar la posicion");
+    $$(".pulse-me").hide();
+}
 
 
 
@@ -305,8 +310,50 @@ function createMap(){
                     },
                 }
             }).addTo(map);
-        
+        setInitialView();
     }
+    //registra la funcion que detecta si la ubicacion GPS esta disponible
+     cordova.plugins.diagnostic.registerLocationStateChangeHandler(function(state){
+        if((device.platform === "Android" && state !== cordova.plugins.diagnostic.locationMode.LOCATION_OFF)
+            || (device.platform === "iOS") && ( state === cordova.plugins.diagnostic.permissionStatus.GRANTED
+                || state === cordova.plugins.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE
+        )){
+            console.log("Location is available");
+            startWatcher();
+            }else{
+                console.log("Location is not available");
+                //$$(".pulse-me").hide();
+                navigator.geolocation.clearWatch(watchID);
+                
+                
+            }
+        });
+}
+
+function startWatcher(){
+    watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 3000 });
+};
+
+function setInitialView() {
+    navigator.geolocation.getCurrentPosition(function(position){
+        lat = position.coords.latitude;
+        lon = position.coords.longitude;
+        map.panTo([lat,lon]);
+        console.log(lat + '|' + lon);
+        startWatcher();
+    }, function(error){
+        switch(error.code){
+            case 1:
+                console.log("el usuario no da permiso a la app de conocer su ubicacion: abrir el panel de seleccion de entidad");
+                break;
+            case 3:
+                console.log("Si dio permiso pero no esta encendido el GPS");
+                 cordova.dialogGPS();
+                break;
+                
+        }
+        console.log(error.code + '|' + error.message);
+    }, { enableHighAccuracy: true, timeout: 3000  });
 }
     /*
     

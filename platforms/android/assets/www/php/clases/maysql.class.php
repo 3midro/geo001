@@ -9,8 +9,8 @@ class Maysql {
 
     function conecta_vinom() {
         if (!isset($this->conexion)) {
-            $ser = "localhost";  $usr = "root";  $pwd = ""; $bbd = "dbvinom"; // localhost
-            //$ser = "mysql.hostinger.mx";  $usr = "u575205361_user";  $pwd = "rZIz8JbIfN"; $bbd = "u575205361_vinom"; // produccion
+            //$ser = "localhost";  $usr = "root";  $pwd = ""; $bbd = "dbvinom"; // localhost
+            $ser = "localhost";  $usr = "geopanda_lectura";  $pwd = "bBPFl@sHK^Xu"; $bbd = "geopanda_brindix"; // produccion
             $this->conexion = (mysqli_connect($ser, $usr, $pwd, $bbd)) or die(mysqli_connect_errno()); // original, muestra error
         }
     }
