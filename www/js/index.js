@@ -17,7 +17,7 @@
  * under the License.
  */
 
-var watchID; var lat; var lon; var position;
+var watchID; var lat; var lon; var position; var frame;
 
 var app = {
     // Application Constructor
@@ -197,7 +197,9 @@ function onPosSuccess(coord) {
     var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
     position = (typeof position !== 'undefined')?position.setLatLng([coord.coords.latitude, coord.coords.longitude]).update():new L.marker([coord.coords.latitude, coord.coords.longitude], {icon: myIcon}).addTo(map);
     // si auto refresh esta encendido baja los establecimientos
-    if (!$$("#map_refresh").hasClass('color-gray')) getDenue();
+    if (!$$("#map_refresh").hasClass('color-gray')){
+        getDenue();
+    } 
     
     
     
@@ -330,8 +332,8 @@ function createMap(){
             }).addTo(map);
         
         //agrega los listen para los zoom y los dragend
-        map.on('zoomend', function() {getDenue();});
-        map.on('dragend', function() {getDenue();});
+        map.on('zoomend', function() { getDenue();});
+        map.on('dragend', function() { getDenue();});
         setInitialView();
     }
     
@@ -357,7 +359,7 @@ function createMap(){
 
 
 function startWatcher(){
-    watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 3000 });
+    watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 9000 });
 };
 
 
@@ -366,6 +368,7 @@ function setInitialView() {
         lat = position.coords.latitude;
         lon = position.coords.longitude;
         map.panTo([lat,lon]);
+        //frame = map.getBounds();
         //console.log(lat + '|' + lon);
         startWatcher();
     }, function(error){
@@ -511,7 +514,9 @@ var syncFiltros = function (filtro, ch){
 var syncMyPos = function (filtro, ch){
     console.log(filtro +'|'+ch);
     $$('#map_'+filtro+'').toggleClass('color-gray');
-    if (filtro === 'my_location'){if(ch){$$(".pulse-me").show();map.panTo(position._latlng);}else{$$(".pulse-me").hide();}}
+    if (filtro === 'my_location'){
+        if(ch){$$(".pulse-me").show();map.panTo(position._latlng);startWatcher();}
+        else{$$(".pulse-me").hide();navigator.geolocation.clearWatch(watchID);}}
 }
 
 
@@ -531,60 +536,24 @@ var syncLayers = function (layer, ch){
     $$('#map_'+layer+'').toggleClass('color-gray');
 }
 
-var localLayers = function(){
-    //ahorita las generaré random
-        bbox = map.getBounds();
-        var favL = new L.LayerGroup();
-        var parL = new L.LayerGroup();
-        var gifL = new L.LayerGroup();
-        
-    
-        var favs = turf.random('points', 10, {
-          bbox: [bbox._southWest.lat, bbox._southWest.lng, bbox._northEast.lat, bbox._northEast.lng]
-        });
-    
-        for (i=0; i < favs.features.length; i++){
-            L.marker([favs.features[i].geometry.coordinates[0],favs.features[i].geometry.coordinates[1]]).bindPopup('This is a fav!').addTo(favL);
-        }
-        //favL.addTo(map);
-    
-        var parties = turf.random('points', 3, {
-          bbox: [bbox._southWest.lat, bbox._southWest.lng, bbox._northEast.lat, bbox._northEast.lng]
-        }); 
-        for (i=0; i < parties.features.length; i++){
-                L.marker([parties.features[i].geometry.coordinates[0],parties.features[i].geometry.coordinates[1]]).bindPopup('This is a Partie!').addTo(parL);
-        }
-       // parL.addTo(map);
-        var gifts = turf.random('points', 6, {
-          bbox: [bbox._southWest.lat, bbox._southWest.lng, bbox._northEast.lat, bbox._northEast.lng]
-        });
-        for (i=0; i < gifts.features.length; i++){
-                L.marker([gifts.features[i].geometry.coordinates[0],gifts.features[i].geometry.coordinates[1]]).bindPopup('This is a gift!').addTo(gifL);
-        }
-   var overlays = {
-			"<i class='icon material-icons'>favorite</i>": favL, "<i class='icon material-icons'>local_pizza</i>": parL,"<i class='icon material-icons'>card_giftcard</i>": gifL
-		};
-    L.control.layers(null,overlays).addTo(map);
-      
-    
-};
-
-
 var notIn ='';
 var getDenue = function(){
-    if (!map.getBounds().contains([lat,lon])){$$("#map_my_location").addClass("color-gray")};
-    var bbox = map.getBounds().toBBoxString();
-    if (!$$("#map_refresh").hasClass("color-gray")){
-       $$.get(urlServices['serviceGetDenue'].url, {bbox:bbox, notIn:notIn}, function (data, status, xhr) {
-            console.log(data);
-       }, function(xhr, status){
-            console.log(status);
-       });
+    if (!map.getBounds().equals(frame)){
+        // if (!map.getBounds().contains([lat,lon])){$$("#map_my_location").addClass("color-gray")}; //sin apagar si sale el punto del frame ya que esto indica que esta encendido el watcher
+         //var bbox = map.getBounds().toBBoxString();
+            if (!$$("#map_refresh").hasClass("color-gray")){
+                frame = map.getBounds();
+               $$.get(urlServices['serviceGetDenue'].url, {bbox:frame.toBBoxString(), notIn:notIn}, function (data, status, xhr) {
+                    console.log(data);
+               }, function(xhr, status){
+                    console.log(status);
+               });
     }else{
-        console.log("No manda pedir nada");
+        
+        console.log("No manda pedir nada Esta PANEANDO");
     }
-    
-    
-   
+    }else{
+        console.log("No manda pedir nada porque el frame es el mismo no necesita refrescar");
+    }
 };
 
