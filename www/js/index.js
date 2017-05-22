@@ -536,14 +536,14 @@ var syncLayers = function (layer, ch){
     $$('#map_'+layer+'').toggleClass('color-gray');
 }
 
-var notIn ='';
+
 var getDenue = function(){
     if (!map.getBounds().equals(frame)){
         // if (!map.getBounds().contains([lat,lon])){$$("#map_my_location").addClass("color-gray")}; //sin apagar si sale el punto del frame ya que esto indica que esta encendido el watcher
          //var bbox = map.getBounds().toBBoxString();
             if (!$$("#map_refresh").hasClass("color-gray")){
                 frame = map.getBounds();
-               $$.get(urlServices['serviceGetDenue'].url, {bbox:frame.toBBoxString(), notIn:notIn}, function (data, status, xhr) {
+               $$.get(urlServices['serviceGetDenue'].url, {bbox:frame}, function (data, status, xhr) {
                     console.log(data);
                }, function(xhr, status){
                     console.log(status);
