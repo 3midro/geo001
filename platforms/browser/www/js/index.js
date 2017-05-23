@@ -436,74 +436,9 @@ for (i=0; i < points.features.length; i++){
 
 
 
-/*var myPosition = function(){
-    var platform = device.platform;
-   
-    if (platform === 'browser'){
-        watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 6000 });
-    }else if(platform === 'Android'){
-         cordova.plugins.diagnostic.isGpsLocationEnabled(function(enabled){
-        if (enabled){
-            //obtiene las coordenadas
-            watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 6000 });
-        }else{
-            //manda a encender el gps
-             cordova.dialogGPS("Your GPS is Disabled, this app needs to be enable to works.",//message
-                    "Use GPS, with wifi or 3G.",//description
-                    function(buttonIndex){//callback
-                      switch(buttonIndex) {
-                        case 0: break;//cancel
-                        case 1: break;//neutro option
-                        case 2: 
-                              console.log("regreso de la configuración");
-                              break;//user go to configuration
-                      }},
-                      "Please Turn on GPS",//title
-                      ["Cancel","Later","Go"]);//buttons
-        }
-        console.log("GPS location is " + (enabled ? "enabled" : "disabled"));
-    }, function(error){
-        console.error("The following error occurred: "+error);
-    });    
-    }
-};*/
 
 
 
-
-//test PHP
-function testPHP(){
-    //GET
-    /*var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(JSON.parse(this.responseText));
-       }
-    };
-    xhttp.open(urlServices['serviceTest'].type, urlServices['serviceTest'].url, true);
-    xhttp.send();*/
-    
-    
-    //POST
-    /*var xhttp = new XMLHttpRequest();
-    var datos = {'a': 25687};
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(JSON.parse(this.responseText));
-       }
-    };
-    xhttp.open(urlServices['serviceTest'].type, urlServices['serviceTest'].url, true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send('a=147');*/ // OK
-    datos = "a=147";
-    
-    console.log(datos);
-    //return false;
-    
-   sendAJAX(urlServices['serviceTestPOST'].url, datos, urlServices['serviceTestPOST'].type, function (data) {
-        console.log(data);
-    });
-}; // not in use
 
 var syncFiltros = function (filtro, ch){
     console.log(filtro +'|'+ch);
@@ -536,18 +471,18 @@ var syncLayers = function (layer, ch){
     $$('#map_'+layer+'').toggleClass('color-gray');
 }
 
-
 var getDenue = function(){
     if (!map.getBounds().equals(frame)){
         // if (!map.getBounds().contains([lat,lon])){$$("#map_my_location").addClass("color-gray")}; //sin apagar si sale el punto del frame ya que esto indica que esta encendido el watcher
          //var bbox = map.getBounds().toBBoxString();
             if (!$$("#map_refresh").hasClass("color-gray")){
-                frame = map.getBounds();
-               $$.get(urlServices['serviceGetDenue'].url, {bbox:frame}, function (data, status, xhr) {
-                    console.log(data);
-               }, function(xhr, status){
-                    console.log(status);
-               });
+            frame = map.getBounds();
+            $$.getJSON(urlServices['serviceGetDenue'].url, {bbox:frame}, function (data, status, xhr) {
+               // console.log(data.geoUE);
+                drawUE(data.geoUE);
+            }, function(xhr, status){
+                console.log(status);
+            }); 
     }else{
         
         console.log("No manda pedir nada Esta PANEANDO");
@@ -555,5 +490,33 @@ var getDenue = function(){
     }else{
         console.log("No manda pedir nada porque el frame es el mismo no necesita refrescar");
     }
+};
+
+
+
+var geoLayerView;
+function drawUE(geoJs){
+    
+    var UE = L.geoJson(geoJs,{
+  pointToLayer: function(feature,latlng){
+      var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pin-no"></div>'});
+      var marker = L.marker(latlng,{icon: myIcon});
+    //marker.bindPopup(feature.properties.Location + '<br/>' + feature.properties.OPEN_DT);
+    return marker;
+  }
+});
+    if (typeof geoLayerView === 'undefined')geoLayerView = L.markerClusterGroup({disableClusteringAtZoom: 17});
+    geoLayerView.clearLayers();
+    geoLayerView.addLayer(UE);
+    map.addLayer(geoLayerView);
+    /*
+    var markerNormal = {radius: 6, fillColor: "#607D8B", color: "#607D8B", weight: 0,opacity: 1, fillOpacity: 0.8};
+   L.geoJson(geoJs,{
+      pointToLayer: function(feature,latlng){
+        var marker = L.marker(latlng,{icon: myIcon});
+        marker.bindPopup(feature.properties.Location + '<br/>' + feature.properties.markerNormal);
+        return marker;
+   }).addTo(map);
+    console.log(geoJs);*/
 };
 
