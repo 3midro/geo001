@@ -444,6 +444,7 @@ var syncFiltros = function (filtro, ch){
     console.log(filtro +'|'+ch);
     $$('input[type=checkbox][name=ks-giro][value='+filtro+']').prop("checked", ch);
     $$('#map_'+filtro+'').toggleClass('color-gray');
+    (ch)?$$(".my-div-icon-"+filtro).show():$$(".my-div-icon-"+filtro).hide();
 }
 
 var syncMyPos = function (filtro, ch){
@@ -472,7 +473,7 @@ var syncLayers = function (layer, ch){
 }
 
 var getDenue = function(){
-    if(map.getZoom()<=8){$$("#map_refresh").addClass('color-gray')}; //evita que siga recargando grandes cantidades de establecimientos
+    //if(map.getZoom()<=8){$$("#map_refresh").addClass('color-gray')}; //evita que siga recargando grandes cantidades de establecimientos
     if (!map.getBounds().equals(frame)){
         if (!$$("#map_refresh").hasClass("color-gray")){
             frame = map.getBounds();
@@ -495,21 +496,43 @@ var getDenue = function(){
 var leafletView;
 function drawUE(geoJs){
     console.log(geoJs);
-    (typeof leafletView === 'undefined')?leafletView = L.markerClusterGroup({disableClusteringAtZoom: 17}):leafletView.clearLayers();
+    (typeof leafletView === 'undefined')?leafletView = L.markerClusterGroup({disableClusteringAtZoom: 17, chunkedLoading: true, chunkProgress: updateProgressBar}):leafletView.clearLayers();
     //var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pin-no"></div>'});
     var no_pin = {radius: 4,fillColor: "#696969",color: "#696969",weight: 1,opacity: 0.8,fillOpacity: 0.8};
-
+    var antros = L.layerGroup();
     var UE = L.geoJson(geoJs,{
-       pointToLayer: function (feature, latlng) {
-            //return L.circleMarker(latlng, no_pin);
-           var random_cte = Math.round(Math.random() * (4 - 1) + 1);
-                var cteIcon = (random_cte == 1)?L.divIcon({className: 'my-div-icon', html:'<div class="pin"></div><div class="pulse"></div>'}):L.divIcon({className: 'my-div-icon', html:'<div class="pin_normal"></div>'});
-                
-           //var cteIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pin"></div><div class="pulse"></div>'});
+        pointToLayer: function (feature, latlng) {
+            var random_cte = Math.round(Math.random() * (4 - 1) + 1);
+            var cteIcon = (random_cte == 1)?L.divIcon({className: 'my-div-icon-'+feature.properties.SCIAN, html:'<div class="pin"></div><div class="pulse"></div>'}):L.divIcon({className: 'my-div-icon-'+feature.properties.SCIAN, html:'<div class="pin_normal"></div>'});
            return new L.marker(latlng, {icon: cteIcon});
+        },
+        filter: function (feature, layer){
+            console.log(feature.properties.SCIAN);
+            return (feature.properties.SCIAN === 'local_bar');
         }
     }).addTo(leafletView);
     map.addLayer(leafletView);
 };
+
+function updateProgressBar(processed, total, elapsed, layersArray) {
+   var container = $$('.preloader-indicator-modal');
+    /* var container = $$('#map');
+    if (container.children('.progressbar, .progressbar-infinite').length) return; //don't run all this if there is a current progressbar loading
+     myApp.showProgressbar(container, 'yellow');
+    /*var progress = document.getElementById('progress');
+    var progressBar = document.getElementById('progress-bar');		*/
+    if (elapsed > 1000) {
+				// if it takes more than a second to load, display the progress bar:
+		console.log(processed + '|'+total);		
+        //progress.style.display = 'block';
+				//progressBar.style.width = Math.round(processed/total*100) + '%';
+			}
+			if (processed === total) {
+				// all markers processed - hide the progress bar:
+				//progress.style.display = 'none';
+                console.log("done");
+     //           myApp.hideProgressbar();
+			}
+		}
 
 
