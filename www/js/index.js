@@ -472,10 +472,9 @@ var syncLayers = function (layer, ch){
 }
 
 var getDenue = function(){
+    if(map.getZoom()<=8){$$("#map_refresh").addClass('color-gray')}; //evita que siga recargando grandes cantidades de establecimientos
     if (!map.getBounds().equals(frame)){
-        // if (!map.getBounds().contains([lat,lon])){$$("#map_my_location").addClass("color-gray")}; //sin apagar si sale el punto del frame ya que esto indica que esta encendido el watcher
-         //var bbox = map.getBounds().toBBoxString();
-            if (!$$("#map_refresh").hasClass("color-gray")){
+        if (!$$("#map_refresh").hasClass("color-gray")){
             frame = map.getBounds();
             $$.getJSON(urlServices['serviceGetDenue'].url, {bbox:frame}, function (data, status, xhr) {
                // console.log(data.geoUE);
@@ -483,10 +482,9 @@ var getDenue = function(){
             }, function(xhr, status){
                 console.log(status);
             }); 
-    }else{
-        
-        console.log("No manda pedir nada Esta PANEANDO");
-    }
+        }else{
+            console.log("No manda pedir nada Esta PANEANDO");
+        }
     }else{
         console.log("No manda pedir nada porque el frame es el mismo no necesita refrescar");
     }
@@ -494,29 +492,22 @@ var getDenue = function(){
 
 
 
-var geoLayerView;
+var leafletView;
 function drawUE(geoJs){
-    
+    console.log(geoJs);
+    (typeof leafletView === 'undefined')?leafletView = L.markerClusterGroup({disableClusteringAtZoom: 17}):leafletView.clearLayers();
+    //var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pin-no"></div>'});
+    var no_pin = {radius: 4,fillColor: "#696969",color: "#696969",weight: 1,opacity: 0.8,fillOpacity: 0.8};
+
     var UE = L.geoJson(geoJs,{
-  pointToLayer: function(feature,latlng){
-      var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pin-no"></div>'});
-      var marker = L.marker(latlng,{icon: myIcon});
-    //marker.bindPopup(feature.properties.Location + '<br/>' + feature.properties.OPEN_DT);
-    return marker;
-  }
-});
-    if (typeof geoLayerView === 'undefined')geoLayerView = L.markerClusterGroup({disableClusteringAtZoom: 17});
-    geoLayerView.clearLayers();
-    geoLayerView.addLayer(UE);
-    map.addLayer(geoLayerView);
-    /*
-    var markerNormal = {radius: 6, fillColor: "#607D8B", color: "#607D8B", weight: 0,opacity: 1, fillOpacity: 0.8};
-   L.geoJson(geoJs,{
-      pointToLayer: function(feature,latlng){
-        var marker = L.marker(latlng,{icon: myIcon});
-        marker.bindPopup(feature.properties.Location + '<br/>' + feature.properties.markerNormal);
-        return marker;
-   }).addTo(map);
-    console.log(geoJs);*/
+       pointToLayer: function (feature, latlng) {
+            //return L.circleMarker(latlng, no_pin);
+           var random_cte = Math.round(Math.random() * (4 - 1) + 1);
+                var cteIcon = (random_cte == 1)?L.divIcon({className: 'my-div-icon', html:'<div class="pin"></div><div class="pulse"></div>'}):L.divIcon({className: 'my-div-icon', html:'<div class="pin_normal"></div>'});
+           return new L.marker(latlng, {icon: cteIcon});
+        }
+    }).addTo(leafletView);
+    map.addLayer(leafletView);
 };
+
 
