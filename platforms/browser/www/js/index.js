@@ -444,7 +444,7 @@ var syncFiltros = function (filtro, ch){
     console.log(filtro +'|'+ch);
     $$('input[type=checkbox][name=ks-giro][value='+filtro+']').prop("checked", ch);
     $$('#map_'+filtro+'').toggleClass('color-gray');
-    (ch)?$$(".my-div-icon-"+filtro).show():$$(".my-div-icon-"+filtro).hide();
+    (ch)?showLayer(filtro):hideLayer(filtro);
 }
 
 var syncMyPos = function (filtro, ch){
@@ -494,25 +494,58 @@ var getDenue = function(){
 
 
 var leafletView;
+var mapLayerGroups = [];
 function drawUE(geoJs){
     console.log(geoJs);
+    if (typeof mapLayerGroups.local_bar !== 'undefined')mapLayerGroups.local_bar.clearLayers();
+    if (typeof mapLayerGroups.store !== 'undefined')mapLayerGroups.store.clearLayers();
+    if (typeof mapLayerGroups.local_drink !== 'undefined')mapLayerGroups.local_drink.clearLayers();
+    if (typeof mapLayerGroups.audiotrack !== 'undefined')mapLayerGroups.audiotrack.clearLayers();
     (typeof leafletView === 'undefined')?leafletView = L.markerClusterGroup({disableClusteringAtZoom: 17, chunkedLoading: true, chunkProgress: updateProgressBar}):leafletView.clearLayers();
     //var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pin-no"></div>'});
     var no_pin = {radius: 4,fillColor: "#696969",color: "#696969",weight: 1,opacity: 0.8,fillOpacity: 0.8};
-    var antros = L.layerGroup();
+    //array to store layers for each feature type
+   
     var UE = L.geoJson(geoJs,{
         pointToLayer: function (feature, latlng) {
             var random_cte = Math.round(Math.random() * (4 - 1) + 1);
             var cteIcon = (random_cte == 1)?L.divIcon({className: 'my-div-icon-'+feature.properties.SCIAN, html:'<div class="pin"></div><div class="pulse"></div>'}):L.divIcon({className: 'my-div-icon-'+feature.properties.SCIAN, html:'<div class="pin_normal"></div>'});
            return new L.marker(latlng, {icon: cteIcon});
-        },
+        }/*,
         filter: function (feature, layer){
             console.log(feature.properties.SCIAN);
             return (feature.properties.SCIAN === 'local_bar');
+        }*/,
+        onEachFeature: function(feature, featureLayer){
+           console.log(feature.properties.SCIAN);
+            console.log(featureLayer);
+            var lg = mapLayerGroups[feature.properties.SCIAN];
+
+            if (lg === undefined) {
+                lg = new L.markerClusterGroup({disableClusteringAtZoom: 17});
+                //add the layer to the map
+                lg.addTo(map);
+                //store layer
+                mapLayerGroups[feature.properties.SCIAN] = lg;
+            }
+
+            //add the feature to the layer
+            lg.addLayer(featureLayer);  
         }
-    }).addTo(leafletView);
-    map.addLayer(leafletView);
+    });//.addTo(leafletView);
+    //map.addLayer(leafletView);
+    console.log(mapLayerGroups);
+    //map.addlayer(mapLayerGroups);
 };
+
+function showLayer(id) {
+    var lg = mapLayerGroups[id];
+    if (lg !== undefined) map.addLayer(lg);   
+}
+function hideLayer(id) {
+    var lg = mapLayerGroups[id];
+    if (lg !== undefined) map.removeLayer(lg);   
+}
 
 function updateProgressBar(processed, total, elapsed, layersArray) {
    var container = $$('.preloader-indicator-modal');

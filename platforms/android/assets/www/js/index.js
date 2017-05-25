@@ -436,79 +436,15 @@ for (i=0; i < points.features.length; i++){
 
 
 
-/*var myPosition = function(){
-    var platform = device.platform;
-   
-    if (platform === 'browser'){
-        watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 6000 });
-    }else if(platform === 'Android'){
-         cordova.plugins.diagnostic.isGpsLocationEnabled(function(enabled){
-        if (enabled){
-            //obtiene las coordenadas
-            watchID = navigator.geolocation.watchPosition(onPosSuccess, onPosError, { timeout: 6000 });
-        }else{
-            //manda a encender el gps
-             cordova.dialogGPS("Your GPS is Disabled, this app needs to be enable to works.",//message
-                    "Use GPS, with wifi or 3G.",//description
-                    function(buttonIndex){//callback
-                      switch(buttonIndex) {
-                        case 0: break;//cancel
-                        case 1: break;//neutro option
-                        case 2: 
-                              console.log("regreso de la configuración");
-                              break;//user go to configuration
-                      }},
-                      "Please Turn on GPS",//title
-                      ["Cancel","Later","Go"]);//buttons
-        }
-        console.log("GPS location is " + (enabled ? "enabled" : "disabled"));
-    }, function(error){
-        console.error("The following error occurred: "+error);
-    });    
-    }
-};*/
 
 
 
-
-//test PHP
-function testPHP(){
-    //GET
-    /*var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(JSON.parse(this.responseText));
-       }
-    };
-    xhttp.open(urlServices['serviceTest'].type, urlServices['serviceTest'].url, true);
-    xhttp.send();*/
-    
-    
-    //POST
-    /*var xhttp = new XMLHttpRequest();
-    var datos = {'a': 25687};
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(JSON.parse(this.responseText));
-       }
-    };
-    xhttp.open(urlServices['serviceTest'].type, urlServices['serviceTest'].url, true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send('a=147');*/ // OK
-    datos = "a=147";
-    
-    console.log(datos);
-    //return false;
-    
-   sendAJAX(urlServices['serviceTestPOST'].url, datos, urlServices['serviceTestPOST'].type, function (data) {
-        console.log(data);
-    });
-}; // not in use
 
 var syncFiltros = function (filtro, ch){
     console.log(filtro +'|'+ch);
     $$('input[type=checkbox][name=ks-giro][value='+filtro+']').prop("checked", ch);
     $$('#map_'+filtro+'').toggleClass('color-gray');
+    (ch)?showLayer(filtro):hideLayer(filtro);
 }
 
 var syncMyPos = function (filtro, ch){
@@ -536,24 +472,100 @@ var syncLayers = function (layer, ch){
     $$('#map_'+layer+'').toggleClass('color-gray');
 }
 
-var notIn ='';
 var getDenue = function(){
+    //if(map.getZoom()<=8){$$("#map_refresh").addClass('color-gray')}; //evita que siga recargando grandes cantidades de establecimientos
     if (!map.getBounds().equals(frame)){
-        // if (!map.getBounds().contains([lat,lon])){$$("#map_my_location").addClass("color-gray")}; //sin apagar si sale el punto del frame ya que esto indica que esta encendido el watcher
-         //var bbox = map.getBounds().toBBoxString();
-            if (!$$("#map_refresh").hasClass("color-gray")){
-                frame = map.getBounds();
-               $$.get(urlServices['serviceGetDenue'].url, {bbox:frame.toBBoxString(), notIn:notIn}, function (data, status, xhr) {
-                    console.log(data);
-               }, function(xhr, status){
-                    console.log(status);
-               });
-    }else{
-        
-        console.log("No manda pedir nada Esta PANEANDO");
-    }
+        if (!$$("#map_refresh").hasClass("color-gray")){
+            frame = map.getBounds();
+            $$.getJSON(urlServices['serviceGetDenue'].url, {bbox:frame}, function (data, status, xhr) {
+               // console.log(data.geoUE);
+                drawUE(data.geoUE);
+            }, function(xhr, status){
+                console.log(status);
+            }); 
+        }else{
+            console.log("No manda pedir nada Esta PANEANDO");
+        }
     }else{
         console.log("No manda pedir nada porque el frame es el mismo no necesita refrescar");
     }
 };
+
+
+
+var leafletView;
+var mapLayerGroups = [];
+function drawUE(geoJs){
+    console.log(geoJs);
+    if (typeof mapLayerGroups.local_bar !== 'undefined')mapLayerGroups.local_bar.clearLayers();
+    if (typeof mapLayerGroups.store !== 'undefined')mapLayerGroups.store.clearLayers();
+    if (typeof mapLayerGroups.local_drink !== 'undefined')mapLayerGroups.local_drink.clearLayers();
+    if (typeof mapLayerGroups.audiotrack !== 'undefined')mapLayerGroups.audiotrack.clearLayers();
+    (typeof leafletView === 'undefined')?leafletView = L.markerClusterGroup({disableClusteringAtZoom: 17, chunkedLoading: true, chunkProgress: updateProgressBar}):leafletView.clearLayers();
+    //var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pin-no"></div>'});
+    var no_pin = {radius: 4,fillColor: "#696969",color: "#696969",weight: 1,opacity: 0.8,fillOpacity: 0.8};
+    //array to store layers for each feature type
+   
+    var UE = L.geoJson(geoJs,{
+        pointToLayer: function (feature, latlng) {
+            var random_cte = Math.round(Math.random() * (4 - 1) + 1);
+            var cteIcon = (random_cte == 1)?L.divIcon({className: 'my-div-icon-'+feature.properties.SCIAN, html:'<div class="pin"></div><div class="pulse"></div>'}):L.divIcon({className: 'my-div-icon-'+feature.properties.SCIAN, html:'<div class="pin_normal"></div>'});
+           return new L.marker(latlng, {icon: cteIcon});
+        }/*,
+        filter: function (feature, layer){
+            console.log(feature.properties.SCIAN);
+            return (feature.properties.SCIAN === 'local_bar');
+        }*/,
+        onEachFeature: function(feature, featureLayer){
+           console.log(feature.properties.SCIAN);
+            console.log(featureLayer);
+            var lg = mapLayerGroups[feature.properties.SCIAN];
+
+            if (lg === undefined) {
+                lg = new L.markerClusterGroup({disableClusteringAtZoom: 17});
+                //add the layer to the map
+                lg.addTo(map);
+                //store layer
+                mapLayerGroups[feature.properties.SCIAN] = lg;
+            }
+
+            //add the feature to the layer
+            lg.addLayer(featureLayer);  
+        }
+    });//.addTo(leafletView);
+    //map.addLayer(leafletView);
+    console.log(mapLayerGroups);
+    //map.addlayer(mapLayerGroups);
+};
+
+function showLayer(id) {
+    var lg = mapLayerGroups[id];
+    if (lg !== undefined) map.addLayer(lg);   
+}
+function hideLayer(id) {
+    var lg = mapLayerGroups[id];
+    if (lg !== undefined) map.removeLayer(lg);   
+}
+
+function updateProgressBar(processed, total, elapsed, layersArray) {
+   var container = $$('.preloader-indicator-modal');
+    /* var container = $$('#map');
+    if (container.children('.progressbar, .progressbar-infinite').length) return; //don't run all this if there is a current progressbar loading
+     myApp.showProgressbar(container, 'yellow');
+    /*var progress = document.getElementById('progress');
+    var progressBar = document.getElementById('progress-bar');		*/
+    if (elapsed > 1000) {
+				// if it takes more than a second to load, display the progress bar:
+		console.log(processed + '|'+total);		
+        //progress.style.display = 'block';
+				//progressBar.style.width = Math.round(processed/total*100) + '%';
+			}
+			if (processed === total) {
+				// all markers processed - hide the progress bar:
+				//progress.style.display = 'none';
+                console.log("done");
+     //           myApp.hideProgressbar();
+			}
+		}
+
 
