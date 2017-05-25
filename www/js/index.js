@@ -479,7 +479,8 @@ var getDenue = function(){
             frame = map.getBounds();
             $$.getJSON(urlServices['serviceGetDenue'].url, {bbox:frame}, function (data, status, xhr) {
                // console.log(data.geoUE);
-                drawUE(data.geoUE);
+                //drawUE(data.geoUE);
+                 drawUEPrune(data.geoUE);
             }, function(xhr, status){
                 console.log(status);
             }); 
@@ -491,9 +492,32 @@ var getDenue = function(){
     }
 };
 
-
-
 var leafletView;
+//var pruneCluster;
+function  drawUEPrune(geoJs){
+   // console.log(geoJs);
+    (typeof leafletView === 'undefined')?leafletView = new PruneClusterForLeaflet():leafletView.RemoveMarkers();
+    var UE = L.geoJson(geoJs,{
+        onEachFeature: function(feature, featureLayer){
+           var marker = new PruneCluster.Marker(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
+           marker.category = feature.properties.SCIAN;
+           leafletView.RegisterMarker(marker);    
+        }
+    });
+    
+    
+    
+    /*var marker = new PruneCluster.Marker(21.8536374, -102.28341859999999);
+    marker.category = 5;
+    pruneCluster.RegisterMarker(marker);*/
+    map.addLayer(leafletView);
+    //declusteriza si llego al nivel 17
+    //var oldsize = PruneCluster.Cluster.Size;
+    //PruneCluster.Cluster.Size = (map.getZoom()>= mymaxclusterzoom)? -1 : oldsize;
+    //PruneCluster.ProcessView(); // looks like it works OK without this line
+};
+
+
 var mapLayerGroups = [];
 function drawUE(geoJs){
     console.log(geoJs);
