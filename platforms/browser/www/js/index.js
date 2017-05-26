@@ -521,6 +521,7 @@ function  drawUEPrune(geoJs){
         onEachFeature: function(feature, featureLayer){
            var marker = new PruneCluster.Marker(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
            marker.category = parseInt(feature.properties.SCIAN);
+           marker.data.icon = createIconNormal;
            leafletView.RegisterMarker(marker);    
         }
     });
@@ -533,6 +534,11 @@ function  drawUEPrune(geoJs){
     map.addLayer(leafletView);
     leafletView.ProcessView(); 
 };
+
+function createIconNormal(data, category) {
+    return L.divIcon({className: 'my-div-icon', html:'<div class="pin_normal"></div>'});
+}
+
 
 
 var mapLayerGroups = [];
