@@ -445,7 +445,18 @@ var syncFiltros = function (filtro, ch){
     console.log(filtro +'|'+ch);
     $$('input[type=checkbox][name=ks-giro][value='+filtro+']').prop("checked", ch);
     $$('#map_'+filtro+'').toggleClass('color-gray');
-    (ch)?showLayer(filtro):hideLayer(filtro);
+    var Allmarkers = leafletView.GetMarkers();
+    // validar que all markers sea mayor que cero
+    var cat = 0;
+    switch (filtro){case "audiotrack": cat = 1; break;case "local_bar": cat = 2; break; case "local_drink": cat = 3; break; case "store": cat = 4; break;}
+    for (var i = 0; i < Allmarkers.length; i++){
+        if (Allmarkers[i].category === cat){
+            (ch)?Allmarkers[i].filtered = false:Allmarkers[i].filtered = true;    
+        }
+    }
+    leafletView.ProcessView();
+    //filtrar la lista por clase
+    //(ch)?showLayer(filtro):hideLayer(filtro);
 }
 
 var syncMyPos = function (filtro, ch){
@@ -509,7 +520,7 @@ function  drawUEPrune(geoJs){
     var UE = L.geoJson(geoJs,{
         onEachFeature: function(feature, featureLayer){
            var marker = new PruneCluster.Marker(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
-           marker.category = feature.properties.SCIAN;
+           marker.category = parseInt(feature.properties.SCIAN);
            leafletView.RegisterMarker(marker);    
         }
     });
