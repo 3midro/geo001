@@ -271,7 +271,8 @@ function createMap(){
     if (typeof map === 'undefined'){
         map = L.map('map',{
             dragging:true,
-            zoomControl:true
+            zoomControl:true,
+            maxZoom: 19
         }).setView([21.8782892, -102.3050335], 16); 
             L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
                 detectRetina: true
@@ -332,7 +333,7 @@ function createMap(){
             }).addTo(map);
         
         //agrega los listen para los zoom y los dragend
-        map.on('zoomend', function() { getDenue();});
+        map.on('zoomend', function() { decluster();getDenue();});
         map.on('dragend', function() { getDenue();});
         setInitialView();
     }
@@ -472,6 +473,14 @@ var syncLayers = function (layer, ch){
     $$('#map_'+layer+'').toggleClass('color-gray');
 }
 
+var decluster = function(){
+    if  (typeof leafletView !== 'undefined'){
+        leafletView.Cluster.Size  = (map.getZoom() >= 17)? -1 : 120;
+        leafletView.ProcessView(); 
+    }
+    console.log('zoom: ' + map.getZoom() + ' Cluster size: ' + leafletView.Cluster.Size);
+};
+
 var getDenue = function(){
     //if(map.getZoom()<=8){$$("#map_refresh").addClass('color-gray')}; //evita que siga recargando grandes cantidades de establecimientos
     if (!map.getBounds().equals(frame)){
@@ -511,10 +520,7 @@ function  drawUEPrune(geoJs){
     marker.category = 5;
     pruneCluster.RegisterMarker(marker);*/
     map.addLayer(leafletView);
-    //declusteriza si llego al nivel 17
-    //var oldsize = PruneCluster.Cluster.Size;
-    //PruneCluster.Cluster.Size = (map.getZoom()>= mymaxclusterzoom)? -1 : oldsize;
-    //PruneCluster.ProcessView(); // looks like it works OK without this line
+    leafletView.ProcessView(); 
 };
 
 
