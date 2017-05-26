@@ -517,11 +517,17 @@ var leafletView;
 function  drawUEPrune(geoJs){
    // console.log(geoJs);
     (typeof leafletView === 'undefined')?leafletView = new PruneClusterForLeaflet():leafletView.RemoveMarkers();
+    //obtener filtros activos
+    var filters = getFiltrosActivos();
+    console.log(filters);
     var UE = L.geoJson(geoJs,{
         onEachFeature: function(feature, featureLayer){
            var marker = new PruneCluster.Marker(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
            marker.category = parseInt(feature.properties.SCIAN);
            marker.data.icon = createIconNormal;
+           console.log(filters.indexOf(parseInt(feature.properties.SCIAN)) > -1);
+           marker.filtered = !(filters.indexOf(parseInt(feature.properties.SCIAN)) > -1)
+           //marker.filtered = !(filters.include(parseInt(feature.properties.SCIAN)));
            leafletView.RegisterMarker(marker);    
         }
     });
@@ -539,6 +545,14 @@ function createIconNormal(data, category) {
     return L.divIcon({className: 'my-div-icon', html:'<div class="pin_normal"></div>'});
 }
 
+function getFiltrosActivos(){
+    var res = [];
+    if (!$$("#map_audiotrack").hasClass('color-gray')) res.push(1);
+    if (!$$("#map_local_bar").hasClass('color-gray')) res.push(2);
+    if (!$$("#map_local_drink").hasClass('color-gray')) res.push(3);
+    if (!$$("#map_store").hasClass('color-gray')) res.push(4);
+    return res;
+}
 
 
 var mapLayerGroups = [];
