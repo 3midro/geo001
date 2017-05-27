@@ -445,7 +445,18 @@ var syncFiltros = function (filtro, ch){
     console.log(filtro +'|'+ch);
     $$('input[type=checkbox][name=ks-giro][value='+filtro+']').prop("checked", ch);
     $$('#map_'+filtro+'').toggleClass('color-gray');
-    (ch)?showLayer(filtro):hideLayer(filtro);
+    var Allmarkers = leafletView.GetMarkers();
+    // validar que all markers sea mayor que cero
+    var cat = 0;
+    switch (filtro){case "audiotrack": cat = 1; break;case "local_bar": cat = 2; break; case "local_drink": cat = 3; break; case "store": cat = 4; break;}
+    for (var i = 0; i < Allmarkers.length; i++){
+        if (Allmarkers[i].category === cat){
+            (ch)?Allmarkers[i].filtered = false:Allmarkers[i].filtered = true;    
+        }
+    }
+    leafletView.ProcessView();
+    //filtrar la lista por clase
+    //(ch)?showLayer(filtro):hideLayer(filtro);
 }
 
 var syncMyPos = function (filtro, ch){
@@ -506,10 +517,17 @@ var leafletView;
 function  drawUEPrune(geoJs){
    // console.log(geoJs);
     (typeof leafletView === 'undefined')?leafletView = new PruneClusterForLeaflet():leafletView.RemoveMarkers();
+    //obtener filtros activos
+    var filters = getFiltrosActivos();
+    console.log(filters);
     var UE = L.geoJson(geoJs,{
         onEachFeature: function(feature, featureLayer){
            var marker = new PruneCluster.Marker(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
-           marker.category = feature.properties.SCIAN;
+           marker.category = parseInt(feature.properties.SCIAN);
+           marker.data.icon = createIconNormal;
+           console.log(filters.indexOf(parseInt(feature.properties.SCIAN)) > -1);
+           marker.filtered = !(filters.indexOf(parseInt(feature.properties.SCIAN)) > -1)
+           //marker.filtered = !(filters.include(parseInt(feature.properties.SCIAN)));
            leafletView.RegisterMarker(marker);    
         }
     });
@@ -522,6 +540,19 @@ function  drawUEPrune(geoJs){
     map.addLayer(leafletView);
     leafletView.ProcessView(); 
 };
+
+function createIconNormal(data, category) {
+    return L.divIcon({className: 'my-div-icon', html:'<div class="pin_normal"></div>'});
+}
+
+function getFiltrosActivos(){
+    var res = [];
+    if (!$$("#map_audiotrack").hasClass('color-gray')) res.push(1);
+    if (!$$("#map_local_bar").hasClass('color-gray')) res.push(2);
+    if (!$$("#map_local_drink").hasClass('color-gray')) res.push(3);
+    if (!$$("#map_store").hasClass('color-gray')) res.push(4);
+    return res;
+}
 
 
 var mapLayerGroups = [];
