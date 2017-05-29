@@ -260,12 +260,12 @@ h1 {
 }
 
 .demo-mark:first-child{
-    opacity: 0.4;
+    opacity: 0.8;
 }
 
-.demo-mark:nth-child(2){
+/*.demo-mark:nth-child(2){
     opacity: 0.6;
-}
+}*/
 
 .circulo-categoria{
     width:0;

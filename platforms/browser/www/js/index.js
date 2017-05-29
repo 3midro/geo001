@@ -199,55 +199,13 @@ function onPosSuccess(coord) {
     // si auto refresh esta encendido baja los establecimientos
     if (!$$("#map_refresh").hasClass('color-gray')){
         getDenue();
-    } 
+    }
     
-    
-    
-    
-    
-    
-    //map.panTo(position._latlng) -->envia al punto donde esta el usuario
-    /*storage.removeItem('entidad');
-    var currentEntidad = storage.getItem('entidad'); 
-    var pt = turf.point([coord.coords.longitude, coord.coords.latitude]);
-    console.log(pt);
-    if (currentEntidad !== null){
-        var poly = turf.polygon([entidades[currentEntidad]]);
-        var isInside = turf.inside(pt, poly);
-         //console.log(isInside);
-        if (isInside === false){
-            storage.removeItem('entidad');
-            onPosSuccess(coord);
-        }
-     }else{
-         //determina la entidad a la que pertenece la coordenada recorriendo el arreglo de entidades
-        for (var key in entidades) {
-            var poly = turf.polygon([entidades[key]]);
-            var isInside = turf.inside(pt, poly);
-            // console.log(key+ ' isInside: ' + isInside);
-            if (isInside === true){
-                currentEntidad = key;
-                storage.setItem('entidad', key);
-                break;
-            }
-        }
-     }
-        $$(".my-location").val(currentEntidad).trigger("change");  
-        var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
-     var element = document.getElementById('geolocation');
-        element.innerHTML = 'Lat: '  + coord.coords.latitude      + '<br />' +
-                            'Lon: ' + coord.coords.longitude     + '<br />';
-    
-     position = (typeof position !== 'undefined')?position.setLatLng([coord.coords.latitude, coord.coords.longitude]).update():new L.marker([coord.coords.latitude, coord.coords.longitude], {icon: myIcon}).addTo(map);
-    panToPoint();*/
+    //actualiza las distancias
+   updDistancias();
     
 }
 
-/*function panToPoint(){
-    if (!$$("#testigoPosition").hasClass('color-gray')){
-        map.panTo(position._latlng);
-    }
-}*/
 
 function onPosError(error) {
     console.log("No se pudo determinar la posicion " + error.message);
@@ -386,54 +344,7 @@ function setInitialView() {
         console.log(error.code + '|' + error.message);
     }, { enableHighAccuracy: true, timeout: 3000  });
 }
-    /*
     
-    bbox = map.getBounds();
-
-var points = turf.random('points', 150, {
-  bbox: [bbox._southWest.lat, bbox._southWest.lng, bbox._northEast.lat, bbox._northEast.lng]
-}); 
-  
-var markerNormal = {
-            radius: 6,
-            fillColor: "#607D8B",
-            color: "#607D8B",
-            weight: 0,
-            opacity: 1,
-            fillOpacity: 0.8
-    };
-var leafletView = L.markerClusterGroup({disableClusteringAtZoom: 17});
-var from = {
-  "type": "Feature",
-  "properties": {},
-  "geometry": {
-    "type": "Point",
-    "coordinates": [21.8782892, -102.3050335]
-    }
-   };
-var units = "kilometers";  
-for (i=0; i < points.features.length; i++){
-    var to = points.features[i];
-    var distancia = turf.distance(from, to, units);
-    distancia = parseFloat(distancia.toFixed(2));
-        if (distancia<1){
-            distancia = (distancia * 1000) + ' m';
-        }else{
-            distancia = distancia + ' km';
-        }
-    
-    var random_cte = Math.round(Math.random() * (4 - 1) + 1);
-    if (random_cte == 1){
-        var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pin"></div><div class="pulse"></div>'});
-    }else{
-        var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pin-no"></div>'});
-    }
-    var m = new L.marker([points.features[i].geometry.coordinates[0],points.features[i].geometry.coordinates[1]], {icon: myIcon}).addTo(leafletView).bindPopup('PUNTO ' + i + ' <i class="icon material-icons">directions_walk</i>  ' + distancia);
-}   
-     
-    map.addLayer(leafletView);
-    L.marker([21.8782892, -102.3050335]).addTo(map).bindPopup('INICIO').openPopup();*/
-
 function getDistance(to, from){
    var distancia;
     if (typeof from === 'undefined'){
@@ -488,7 +399,7 @@ var syncFiltros = function (filtro, ch){
     }
     leafletView.ProcessView();
     //filtrar la lista por clase
-    //(ch)?showLayer(filtro):hideLayer(filtro);
+    (ch)?$$(".swipeout."+filtro).show():$$(".swipeout."+filtro).hide();
 }
 
 var syncMyPos = function (filtro, ch){
@@ -545,7 +456,6 @@ var getDenue = function(){
 };
 
 var leafletView;
-//var pruneCluster;
 function  drawUEPrune(geoJs){
    // console.log(geoJs);
     (typeof leafletView === 'undefined')?leafletView = new PruneClusterForLeaflet():leafletView.RemoveMarkers();
@@ -556,36 +466,32 @@ function  drawUEPrune(geoJs){
     var UE = L.geoJson(geoJs,{
         onEachFeature: function(feature, featureLayer){
            var marker = new PruneCluster.Marker(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
-           marker.category = parseInt(feature.properties.SCIAN);
-           marker.data.icon = createIconNormal;
+            marker.category = parseInt(feature.properties.SCIAN);
+            marker.data.icon = createIconNormal;
           // console.log(filters.indexOf(parseInt(feature.properties.SCIAN)) > -1);
-           marker.filtered = !(filters.indexOf(parseInt(feature.properties.SCIAN)) > -1)
+            marker.filtered = !(filters.indexOf(parseInt(feature.properties.SCIAN)) > -1);
+            marker.data.id = parseInt(feature.properties.id);
            //marker.filtered = !(filters.include(parseInt(feature.properties.SCIAN)));
            leafletView.RegisterMarker(marker);
            createFicha(feature);
         }
     });
-    
-    
-    
-    /*var marker = new PruneCluster.Marker(21.8536374, -102.28341859999999);
-    marker.category = 5;
-    pruneCluster.RegisterMarker(marker);*/
     map.addLayer(leafletView);
     leafletView.ProcessView(); 
 };
 
 function createFicha(feature){
     console.log(feature);
-    var ficha = '<li class="swipeout">'
+    var scian = translateCategoria(feature.properties.SCIAN);
+    var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'" data-lat="'+feature.geometry+'" data-lon="">'
          +'<div class="swipeout-content"><a href="#" class="item-link item-content">'
-         +    '<div class="item-media"><div class="circulo-categoria"><div class="icn_categoria"><i class="material-icons">'+translateCategoria(feature.properties.SCIAN)+'</i></div></div></div> '
+         +    '<div class="item-media"><div class="circulo-categoria"><div class="icn_categoria"><i class="material-icons">'+scian+'</i></div></div></div> '
           +   '<div class="item-inner">'
            +     '<div class="item-subtitle">'+ feature.properties.nombre+'</div>'
-           +     '<div class="item-text">'+getDistance(feature)+'</div>'
+           +     '<div class="item-text" id="distancia_'+feature.properties.id+'">'+getDistance(feature)+'</div>'
            +   '</div></a></div>'
         +  '<div class="swipeout-actions-right">'
-         +     '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">favorite</i></a>'
+        // +     '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">favorite</i></a>'
           +    '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">place</i></a>'
            +   '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">more</i></a>'
         +    '</div>'
@@ -605,60 +511,6 @@ function getFiltrosActivos(){
     if (!$$("#map_local_drink").hasClass('color-gray')) res.push(3);
     if (!$$("#map_store").hasClass('color-gray')) res.push(4);
     return res;
-}
-
-
-var mapLayerGroups = [];
-function drawUE(geoJs){
-    console.log(geoJs);
-    if (typeof mapLayerGroups.local_bar !== 'undefined')mapLayerGroups.local_bar.clearLayers();
-    if (typeof mapLayerGroups.store !== 'undefined')mapLayerGroups.store.clearLayers();
-    if (typeof mapLayerGroups.local_drink !== 'undefined')mapLayerGroups.local_drink.clearLayers();
-    if (typeof mapLayerGroups.audiotrack !== 'undefined')mapLayerGroups.audiotrack.clearLayers();
-    (typeof leafletView === 'undefined')?leafletView = L.markerClusterGroup({disableClusteringAtZoom: 17, chunkedLoading: true, chunkProgress: updateProgressBar}):leafletView.clearLayers();
-    //var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pin-no"></div>'});
-    var no_pin = {radius: 4,fillColor: "#696969",color: "#696969",weight: 1,opacity: 0.8,fillOpacity: 0.8};
-    //array to store layers for each feature type
-   
-    var UE = L.geoJson(geoJs,{
-        pointToLayer: function (feature, latlng) {
-            var random_cte = Math.round(Math.random() * (4 - 1) + 1);
-            var cteIcon = (random_cte == 1)?L.divIcon({className: 'my-div-icon-'+feature.properties.SCIAN, html:'<div class="pin"></div><div class="pulse"></div>'}):L.divIcon({className: 'my-div-icon-'+feature.properties.SCIAN, html:'<div class="pin_normal"></div>'});
-           return new L.marker(latlng, {icon: cteIcon});
-        }/*,
-        filter: function (feature, layer){
-            console.log(feature.properties.SCIAN);
-            return (feature.properties.SCIAN === 'local_bar');
-        }*/,
-        onEachFeature: function(feature, featureLayer){
-           console.log(feature.properties.SCIAN);
-            console.log(featureLayer);
-            var lg = mapLayerGroups[feature.properties.SCIAN];
-
-            if (lg === undefined) {
-                lg = new L.markerClusterGroup({disableClusteringAtZoom: 17});
-                //add the layer to the map
-                lg.addTo(map);
-                //store layer
-                mapLayerGroups[feature.properties.SCIAN] = lg;
-            }
-
-            //add the feature to the layer
-            lg.addLayer(featureLayer);  
-        }
-    });//.addTo(leafletView);
-    //map.addLayer(leafletView);
-    console.log(mapLayerGroups);
-    //map.addlayer(mapLayerGroups);
-};
-
-function showLayer(id) {
-    var lg = mapLayerGroups[id];
-    if (lg !== undefined) map.addLayer(lg);   
-}
-function hideLayer(id) {
-    var lg = mapLayerGroups[id];
-    if (lg !== undefined) map.removeLayer(lg);   
 }
 
 function updateProgressBar(processed, total, elapsed, layersArray) {
@@ -681,5 +533,22 @@ function updateProgressBar(processed, total, elapsed, layersArray) {
      //           myApp.hideProgressbar();
 			}
 		}
+
+function updDistancias(){
+    if (typeof leafletView !== 'undefined'){
+        var markers = leafletView.GetMarkers();
+        var d;
+        var pt;
+        for (var i = 0; i < markers.length; i++){
+            pt = {"type": "Feature","properties": {},"geometry": {"type": "Point","coordinates": [markers[i].position.lng, markers[i].position.lat]}};
+            d = getDistance(pt);
+            $$("#distancia_"+markers[i].data.id).html(d);
+            //console.log("Actualiza la distancia del item: " + markers[i].data.id + ' distancia: ' +d );
+        }    
+    }else{
+        console.log("no calcula distancias porque la vista lefleatView no esta disponible y no puede leer los puntos en ella");
+    }
+    
+}
 
 
