@@ -519,13 +519,13 @@ function  drawUEPrune(geoJs){
     (typeof leafletView === 'undefined')?leafletView = new PruneClusterForLeaflet():leafletView.RemoveMarkers();
     //obtener filtros activos
     var filters = getFiltrosActivos();
-    console.log(filters);
+   // console.log(filters);
     var UE = L.geoJson(geoJs,{
         onEachFeature: function(feature, featureLayer){
            var marker = new PruneCluster.Marker(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
            marker.category = parseInt(feature.properties.SCIAN);
            marker.data.icon = createIconNormal;
-           console.log(filters.indexOf(parseInt(feature.properties.SCIAN)) > -1);
+          // console.log(filters.indexOf(parseInt(feature.properties.SCIAN)) > -1);
            marker.filtered = !(filters.indexOf(parseInt(feature.properties.SCIAN)) > -1)
            //marker.filtered = !(filters.include(parseInt(feature.properties.SCIAN)));
            leafletView.RegisterMarker(marker);    
