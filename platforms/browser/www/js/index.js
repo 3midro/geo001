@@ -434,9 +434,41 @@ for (i=0; i < points.features.length; i++){
     map.addLayer(leafletView);
     L.marker([21.8782892, -102.3050335]).addTo(map).bindPopup('INICIO').openPopup();*/
 
+function getDistance(to, from){
+   var distancia;
+    if (typeof from === 'undefined'){
+        // No se especifico from.... lo intentara leer de la posicion
+       if (typeof position !== 'undefined'){
+           from = {"type": "Feature","properties": {},"geometry": {"type": "Point","coordinates": [position._latlng.lng,position._latlng.lat]}};
+            distancia = turf.distance(from, to);
+           distancia = parseFloat(distancia.toFixed(2));
+            if (distancia<1){
+                distancia = (distancia * 1000) + ' m';
+            }else{
+                distancia = distancia + ' km';
+            }
+       }else{
+           return "No es posible calcular la distancia sin tu ubicación";
+       }
+        
+       return distancia;
+   }
+}
 
-
-
+function translateCategoria(categ){
+    var cat;
+    switch (categ){
+        case "audiotrack": cat = 1; break;
+        case "local_bar": cat = 2; break; 
+        case "local_drink": cat = 3; break; 
+        case "store": cat = 4; break;
+        case "1": case 1: cat = "audiotrack"; break;
+        case "2": case 2: cat = "local_bar"; break;
+        case "3": case 3: cat = "local_drink"; break;
+        case "4": case 4: cat = "store"; break;
+    }
+    return cat;
+}
 
 
 
@@ -447,8 +479,8 @@ var syncFiltros = function (filtro, ch){
     $$('#map_'+filtro+'').toggleClass('color-gray');
     var Allmarkers = leafletView.GetMarkers();
     // validar que all markers sea mayor que cero
-    var cat = 0;
-    switch (filtro){case "audiotrack": cat = 1; break;case "local_bar": cat = 2; break; case "local_drink": cat = 3; break; case "store": cat = 4; break;}
+    var cat = translateCategoria(filtro);
+           // switch (filtro){case "audiotrack": cat = 1; break;case "local_bar": cat = 2; break; case "local_drink": cat = 3; break; case "store": cat = 4; break;}
     for (var i = 0; i < Allmarkers.length; i++){
         if (Allmarkers[i].category === cat){
             (ch)?Allmarkers[i].filtered = false:Allmarkers[i].filtered = true;    
@@ -520,6 +552,7 @@ function  drawUEPrune(geoJs){
     //obtener filtros activos
     var filters = getFiltrosActivos();
    // console.log(filters);
+     $$("#ul_establecimientos").html('');
     var UE = L.geoJson(geoJs,{
         onEachFeature: function(feature, featureLayer){
            var marker = new PruneCluster.Marker(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
@@ -528,7 +561,8 @@ function  drawUEPrune(geoJs){
           // console.log(filters.indexOf(parseInt(feature.properties.SCIAN)) > -1);
            marker.filtered = !(filters.indexOf(parseInt(feature.properties.SCIAN)) > -1)
            //marker.filtered = !(filters.include(parseInt(feature.properties.SCIAN)));
-           leafletView.RegisterMarker(marker);    
+           leafletView.RegisterMarker(marker);
+           createFicha(feature);
         }
     });
     
@@ -539,6 +573,25 @@ function  drawUEPrune(geoJs){
     pruneCluster.RegisterMarker(marker);*/
     map.addLayer(leafletView);
     leafletView.ProcessView(); 
+};
+
+function createFicha(feature){
+    console.log(feature);
+    var ficha = '<li class="swipeout">'
+         +'<div class="swipeout-content"><a href="#" class="item-link item-content">'
+         +    '<div class="item-media"><div class="circulo-categoria"><div class="icn_categoria"><i class="material-icons">'+translateCategoria(feature.properties.SCIAN)+'</i></div></div></div> '
+          +   '<div class="item-inner">'
+           +     '<div class="item-subtitle">'+ feature.properties.nombre+'</div>'
+           +     '<div class="item-text">'+getDistance(feature)+'</div>'
+           +   '</div></a></div>'
+        +  '<div class="swipeout-actions-right">'
+         +     '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">favorite</i></a>'
+          +    '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">place</i></a>'
+           +   '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">more</i></a>'
+        +    '</div>'
+    +    '</li>';
+    
+    $$("#ul_establecimientos").append(ficha);
 };
 
 function createIconNormal(data, category) {
