@@ -547,12 +547,14 @@ function updDistancias(){
         var pt;
         var options = {useEasing : true, useGrouping : true, separator : ',', decimal : '.',};
         for (var i = 0; i < markers.length; i++){
-            console.log(+markers[i].data.id);
+            //console.log(+markers[i].data.id);
             pt = {"type": "Feature","properties": {},"geometry": {"type": "Point","coordinates": [markers[i].position.lng, markers[i].position.lat]}};
             d = getDistance(pt);
             var anterior = $$("#distancia_"+markers[i].data.id).text().replace(/,/g, "");;
-            console.log(anterior);
-            var numAnim = new CountUp("distancia_"+markers[i].data.id, anterior, d, 0, 1.5, options);
+            console.log("anterior: " + anterior);
+            var t = Math.random() * (4 - 1) + 1;
+            console.log("tiempo: " + t);
+            var numAnim = new CountUp("distancia_"+markers[i].data.id, anterior, d, 0, t, options);
             numAnim.start();
             //var demo = new CountUp("distancia_"+markers[i].data.id, anterior, d, 0, 3.5, options);
             //demo.start();
