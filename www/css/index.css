@@ -260,24 +260,30 @@ h1 {
 }
 
 .demo-mark:first-child{
-    opacity: 0.8;
+        background-color: rgba(255,255,255,0.3)!important;
 }
 
-/*.demo-mark:nth-child(2){
-    opacity: 0.6;
-}*/
+.demo-mark:nth-child(2){
+       background-color: rgba(255,255,255,0.2)!important;
+}
 
 .circulo-categoria{
-    width:0;
     border-radius:50px;
-    width:35px;
-    height:35px;
+    width:23px;
+    height:23px;
      background-color:gainsboro;
-   /* margin-top: 20px;*/<s
+   /* margin-top: 20px;*/
 }
 
 .icn_categoria{
     color:dimgray;
-    line-height:50px;
-    text-align: center;
+    margin-left: 4px;
+    margin-top: 4px;
+   /* line-height:50px;
+    text-align: center;*/
+}
+
+.icn_categoria>.material-icons{
+    font-size: 15px!important;
+    position: absolute;
 }

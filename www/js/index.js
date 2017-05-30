@@ -352,12 +352,13 @@ function getDistance(to, from){
        if (typeof position !== 'undefined'){
            from = {"type": "Feature","properties": {},"geometry": {"type": "Point","coordinates": [position._latlng.lng,position._latlng.lat]}};
             distancia = turf.distance(from, to);
-           distancia = parseFloat(distancia.toFixed(2));
-            if (distancia<1){
+           distancia = parseFloat(distancia.toFixed(2))*1000;
+           
+           /* if (distancia<1){
                 distancia = (distancia * 1000) + ' m';
             }else{
                 distancia = distancia + ' km';
-            }
+            }*/
        }else{
            return "No es posible calcular la distancia sin tu ubicación";
        }
@@ -462,7 +463,7 @@ function  drawUEPrune(geoJs){
     //obtener filtros activos
     var filters = getFiltrosActivos();
    // console.log(filters);
-     $$("#ul_establecimientos").html('');
+    $$("#ul_establecimientos").html('');
     var UE = L.geoJson(geoJs,{
         onEachFeature: function(feature, featureLayer){
            var marker = new PruneCluster.Marker(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
@@ -483,21 +484,26 @@ function  drawUEPrune(geoJs){
 function createFicha(feature){
     console.log(feature);
     var scian = translateCategoria(feature.properties.SCIAN);
-    var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'" data-lat="'+feature.geometry+'" data-lon="">'
-         +'<div class="swipeout-content"><a href="#" class="item-link item-content">'
-         +    '<div class="item-media"><div class="circulo-categoria"><div class="icn_categoria"><i class="material-icons">'+scian+'</i></div></div></div> '
-          +   '<div class="item-inner">'
-           +     '<div class="item-subtitle">'+ feature.properties.nombre+'</div>'
-           +     '<div class="item-text" id="distancia_'+feature.properties.id+'">'+getDistance(feature)+'</div>'
-           +   '</div></a></div>'
-        +  '<div class="swipeout-actions-right">'
-        // +     '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">favorite</i></a>'
-          +    '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">place</i></a>'
-           +   '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">more</i></a>'
-        +    '</div>'
+    var d = getDistance(feature);
+    var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'">'
+         + '<div class="swipeout-content"><a href="#" class="item-link item-content">'
+        +      '<div class="item-inner">'
+          +      '<div class="item-title-row">'
+           +       '<div class="item-title">'+ feature.properties.nombre+'</div>'
+            +      '<div class="item-after"><div class="circulo-categoria"><div class="icn_categoria"><i class="material-icons">'+scian+'</i></div></div></div>'
+             +   '</div>'
+              +  '<div class="item-text"><span id="distancia_'+feature.properties.id+'">'+d+'</span> m</div>'
+           +  '</div></a></div>'
+            + '<div class="swipeout-actions-left">'
+            +  '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">favorite</i></a>'
+            +  '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">place</i></a>'
+            +  '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">details</i></a>'
+        + ' </div>'
     +    '</li>';
-    
     $$("#ul_establecimientos").append(ficha);
+    var options = {useEasing : true, useGrouping : true, separator : ',', decimal : '.',};
+    var demo = new CountUp("distancia_"+feature.properties.id, 0, d, 0, 2.0, options);
+    demo.start();
 };
 
 function createIconNormal(data, category) {
@@ -539,10 +545,19 @@ function updDistancias(){
         var markers = leafletView.GetMarkers();
         var d;
         var pt;
+        var options = {useEasing : true, useGrouping : true, separator : ',', decimal : '.',};
         for (var i = 0; i < markers.length; i++){
+            console.log(+markers[i].data.id);
             pt = {"type": "Feature","properties": {},"geometry": {"type": "Point","coordinates": [markers[i].position.lng, markers[i].position.lat]}};
             d = getDistance(pt);
-            $$("#distancia_"+markers[i].data.id).html(d);
+            var anterior = $$("#distancia_"+markers[i].data.id).text().replace(/,/g, "");;
+            console.log(anterior);
+            var numAnim = new CountUp("distancia_"+markers[i].data.id, anterior, d, 0, 1.5, options);
+            numAnim.start();
+            //var demo = new CountUp("distancia_"+markers[i].data.id, anterior, d, 0, 3.5, options);
+            //demo.start();
+            //$$("#distancia_"+markers[i].data.id).html(d);
+            
             //console.log("Actualiza la distancia del item: " + markers[i].data.id + ' distancia: ' +d );
         }    
     }else{
