@@ -294,3 +294,7 @@ h1 {
     font-size: 15px!important;
     position: absolute;
 }
+
+.list-marked{
+    background-color: rgba(0,0,0,0.07)!important;
+}

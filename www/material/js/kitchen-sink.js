@@ -1179,3 +1179,5 @@ $$('input[type=checkbox][name=ks-giro]').on('change',function(){
     syncFiltros(this.value,this.checked);
 });
 
+
+

@@ -481,6 +481,10 @@ function  drawUEPrune(geoJs){
     map.addLayer(leafletView);
     leafletView.ProcessView(); 
     if ( $$("#ul_establecimientos li").length>0 && $$("#btnFlipMap>i").text()==='map'){$$("#initFiltro").removeAttr("style");}
+    /* ========== lista de establecimientos ========= */
+        $$("#ul_establecimientos li").on("click", function(){
+            $$(this).toggleClass('list-marked')
+        });
 };
 
 function createFicha(feature){
