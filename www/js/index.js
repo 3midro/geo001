@@ -401,7 +401,8 @@ var syncFiltros = function (filtro, ch){
     }
     leafletView.ProcessView();
     //filtrar la lista por clase
-    (ch)?$$(".swipeout."+filtro).show():$$(".swipeout."+filtro).hide();
+    
+    (ch)?$$(".swipeout."+filtro).removeClass('hidden-by-searchbar'):$$(".swipeout."+filtro).addClass('hidden-by-searchbar');
 }
 
 var syncMyPos = function (filtro, ch){
