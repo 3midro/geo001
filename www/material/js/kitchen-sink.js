@@ -1140,7 +1140,13 @@ myApp.onPageInit('animation', function (page) {
 
 $$('#btnFlipMap').on('click', function () {
     var icn = $$("#btnFlipMap>i").text();
-    (icn === 'map')?$$("#btnFlipMap>i").text('view_list'):$$("#btnFlipMap>i").text('map');
+    if (icn === 'map'){
+        $$("#btnFlipMap>i").text('view_list');
+        $$("#initFiltro").attr("disabled",true);
+    }else{
+        $$("#btnFlipMap>i").text('map');
+        if ( $$("#ul_establecimientos li").length>0){$$("#initFiltro").removeAttr("disabled");}
+    }
     document.querySelector(".flip-container").classList.toggle("flip");
 });
 
