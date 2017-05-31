@@ -211,7 +211,7 @@ h1 {
 	transform: rotateY(180deg);
 }
 
-.flip-container, .front_, .back_ {
+.flip-container {
 	height: 90vh;
     width: 100vw;
 }
@@ -229,20 +229,27 @@ h1 {
 	backface-visibility: hidden;
     background-color: whitesmoke;
 	position: absolute;
-	top: 0;
+	/*top: 0;*/
 	left: 0;
 }
 
 /* front pane, placed above back */
 .front_ {
 	z-index: 2;
+    top: 0px;
 	/* for firefox 31 */
 	transform: rotateY(0deg);
+    height: 90vh;
+    width: 100vw;
 }
 
 /* back, initially hidden pane */
 .back_ {
 	transform: rotateY(180deg);
+    top: -20px!important;
+   /* height: 100vh!important;*/
+    height: 100vh;
+    width: 100vw;
 }
 
 /* btn-group*/

@@ -230,7 +230,8 @@ function createMap(){
         map = L.map('map',{
             dragging:true,
             zoomControl:true,
-            maxZoom: 19
+            maxZoom: 18,
+            minZoom: 14
         }).setView([21.8782892, -102.3050335], 16); 
             L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
                 detectRetina: true
@@ -351,8 +352,8 @@ function getDistance(to, from){
         // No se especifico from.... lo intentara leer de la posicion
        if (typeof position !== 'undefined'){
            from = {"type": "Feature","properties": {},"geometry": {"type": "Point","coordinates": [position._latlng.lng,position._latlng.lat]}};
-            distancia = turf.distance(from, to);
-           distancia = parseFloat(distancia.toFixed(2))*1000;
+            distancia = parseFloat((turf.distance(from, to)).toFixed(2))*1000;
+                       //distancia = parseFloat(distancia.toFixed(2))*1000;
            
            /* if (distancia<1){
                 distancia = (distancia * 1000) + ' m';
@@ -360,7 +361,7 @@ function getDistance(to, from){
                 distancia = distancia + ' km';
             }*/
        }else{
-           return "No es posible calcular la distancia sin tu ubicación";
+           return "sin tu ubicación";
        }
         
        return distancia;
@@ -482,7 +483,7 @@ function  drawUEPrune(geoJs){
 };
 
 function createFicha(feature){
-    console.log(feature);
+   // console.log(feature);
     var scian = translateCategoria(feature.properties.SCIAN);
     var d = getDistance(feature);
     var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'">'
@@ -493,7 +494,7 @@ function createFicha(feature){
             +      '<div class="item-after"><div class="circulo-categoria"><div class="icn_categoria"><i class="material-icons">'+scian+'</i></div></div></div>'
              +   '</div>'
               +  '<div class="item-text"><span id="distancia_'+feature.properties.id+'">'+d+'</span> m</div>'
-           +  '</div></a></div>'
+              +  '</div></a></div>'
             + '<div class="swipeout-actions-left">'
             +  '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">favorite</i></a>'
             +  '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">place</i></a>'
@@ -502,7 +503,7 @@ function createFicha(feature){
     +    '</li>';
     $$("#ul_establecimientos").append(ficha);
     var options = {useEasing : true, useGrouping : true, separator : ',', decimal : '.',};
-    var demo = new CountUp("distancia_"+feature.properties.id, 0, d, 0, 2.0, options);
+    var demo = new CountUp("distancia_"+feature.properties.id, 0, d, 0, 5.0, options);
     demo.start();
 };
 
@@ -543,25 +544,18 @@ function updateProgressBar(processed, total, elapsed, layersArray) {
 function updDistancias(){
     if (typeof leafletView !== 'undefined'){
         var markers = leafletView.GetMarkers();
-        var d;
-        var pt;
-        var options = {useEasing : true, useGrouping : true, separator : ',', decimal : '.',};
-        for (var i = 0; i < markers.length; i++){
-            //console.log(+markers[i].data.id);
-            pt = {"type": "Feature","properties": {},"geometry": {"type": "Point","coordinates": [markers[i].position.lng, markers[i].position.lat]}};
-            d = getDistance(pt);
-            var anterior = $$("#distancia_"+markers[i].data.id).text().replace(/,/g, "");;
-            console.log("anterior: " + anterior);
-            var t = Math.random() * (4 - 1) + 1;
-            console.log("tiempo: " + t);
-            var numAnim = new CountUp("distancia_"+markers[i].data.id, anterior, d, 0, t, options);
-            numAnim.start();
-            //var demo = new CountUp("distancia_"+markers[i].data.id, anterior, d, 0, 3.5, options);
-            //demo.start();
-            //$$("#distancia_"+markers[i].data.id).html(d);
-            
-            //console.log("Actualiza la distancia del item: " + markers[i].data.id + ' distancia: ' +d );
-        }    
+        var d;var pt;var options = {useEasing : true, useGrouping : true, separator : ',', decimal : '.',};
+            for (var i = 0; i < markers.length; i++){
+               pt = {"type": "Feature","properties": {},"geometry": {"type": "Point","coordinates": [markers[i].position.lng, markers[i].position.lat]}};
+               d = getDistance(pt);
+               var anterior = parseFloat($$("#distancia_"+markers[i].data.id).text().replace(/,/g, ""));
+               var t = Math.random() * (4 - 1) + 1;
+               if (anterior !== d){
+                    var numAnim = new CountUp("distancia_"+markers[i].data.id, anterior, d, 0, t, options);
+                    numAnim.start();    
+                }
+            }
+        // $$("#distancia_"+markers[i].data.id).html(d);
     }else{
         console.log("no calcula distancias porque la vista lefleatView no esta disponible y no puede leer los puntos en ella");
     }

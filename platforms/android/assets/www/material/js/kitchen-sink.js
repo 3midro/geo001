@@ -354,6 +354,7 @@ myApp.onPageInit('photo-browser', function (page) {
 
 /* ===== Infinite Scroll Page ===== */
 myApp.onPageInit('infinite-scroll', function (page) {
+    console.log("infinite scroll redy")
     // Loading trigger
     var loading = false;
     // Last loaded index, we need to pass it to script

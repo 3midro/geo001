@@ -17,7 +17,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<html>
+<html lang="es">
     <head>
         <!--
         Customize this policy to fit your own app's needs. For more guidance, see:
@@ -60,10 +60,11 @@
         <!--leaflet -->
         <link rel="stylesheet" href="bower_components/leaflet/leaflet.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <!-- leaflet clusters-->
-	    <link rel="stylesheet" href="bower_components/leaflet/markercluster/MarkerCluster.css" />
-	    <link rel="stylesheet" href="bower_components/leaflet/markercluster/MarkerCluster.Default.css" />
-        
+        <!-- leaflet marker clusters-->
+	    <!--<link rel="stylesheet" href="bower_components/leaflet/markercluster/MarkerCluster.css" />
+	    <link rel="stylesheet" href="bower_components/leaflet/markercluster/MarkerCluster.Default.css" />-->
+        <!-- leaflet prune clusters-->
+        <link rel="stylesheet" href="bower_components/leaflet/pruneCluster/LeafletStyleSheet.css"/>
         <!--font awsome -->
         <link rel="stylesheet" href="bower_components/font-awesome-4.7.0/css/font-awesome.min.css">
         <!--introjs-->
@@ -579,7 +580,7 @@
                       </ul>
                 </div>
                 
-                 <div class="content-block-title">Por cercania</div>
+                 <div class="content-block-title">Cercania</div>
                         <div class="list-block">
                             <div class="item-content">
                             <div class="item-media"><i class="icon material-icons color-gray">directions_walk</i></div>
@@ -596,7 +597,7 @@
                 
                 
                 
-                <div class="content-block-title">Presupuesto</div>
+               <!-- <div class="content-block-title">Presupuesto</div>
                         <div class="list-block">
                             <div class="item-content">
                             <div class="item-media"><i class="icon material-icons color-gray">account_balance_wallet</i></div>
@@ -609,10 +610,10 @@
                               </div>
                             </div>
                           </div>
-                        </div>
+                        </div>-->
                 
                 
-                <div class="content-block-title">Gustos</div>
+               <!-- <div class="content-block-title">Gustos</div>
                 <div class="list-block">
                       <ul>
                         <li><a href="#" class="item-link smart-select">
@@ -670,9 +671,9 @@
                             </div></a></li>
                        
                       </ul>
-                    </div>
+                    </div>-->
                             
-                <div class="content-block-title">Marca</div>
+                <!--<div class="content-block-title">Marca</div>
                 <div class="list-block">
                       <ul>
                            <li><a href="#" class="item-link smart-select">
@@ -752,7 +753,7 @@
                             </div></a></li>
                       
                       </ul>
-                    </div>  
+                    </div> --> 
                 
                 </form>
                       
@@ -796,114 +797,29 @@
                         <div class="back_ center">
                             <!-- back content -->
                            <!--<div class="content-block-title"><i class="material-icons icon-only">arrow_back</i> Desliza para ver la magia<i class="material-icons icon-only">arrow_forward</i></div>-->
-    <div class="list-block media-list left" style="overflow-y:auto; height: 90%; background-color: white;">
-      <ul>
-        <li class="swipeout">
-          <div class="swipeout-content"><a href="#" class="item-link item-content">
-              <div class="item-inner">
-                <div class="item-title-row">
-                  <div class="item-title"><i class="material-icons">local_bar</i> DANCETERÍA AN STAGE BAR PULLIMAN</div>
-                  <div class="item-after">17:14</div>
-                </div>
-                <div class="item-subtitle">New messages from John Doe</div>
-                <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
-              </div></a></div>
-          <div class="swipeout-actions-left"><a href="#" class="bg-green swipeout-overswipe demo-reply">Reply</a><a href="#" class="demo-forward bg-blue">Forward</a></div>
-          <div class="swipeout-actions-right"><a href="#" class="demo-actions">More</a><a href="#" class="demo-mark bg-orange">Mark</a><a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a></div>
-        </li>
-        <li class="swipeout">
-          <div class="swipeout-content"><a href="#" class="item-link item-content">
-              <div class="item-inner">
-                <div class="item-title-row">
-                  <div class="item-title"><i class="material-icons">local_bar</i> VINOS &amp; LICORES</div>
-                  <div class="item-after">1.8 Km</div>
-                </div>
-                <div class="item-subtitle">ABARROTES Y VTA DE CERVEZA KRISMAR</div>
-                <div class="item-text">CALLE PEDRO GARC&Iacute;A ROJAS #1116-C<br><strong>COLONIA OLIVARES SANTANA</strong></div>
-              </div></a></div>
-          <div class="swipeout-actions-left"><a href="#" class="bg-green swipeout-overswipe demo-reply">Reply</a><a href="#" class="demo-forward bg-blue">Forward</a></div>
-          <div class="swipeout-actions-right"><a href="#" class="demo-actions">More</a><a href="#" class="demo-mark bg-orange">Mark</a><a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a></div>
-        </li>
-        <li class="swipeout">
-          <div class="swipeout-content"><a href="#" class="item-link item-content">
-              <div class="item-inner">
-                <div class="item-title-row">
-                  <div class="item-title">Facebook</div>
-                  <div class="item-after">16:48</div>
-                </div>
-                <div class="item-subtitle">New messages from John Doe</div>
-                <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
-              </div></a></div>
-          <div class="swipeout-actions-left"><a href="#" class="bg-green swipeout-overswipe demo-reply">Reply</a><a href="#" class="demo-forward bg-blue">Forward</a></div>
-          <div class="swipeout-actions-right"><a href="#" class="demo-actions">More</a><a href="#" class="demo-mark bg-orange">Mark</a><a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a></div>
-        </li>
-        <li class="swipeout">
-          <div class="swipeout-content"><a href="#" class="item-link item-content">
-              <div class="item-inner">
-                <div class="item-title-row">
-                  <div class="item-title">John Doe (via Twitter)</div>
-                  <div class="item-after">15:32</div>
-                </div>
-                <div class="item-subtitle">John Doe (@_johndoe) mentioned you on Twitter!</div>
-                <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
-              </div></a></div>
-          <div class="swipeout-actions-left"><a href="#" class="bg-green swipeout-overswipe demo-reply">Reply</a><a href="#" class="demo-forward bg-blue">Forward</a></div>
-          <div class="swipeout-actions-right"><a href="#" class="demo-actions">More</a><a href="#" class="demo-mark bg-orange">Mark</a><a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a></div>
-        </li>
-          <li class="swipeout">
-          <div class="swipeout-content"><a href="#" class="item-link item-content">
-              <div class="item-inner">
-                <div class="item-title-row">
-                  <div class="item-title">Facebook</div>
-                  <div class="item-after">17:14</div>
-                </div>
-                <div class="item-subtitle">New messages from John Doe</div>
-                <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
-              </div></a></div>
-          <div class="swipeout-actions-left"><a href="#" class="bg-green swipeout-overswipe demo-reply">Reply</a><a href="#" class="demo-forward bg-blue">Forward</a></div>
-          <div class="swipeout-actions-right"><a href="#" class="demo-actions">More</a><a href="#" class="demo-mark bg-orange">Mark</a><a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a></div>
-        </li>
-        <li class="swipeout">
-          <div class="swipeout-content"><a href="#" class="item-link item-content">
-              <div class="item-inner">
-                <div class="item-title-row">
-                  <div class="item-title">John Doe (via Twitter)</div>
-                  <div class="item-after">17:11</div>
-                </div>
-                <div class="item-subtitle">John Doe (@_johndoe) mentioned you on Twitter!</div>
-                <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
-              </div></a></div>
-          <div class="swipeout-actions-left"><a href="#" class="bg-green swipeout-overswipe demo-reply">Reply</a><a href="#" class="demo-forward bg-blue">Forward</a></div>
-          <div class="swipeout-actions-right"><a href="#" class="demo-actions">More</a><a href="#" class="demo-mark bg-orange">Mark</a><a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a></div>
-        </li>
-        <li class="swipeout">
-          <div class="swipeout-content"><a href="#" class="item-link item-content">
-              <div class="item-inner">
-                <div class="item-title-row">
-                  <div class="item-title">Facebook</div>
-                  <div class="item-after">16:48</div>
-                </div>
-                <div class="item-subtitle">New messages from John Doe</div>
-                <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
-              </div></a></div>
-          <div class="swipeout-actions-left"><a href="#" class="bg-green swipeout-overswipe demo-reply">Reply</a><a href="#" class="demo-forward bg-blue">Forward</a></div>
-          <div class="swipeout-actions-right"><a href="#" class="demo-actions">More</a><a href="#" class="demo-mark bg-orange">Mark</a><a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a></div>
-        </li>
-        <li class="swipeout">
-          <div class="swipeout-content"><a href="#" class="item-link item-content">
-              <div class="item-inner">
-                <div class="item-title-row">
-                  <div class="item-title">Final Doe (via Twitter)</div>
-                  <div class="item-after">15:32</div>
-                </div>
-                <div class="item-subtitle">John Doe (@_johndoe) mentioned you on Twitter!</div>
-                <div class="item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tellus ut turpis condimentum, ut dignissim lacus tincidunt. Cras dolor metus, ultrices condimentum sodales sit amet, pharetra sodales eros. Phasellus vel felis tellus. Mauris rutrum ligula nec dapibus feugiat. In vel dui laoreet, commodo augue id, pulvinar lacus.</div>
-              </div></a></div>
-          <div class="swipeout-actions-left"><a href="#" class="bg-green swipeout-overswipe demo-reply">Reply</a><a href="#" class="demo-forward bg-blue">Forward</a></div>
-          <div class="swipeout-actions-right"><a href="#" class="demo-actions">More</a><a href="#" class="demo-mark bg-orange">Mark</a><a href="#" data-confirm="Are you sure you want to delete this item?" class="swipeout-delete swipeout-overswipe">Delete</a></div>
-        </li>
-      </ul>
-    </div>
+                           <div class="list-block media-list left" style="overflow-y:auto; height: 90%; background-color: white;">
+                                  <ul id="ul_establecimientos">
+                                     <!-- <li class="swipeout">
+                                      <div class="swipeout-content"><a href="#" class="item-link item-content">
+                                          <div class="item-inner">
+                                            <div class="item-title-row">
+                                              <div class="item-title">LA CANTINA DE ANTAÑO</div>
+                                              <div class="item-after"><div class="circulo-categoria"><div class="icn_categoria"><i class="material-icons">audiotrack</i></div></div></div>
+                                            </div>
+                                            <div class="item-text">450 m</div>
+
+                                          </div></a></div>
+
+                                          <div class="swipeout-actions-left">
+                                          <a href="#" class="demo-mark bg-deeppurple"><i class="icon material-icons">favorite</i></a>
+                                          <a href="#" class="demo-mark bg-deeppurple"><i class="icon material-icons">place</i></a>
+                                          <a href="#" class="demo-mark bg-deeppurple"><i class="icon material-icons">details</i></a>
+                                      </div>
+                                    </li>-->
+
+                                </ul>
+                           </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -1267,9 +1183,11 @@
         <script src="js/pathEdos.js"></script>
           <!-- script leaflet-->
         <script src="bower_components/leaflet/leaflet.js"></script>
-        <script src="bower_components/leaflet/markercluster/leaflet.markercluster-src.js"></script>
         <script src="bower_components/leaflet/Leaflet.Control.Custom.js"></script>
-        <!--<script src="bower_components/leaflet/leaflet.ajax.min.js"></script>-->
+        <script src="bower_components/leaflet/pruneCluster/PruneCluster.js"></script>
+        <!--<script src="bower_components/leaflet/markercluster/leaflet.markercluster-src.js"></script>-->
+       
+        
         <!-- turf (geoanalitics)-->
         <script src='bower_components/turf/turf.min.js'></script>  
         <!--firebase-->
@@ -1278,6 +1196,7 @@
         <script src="bower_components/moment/moment-with-locales.min.js"></script>
         <!--introjs-->
         <script src="bower_components/introjs/intro.js"></script>
-        
+        <!--countup-->
+        <script src="bower_components/countupjs/dist/countUp.min.js"></script>
     </body>
 </html>

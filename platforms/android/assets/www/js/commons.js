@@ -180,6 +180,7 @@ var setColor = function(colprev){
         classList.add('theme-' + color);
         //chip user
         $$('#chipUser').removeClass('bg-' + colprev).addClass('bg-' + color); 
+        $$('.demo-mark').removeClass('bg-' + colprev).addClass('bg-' + color);
        // $$(".my-div-icon-cte").removeClass('bg-' + colprev).addClass('bg-' + color);
         //badges y elements
         var elements = document.getElementsByClassName("theme-" + colprev);
@@ -202,6 +203,8 @@ var intro = function(){
     myApp.closePanel('left');
     introJs().start();
 }
+
+
 
 
 
