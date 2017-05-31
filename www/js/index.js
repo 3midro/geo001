@@ -480,7 +480,7 @@ function  drawUEPrune(geoJs){
     });
     map.addLayer(leafletView);
     leafletView.ProcessView(); 
-    if ( $$("#ul_establecimientos li").length>0){$$("#initFiltro").removeAttr("disabled");}
+    if ( $$("#ul_establecimientos li").length>0 && $$("#btnFlipMap>i").text()==='map'){$$("#initFiltro").removeAttr("style");}
 };
 
 function createFicha(feature){

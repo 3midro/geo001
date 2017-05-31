@@ -1142,10 +1142,10 @@ $$('#btnFlipMap').on('click', function () {
     var icn = $$("#btnFlipMap>i").text();
     if (icn === 'map'){
         $$("#btnFlipMap>i").text('view_list');
-        $$("#initFiltro").attr("disabled",true);
+        $$("#initFiltro").hide();
     }else{
         $$("#btnFlipMap>i").text('map');
-        if ( $$("#ul_establecimientos li").length>0){$$("#initFiltro").removeAttr("disabled");}
+        if ( $$("#ul_establecimientos li").length>0){$$("#initFiltro").removeAttr("style");}
     }
     document.querySelector(".flip-container").classList.toggle("flip");
 });
