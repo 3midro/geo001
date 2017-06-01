@@ -296,7 +296,10 @@ function createMap(){
         ruta = L.Routing.control({
          waypoints: [null],
          show: false,
-            languaje: 'es',
+         languaje: 'es',
+         lineOptions: {
+                styles: [{color: 'grey', opacity: 0.6, weight: 6}]
+            },
          autoRoute: true
         }).addTo(map);
         
@@ -498,7 +501,9 @@ function  drawUEPrune(geoJs){
     if ( $$("#ul_establecimientos li").length>0 && $$("#btnFlipMap>i").text()==='map'){$$("#initFiltro").removeAttr("style");}
     /* ========== lista de establecimientos ========= */
         $$("#ul_establecimientos li").on("click", function(){
-            $$(this).toggleClass('list-marked')
+            $$(".swipeout").removeClass('list-marked');
+            $$(this).addClass('list-marked');
+            //$$(this).toggleClass('list-marked')
         });
 };
 
@@ -506,7 +511,7 @@ function createFicha(feature){
    // console.log(feature);
     var scian = translateCategoria(feature.properties.SCIAN);
     var d = getDistance(feature);
-    var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'">'
+    var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+')">'
          + '<div class="swipeout-content"><a href="#" class="item-link item-content">'
         +      '<div class="item-inner">'
           +      '<div class="item-title-row">'
@@ -517,7 +522,7 @@ function createFicha(feature){
               +  '</div></a></div>'
             + '<div class="swipeout-actions-left">'
             +  '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">favorite_border</i></a>'
-            +  '<a href="#" class="demo-mark bg-'+storage.color+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+')"><i class="icon material-icons">place</i></a>'
+            +  '<a href="#" class="demo-mark bg-'+storage.color+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+')"><i class="icon material-icons">directions</i></a>'
             +  '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">details</i></a>'
         + ' </div>'
     +    '</li>';
@@ -585,6 +590,7 @@ function updDistancias(){
 
 function drawRoute(desLat, desLng){
     console.log(desLat + ' ' +desLng);
+    //ruta.setWaypoints(null) // limpia la ruta
     $$("#btnFlipMap").click();
     ruta.setWaypoints([[position._latlng.lat,position._latlng.lng],[desLat, desLng]])
 }
