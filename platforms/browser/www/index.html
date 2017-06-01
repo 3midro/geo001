@@ -28,7 +28,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ws: 'unsafe-inline' data: gap: https://ssl.gstatic.com http://fonts.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' *.tile.osm.org data: *; script-src 'self' http://10.106.12.66/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval'; connect-src 'self' http://geopanda.com.mx http://geo001.geopanda.com.mx 'unsafe-inline' 'unsafe-eval' ; frame-src 'self' 'unsafe-inline' ">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ws: 'unsafe-inline' data: gap: https://ssl.gstatic.com http://fonts.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' *.tile.osm.org data: *; script-src 'self' http://10.106.12.66/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval'; connect-src 'self' http://geopanda.com.mx http://geo001.geopanda.com.mx https://router.project-osrm.org 'unsafe-inline' 'unsafe-eval' ; frame-src 'self' 'unsafe-inline' ">
         <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' *.osm.org data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *">-->
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
@@ -65,10 +65,15 @@
 	    <link rel="stylesheet" href="bower_components/leaflet/markercluster/MarkerCluster.Default.css" />-->
         <!-- leaflet prune clusters-->
         <link rel="stylesheet" href="bower_components/leaflet/pruneCluster/LeafletStyleSheet.css"/>
+        <!-- leaflet router machine-->
+        <link rel="stylesheet" href="bower_components/leaflet/routingmachine/leaflet-routing-machine.css"/>
         <!--font awsome -->
-        <link rel="stylesheet" href="bower_components/font-awesome-4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="bower_components/font-awesome-4.7.0/css/font-awesome.min.css"/>
         <!--introjs-->
-        <link rel="stylesheet" href="bower_components/introjs/introjs.css">
+        <link rel="stylesheet" href="bower_components/introjs/introjs.css"/>
+         <!--animatecss-->
+        <link rel="stylesheet" href="css/animate.css"/>
+        
          
         <title>Brindix Beta 1.0.0</title>
     </head>
@@ -809,8 +814,9 @@
                                   </ul>
                                 </div>
                             
-                           <div class="list-block media-list left search-here searchbar-found" style="overflow-y:auto; height: 90%; background-color: white;">
-                                  <ul id="ul_establecimientos">
+                                <div class="list-block media-list left search-here searchbar-found" style="overflow-y:auto; height: 90%; background-color: white;">
+                                 
+                                    <ul id="ul_establecimientos">
                                      <!-- <li class="swipeout">
                                       <div class="swipeout-content"><a href="#" class="item-link item-content">
                                           <div class="item-inner">
@@ -829,7 +835,10 @@
                                       </div>
                                     </li>-->
                                 </ul>
+                                    
                            </div>
+                            
+                           
                            
                         </div>
                     </div>
@@ -1194,6 +1203,7 @@
         <script src="bower_components/leaflet/leaflet.js"></script>
         <script src="bower_components/leaflet/Leaflet.Control.Custom.js"></script>
         <script src="bower_components/leaflet/pruneCluster/PruneCluster.js"></script>
+        <script src="bower_components/leaflet/routingmachine/leaflet-routing-machine.min.js"></script>
         <!--<script src="bower_components/leaflet/markercluster/leaflet.markercluster-src.js"></script>-->
        
         
@@ -1207,5 +1217,8 @@
         <script src="bower_components/introjs/intro.js"></script>
         <!--countup-->
         <script src="bower_components/countupjs/dist/countUp.min.js"></script>
+        <!--wow-->
+        <!--<script src="bower_components/wow/wow.min.js"></script>-->
+        
     </body>
 </html>
