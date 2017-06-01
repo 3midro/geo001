@@ -1,0 +1,296 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color:#E4E4E4;
+    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image:-webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #A7A7A7),
+        color-stop(0.51, #E4E4E4)
+    );
+    background-attachment:fixed;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size:12px;
+    height:100%;
+    margin:0px;
+    padding:0px;
+    /*text-transform:uppercase;*/
+    width:100%;
+}
+
+/* Portrait layout (default) */
+.app {
+    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
+    position:absolute;             /* position in the center of the screen */
+    left:50%;
+    top:50%;
+    height:50px;                   /* text area height */
+    width:225px;                   /* text area width */
+    text-align:center;
+    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app {
+        background-position:left center;
+        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
+        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
+                                      /* offset horizontal: half of image width and text area width */
+    }
+}
+
+h1 {
+    font-size:24px;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+
+.event {
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    color:#FFFFFF;
+    font-size:12px;
+    margin:0px 30px;
+    padding:2px 0px;
+}
+
+.event.listening {
+    background-color:#333333;
+    display:block;
+}
+
+.event.received {
+    background-color:#4B946A;
+    display:none;
+}
+
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+@-webkit-keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+.blink {
+    animation:fade 3000ms infinite;
+    -webkit-animation:fade 3000ms infinite;
+}
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; } /* Default */
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+.material-icons.md-64 { font-size: 64px; }
+.material-icons.md-200 { font-size: 200px; }
+.material-icons.md-250 { font-size: 250px; }
+.material-icons.md-150 { font-size: 150px; }
+.material-icons.md-100 { font-size: 100px; }
+
+.flex-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  
+  -webkit-flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.flex-item {
+  /*background: tomato;*/
+  padding: 5px;
+  width: 100px;
+  height: 100px;
+  margin-top: 30px;
+  
+  line-height: 100px;
+  color: white;
+  font-weight: bold;
+  font-size: 3em;
+  text-align: center;
+}
+
+.center{
+    text-align: center;
+}
+
+.justify{
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.left{
+    text-align: left;
+}
+
+.right{
+    text-align: right;
+}
+
+#map{
+    height: 90vh;
+    width: 100vw;
+}
+
+
+#vidLogin{
+    position: fixed;
+    min-width: 100%;
+    min-height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: -1;
+}
+
+.login-screen-content>form{
+    background-color: rgba(255,255,255,0.9);
+    padding: 5%;
+    margin: 5%;
+}
+
+.fa-login{
+        transform: rotate(-22deg);
+}
+
+
+/* ====== FLIP MAPA ======= */
+ /* entire container, keeps perspective */
+.flip-container {
+	perspective: 1000px;
+    position: fixed;
+}
+	/* flip the pane when hovered */
+/*	.flip-container:hover .flipper, .flip-container.hover .flipper {
+		transform: rotateY(180deg);
+	}*/
+.flip-container.hover .flipper, .flip-container.flip .flipper {
+	transform: rotateY(180deg);
+}
+
+.flip-container {
+	height: 90vh;
+    width: 100vw;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front_, .back_ {
+	backface-visibility: hidden;
+    background-color: whitesmoke;
+	position: absolute;
+	/*top: 0;*/
+	left: 0;
+}
+
+/* front pane, placed above back */
+.front_ {
+	z-index: 2;
+    top: 0px;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+    height: 90vh;
+    width: 100vw;
+}
+
+/* back, initially hidden pane */
+.back_ {
+	transform: rotateY(180deg);
+    top: -20px!important;
+   /* height: 100vh!important;*/
+    height: 100vh;
+    width: 100vw;
+}
+
+/* btn-group*/
+.btn-group-vertical a {
+    /*border: 1px solid rgba(0,0,0,0.2); */
+    border-bottom: 1px solid #ccc
+}
+
+.btn-group-vertical a:first-child {
+    border-radius: 7px 7px 0px 0px; 
+}
+
+.btn-group-vertical a:last-child {
+    border-radius: 0px 0px 7px 7px; 
+}
+
+.demo-mark:first-child{
+        background-color: rgba(255,255,255,0.3)!important;
+}
+
+.demo-mark:nth-child(2){
+       background-color: rgba(255,255,255,0.2)!important;
+}
+
+.circulo-categoria{
+    border-radius:50px;
+    width:23px;
+    height:23px;
+     background-color:gainsboro;
+   /* margin-top: 20px;*/
+}
+
+.icn_categoria{
+    color:dimgray;
+    margin-left: 4px;
+    margin-top: 4px;
+   /* line-height:50px;
+    text-align: center;*/
+}
+
+.icn_categoria>.material-icons{
+    font-size: 15px!important;
+    position: absolute;
+}

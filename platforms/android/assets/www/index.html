@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html lang="es">
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ws: 'unsafe-inline' data: gap: https://ssl.gstatic.com http://fonts.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' *.tile.osm.org data: *; script-src 'self' http://10.106.12.66/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval'; connect-src 'self' http://geopanda.com.mx http://geo001.geopanda.com.mx 'unsafe-inline' 'unsafe-eval' ; frame-src 'self' 'unsafe-inline' ">
+        <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' *.osm.org data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *">-->
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        
+        <!--meta framework7-->
+       <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="theme-color" content="#2196f3">
+        
+        <!--csss cordova-->
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        
+         <!--css framework7-->
+        <link rel="stylesheet" href="material/css/framework7.material.css">
+        <link rel="stylesheet" href="material/css/framework7.material.colors.css">
+        <!--<link href="http://fonts.googleapis.com/css?family=Roboto:400,300,500,700" rel="stylesheet" type="text/css">-->
+        <link rel="stylesheet" href="css/roboto?family=Roboto:400,500,700" type="text/css">
+        <link rel="stylesheet" href="material/css/material-icons.css">
+        <link rel="stylesheet" href="material/css/kitchen-sink.css">
+        <link rel="icon" href="material/img/icon.png">
+        
+        <!--css welcome screen -->
+        <link rel="stylesheet" href="css/welcomescreen.css">
+        
+        <!--leaflet -->
+        <link rel="stylesheet" href="bower_components/leaflet/leaflet.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <!-- leaflet marker clusters-->
+	    <!--<link rel="stylesheet" href="bower_components/leaflet/markercluster/MarkerCluster.css" />
+	    <link rel="stylesheet" href="bower_components/leaflet/markercluster/MarkerCluster.Default.css" />-->
+        <!-- leaflet prune clusters-->
+        <link rel="stylesheet" href="bower_components/leaflet/pruneCluster/LeafletStyleSheet.css"/>
+        <!--font awsome -->
+        <link rel="stylesheet" href="bower_components/font-awesome-4.7.0/css/font-awesome.min.css">
+        <!--introjs-->
+        <link rel="stylesheet" href="bower_components/introjs/introjs.css">
+         
+        <title>Brindix Beta 1.0.0</title>
+    </head>
+    <body>
+        
+        <div class="statusbar-overlay"></div>
+    <div class="panel-overlay"></div>
+    <div class="panel panel-left panel-cover">
+      <div class="view navbar-fixed view-left">
+        <div class="pages">
+          <div data-page="panel-left" class="page">
+            <div class="page-content">
+                 
+              <div class="content-block center">
+                  <div class="chip" id="chipUsuario">
+                    <div class="chip-media bg-deeppurple" id="chipUser"><i class="material-icons">person</i></div>
+                    <div class="chip-label">Edd Sarellano</div>
+                  </div>
+                  <p><a href="#" class="button button-raised open-login-screen button-big button-fill">INICIAR SESI&Oacute;N</a></p>
+                  <p><a href="#" class="button button-big button-raised button-fill" onclick="testPHP();">TEST PHP</a></p>
+            </div>
+                
+                <div class="content-block-title">Ubicaci&oacute;n</div>
+                 <div class="list-block">
+                          <ul>
+                            <li><a href="#" id="location" class="item-link smart-select" data-back-on-select="true">
+                                <select name="location" class="my-location">
+                                    <option value="01" data-display-as="AGU">Aguascalientes</option>
+                                    <option value="02" data-display-as="BCN">Baja California</option>
+                                    <option value="03" data-display-as="BCS">Baja California Sur</option>
+                                    <option value="04" data-display-as="CAM">Campeche</option>
+                                    <option value="05" data-display-as="COA">Coahuila</option>
+                                    <option value="06" data-display-as="COL">Colima</option>
+                                    <option value="07" data-display-as="CHP">Chiapas</option>
+                                    <option value="08" data-display-as="CHH">Chihuahua</option>
+                                    <option value="09" data-display-as="CDMX">CDMX</option>
+                                    <option value="10" data-display-as="DUR">Durango</option>
+                                    <option value="11" data-display-as="GUA">Guanajuato</option>
+                                    <option value="12" data-display-as="GRO">Guerrero</option>
+                                    <option value="13" data-display-as="HID">Hidalgo</option>
+                                    <option value="14" data-display-as="JAL">Jalisco</option>
+                                    <option value="15" data-display-as="MEX">M&eacute;xico</option>
+                                    <option value="16" data-display-as="MIC">Michoac&aacute;n </option>
+                                    <option value="17" data-display-as="MOR">Morelos</option>
+                                    <option value="18" data-display-as="NAY">Nayarit</option>
+                                    <option value="19" data-display-as="NLE">Nuevo Le&oacute;n</option>
+                                    <option value="20" data-display-as="OAX">Oaxaca</option>
+                                    <option value="21" data-display-as="PUE">Puebla</option>
+                                    <option value="22" data-display-as="QUE">Quer&eacute;taro</option>
+                                    <option value="23" data-display-as="ROO">Quintana Roo</option>
+                                    <option value="24" data-display-as="SLP">San Luis Potos&iacute;</option>
+                                    <option value="25" data-display-as="SIN">Sinaloa</option>
+                                    <option value="26" data-display-as="SON">Sonora</option>
+                                    <option value="27" data-display-as="TAB">Tabasco</option>
+                                    <option value="28" data-display-as="TAM">Tamaulipas</option>
+                                    <option value="29" data-display-as="TLA">Tlaxcala</option>
+                                    <option value="30" data-display-as="VER">Veracruz</option>
+                                    <option value="31" data-display-as="YUC">Yucat&aacute;n</option>
+                                    <option value="32" data-display-as="ZAC">Zacatecas</option>
+                                </select>
+                                <div class="item-content">
+                              <div class="item-media"><i class="material-icons color-gray">my_location</i></div>
+                              <div class="item-inner">
+                                <div class="item-title" hidden="hidden">Ubicaci&oacute;n</div>
+                                  <!-- Additional "smart-select-value" class to set selected option depending on this text value -->
+                                   <!-- <div class="item-after smart-select-value"></div>-->
+                              </div>
+                            </div></a></li>
+                          </ul>
+                        </div>
+                
+                
+                <div class="content-block">
+                    
+                   
+                   <!-- 
+                    <div class="content-block-title">Ubicaci&oacute;n</div>
+                    <div class="list-block">
+                        <ul>
+                               <li><a href="#" class="item-link smart-select">
+                                <select name="mac-windows">
+                                  <option value="mac" selected="selected">Mac</option>
+                                  <option value="windows">Windows</option>
+                                </select>
+                                 <div class="item-content">
+                              <div class="item-media"><i class="material-icons color-gray">my_location</i></div>
+                              <div class="item-inner">
+                                <div class="item-title" hidden="hidden">Ubicaci&oacute;n</div>
+                              </div>
+                            </div></a></li>
+                        </ul>
+                    </div>
+                    
+                    
+                    
+                <div class="list-block">
+                      <ul>
+                           <li><a href="#" class="item-link smart-select">
+                            <select name="locationEdo" multiple="multiple">
+                              <optgroup label="Claras">
+                                <option value="honda">Aguascalientes</option>
+                                <option value="mazda">Baja California</option>  
+                                <option value="mazda">Baja California Sur</option>
+                              </optgroup>
+                            </select>
+                            <div class="item-content">
+                              <div class="item-media"><i class="material-icons color-gray">my_location</i></div>
+                              <div class="item-inner">
+                                <div class="item-title" hidden="hidden">Ubicaci&oacute;n</div>
+                              </div>
+                            </div></a></li>
+                      </ul>
+                    </div>  -->
+                    <div class="content-block" id="geolocation"></div>
+                    
+                    <div class="content-block-title">Usuario</div>
+                    <div class="list-block">
+                        <ul>
+                              
+                          <li><a href="material/data-table.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons color-gray">local_pizza</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Fiestas</div> <!-- mis fiestas-->
+                                      <div class="item-after"><span class="badge theme-deeppurple">2</span></div>
+                                    </div>
+                                  </div></a></li>
+                            <!-- mi presupuesto-->
+                            <!--<li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons color-gray">account_balance_wallet</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Cartera </div> 
+                                    </div>
+                                  </div></a></li>-->
+                            <li><a href="color-themes.html" class="item-link">
+                                      <div class="item-content">
+                                        <div class="item-media"><i class="material-icons color-gray">card_giftcard</i></div>
+                                        <div class="item-inner">
+                                          <div class="item-title">Regalos</div>
+                                            <div class="item-after"><span class="badge theme-deeppurple">5</span></div>
+                                        </div>
+                                      </div></a>
+                                </li>
+                            <!--<li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons color-gray">pie_chart</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Reportes</div>
+                                    </div>
+                                  </div></a></li>-->
+                                <!--usuario-->
+                             <!--<li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons color-gray">headset_mic</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Gu&iacute;a</div>
+                                    </div>
+                                  </div></a></li> -->
+                        </ul>
+                    </div>
+                </div>
+                
+                 <div class="content-block">
+                     <div class="content-block-title">Cliente</div>
+                    <div class="list-block">
+                        <ul>
+                            <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">store</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Sucursales</div>
+                                    </div>
+                                  </div></a></li>
+                            <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">monetization_on</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Precios</div>
+                                    </div>
+                                  </div></a></li>
+                            <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">local_offer</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Promos</div>
+                                    </div>
+                                  </div></a></li>
+                            <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">schedule</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Horarios</div>
+                                    </div>
+                                  </div></a></li>
+                            <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">credit_card</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Tipo Pago</div>
+                                    </div>
+                                  </div></a></li>
+                             <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">whatshot</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Cotizar</div>
+                                    </div>
+                                  </div></a></li>
+                             <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">pie_chart</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Reportes</div>
+                                    </div>
+                                  </div></a></li>
+                            <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">headset_mic</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Gu&iacute;a</div><!--cliente-->
+                                    </div>
+                                  </div></a></li> 
+                            
+                        </ul>
+                    </div>
+                </div>
+                
+                 <div class="content-block">
+                     <div class="content-block-title">ERP</div>
+                    <div class="list-block">
+                        <ul>
+                            <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">dashboard</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Dashboard</div>
+                                    </div>
+                                  </div></a></li>
+                             <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">store<sup>add</sup></i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Sucursal </div> <!-- add NEW sucursal -->
+                                    </div>
+                                  </div></a></li>
+                             <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">person<sup>add</sup></i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Cliente</div> <!-- add NEW CLiente-->
+                                    </div>
+                                  </div></a></li>
+                             <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">card_membership<sup>add</sup></i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Membresia</div> <!-- NEW Membresia (asigna una o mas sucursales a una membresia-->
+                                    </div>
+                                  </div></a></li>
+                             <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">pie_chart</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Reportes</div>
+                                    </div>
+                                  </div></a></li>
+                             <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">headset_mic</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Gu&iacute;a</div><!--ERP-->
+                                    </div>
+                                  </div></a></li> 
+                           
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="content-block">
+                    <div class="content-block-title">Herramientas Comunes</div>
+                    <div class="list-block">
+                        <ul>
+                              <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons color-gray">question_answer</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Mensajes</div>
+                                      <div class="item-after"><span class="badge theme-deeppurple">2</span></div>
+                                    </div>
+                                  </div></a></li>
+                             <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons color-gray">notifications</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Notificaciones</div>
+                                      <div class="item-after"><span class="badge theme-deeppurple">4</span></div>
+                                    </div>
+                                  </div></a></li>
+                            
+                        
+                            <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons color-gray">color_lens</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Color</div>
+                                    </div>
+                                  </div></a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="content-block">
+                     <div class="content-block-title">Cuenta</div>
+                    <div class="list-block">
+                        <ul>
+                              <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">account_circle</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Perfil</div>
+                                    </div>
+                                  </div></a></li> 
+                          <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">receipt</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Facturaci&oacute;n</div>
+                                    </div>
+                                  </div></a></li>
+                            <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">payment</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Pago</div>
+                                    </div>
+                                  </div></a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                 <div class="content-block">
+                     <div class="content-block-title">Ayuda</div>
+                    <div class="list-block">
+                        <ul>
+                            <li><a href="guia-seguridad.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons color-gray">security<sup>check</sup></i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Seguridad</div>
+                                    </div>
+                                  </div></a></li>
+                              <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">headset_mic</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Soporte</div>
+                                    </div>
+                                </div></a></li>
+                          <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">help</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">FAQ</div>
+                                    </div>
+                                  </div></a></li>
+                              <li onclick="javascript:intro();"><a href="javascript:void(0);" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">touch_app</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Tutorial</div>
+                                    </div>
+                                  </div></a></li>
+                              <li><a href="#" class="item-link" onclick="javascript: storage.removeItem('welcome');welcomeScreen();"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons  color-gray">screen_share<sup>check</sup></i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Bienvenida</div>
+                                    </div>
+                                  </div></a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="content-block">
+                    <div class="content-block-title">Informaci&oacute;n</div>
+                    <div class="list-block">
+                        <ul>
+                            <li><a href="about.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">business<sup>check</sup></i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Nosotros</div>
+                                    </div>
+                                  </div></a></li>
+                              <li><a href="legal.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">gavel<sup>check</sup></i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Legal</div><!-- condiciones de uso -->
+                                    </div>
+                                  </div></a></li> 
+                            <li><a href="privacidad.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">screen_lock_portrait<sup>check</sup></i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Privacidad</div><!--  aviso privacidad-->
+                                    </div>
+                                  </div></a></li> 
+                          <li><a href="version.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">smartphone<sup>check</sup></i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Versi&oacute;n</div>
+                                    </div>
+                                  </div></a></li>
+                            <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons">share</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Compartir</div>
+                                    </div>
+                                  </div></a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                
+                
+                
+              
+               
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-right panel-reveal">
+      <div class="view view-right">
+        <div class="pages navbar-fixed">
+          <div data-page="panel-right1" class="page">
+            <div class="navbar">
+              <div class="navbar-inner">
+                <div class="center">
+                  <!--Buscar--> Filtrar
+                    <!--<form data-search-list=".search-here" data-search-in=".item-title" class="searchbar searchbar-init">
+                        <div class="searchbar-input">
+                          <input type="search" placeholder="Busca un lugar"/><a href="#" class="searchbar-clear"></a>
+                        </div>
+                      </form>-->
+                  </div>
+                  <div class="right"><a href="#" class="link icon-only close-panel"><i class="icon material-icons">close</i></a></div>
+              </div>
+            </div>
+            <div class="page-content">
+                <!--<div class="content-block-title">Por el nombre del establecimiento</div>
+                <div class="list-block">
+                    <form data-search-list=".search-here" data-search-in=".item-title" class="searchbar searchbar-init">
+                        <div class="searchbar-input">
+                          <input type="search" placeholder="Busca un lugar"/><a href="#" class="searchbar-clear"></a>
+                        </div>
+                      </form>
+                </div>-->
+                <form class="store-data">
+                <div class="content-block-title">Giro Establecimiento</div>
+                <div class="list-block">
+                    <ul>
+                        <li>
+                          <label class="label-checkbox item-content">
+                            <input type="checkbox" name="ks-giro" value="audiotrack" checked="checked"/>
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="item-inner">
+                              <div class="item-title">Antros, Discos</div>
+                                <div class="item-after"><i class="icon material-icons">audiotrack</i></div>
+                            </div>
+                          </label>
+                        </li>
+                        <li>
+                          <label class="label-checkbox item-content">
+                            <input type="checkbox" name="ks-giro" value="local_bar" checked="checked"/>
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="item-inner">
+                             <div class="item-title">Bares, Cantinas</div>
+                                <div class="item-after"><i class="icon material-icons">local_bar</i></div>
+                            </div>
+                          </label>
+                        </li>
+                        <li>
+                          <label class="label-checkbox item-content">
+                            <input type="checkbox" name="ks-giro" value="local_drink" checked="checked"/>
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="item-inner">
+                              <div class="item-title">Venta Cerveza</div>
+                                <div class="item-after"><i class="icon material-icons">local_drink</i></div>
+                            </div>
+                          </label>
+                        </li>
+                        <li>
+                          <label class="label-checkbox item-content">
+                            <input type="checkbox" name="ks-giro" value="store" checked="checked"/>
+                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="item-inner">
+                              <div class="item-title">Vinaterias</div>
+                                <div class="item-after"><i class="icon material-icons">store</i></div>
+                            </div>
+                          </label>
+                        </li>
+                      </ul>
+                </div>
+                
+                 <div class="content-block-title">Cercania</div>
+                        <div class="list-block">
+                            <div class="item-content">
+                            <div class="item-media"><i class="icon material-icons color-gray">directions_walk</i></div>
+                            <div class="item-inner">
+                              <div class="item-title label center">3 km</div>
+                              <div class="item-input">
+                                <div class="range-slider">
+                                  <input type="range" min="1" max="8" value="3" step="1" data-text-min data-text-max data-prefix data-postfix=" km"/>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                
+                
+                
+               <!-- <div class="content-block-title">Presupuesto</div>
+                        <div class="list-block">
+                            <div class="item-content">
+                            <div class="item-media"><i class="icon material-icons color-gray">account_balance_wallet</i></div>
+                            <div class="item-inner">
+                              <div class="item-title label center">vida de papu</div>
+                              <div class="item-input">
+                                <div class="range-slider">
+                                  <input type="range" min="50" max="1000" value="1000" step="50" data-text-min="vida de sholo" data-text-max="vida de papu" data-prefix="$ " data-postfix=".00 MXN"/>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>-->
+                
+                
+               <!-- <div class="content-block-title">Gustos</div>
+                <div class="list-block">
+                      <ul>
+                        <li><a href="#" class="item-link smart-select">
+                            <select name="car" multiple="multiple">
+                              <optgroup label="Lagers">
+                                <option value="honda">American Lager</option>
+                                <option value="lexus">Pilsner</option>
+                                <option value="mazda">Dunkel</option>
+                                <option value="nissan">Bock</option>
+                              </optgroup>
+                              <optgroup label="Ales">
+                                <option value="audi">Barley Wine</option>
+                                <option value="bmw">Pale Ale</option>
+                                <option value="mercedes">Porter</option>
+                                <option value="vw">Stoul</option>
+                              </optgroup>
+                            </select>
+                            <div class="item-content">
+                            <div class="item-media"><i class="material-icons color-gray">local_drink</i></div>
+                              <div class="item-inner">
+                                <div class="item-title" hidden="hidden">Cerveza</div>
+                              </div>
+                            </div></a></li>
+                          <li><a href="#" class="item-link smart-select">
+                            <select name="car2" multiple="multiple">
+                              <optgroup label="Fermentadas">
+                                <option value="honda">Vino (base UVA)</option>
+                                <option value="lexus">Sidra</option>
+                                <option value="mazda">Vino de fruta</option>
+                                <option value="nissan">Sake</option>
+                                <option value="toyota">Hidromiel</option>
+                                <option value="toyota">Pulque</option>
+                              </optgroup>
+                              <optgroup label="Destiladas">
+                                <option value="audi">Pisco</option>
+                                <option value="bmw">Grapa</option>
+                                <option value="mercedes">Ron</option>
+                                <option value="vw">Cachaza</option>
+                                <option value="volvo">Cocuy</option>
+                                <option value="volvo">Tequila</option>
+                                <option value="volvo">Mezcal</option>
+                                <option value="volvo">Brandy</option>  
+                                <option value="volvo">Whisky escoc&eacute;s</option>
+                                <option value="volvo">Whiskey americano</option>
+                                <option value="volvo">Ginebra</option>
+                                <option value="volvo">Vodka</option>
+                                <option value="volvo">Licor</option>
+                              </optgroup>
+                            </select>
+                            <div class="item-content">
+                            <div class="item-media"><i class="material-icons color-gray">local_bar</i></div>
+                              <div class="item-inner">
+                                <div class="item-title" hidden="hidden">Tipo bebida</div>
+                              </div>
+                            </div></a></li>
+                       
+                      </ul>
+                    </div>-->
+                            
+                <!--<div class="content-block-title">Marca</div>
+                <div class="list-block">
+                      <ul>
+                           <li><a href="#" class="item-link smart-select">
+                            <select name="car" multiple="multiple">
+                              <optgroup label="Claras">
+                                <option value="honda">Corona</option>
+                                <option value="mazda">Tecate</option>  
+                                <option value="mazda">Sol</option>
+                                <option value="toyota">Heineken</option>
+                                <option value="mercedes">Carta Blanca</option>
+                              </optgroup>
+                              <optgroup label="Obscuras">
+                                <option value="mazda">Modelo</option>
+                                <option value="mazda">Victoria</option>
+                                <option value="mazda">Indio</option>  
+                                <option value="nissan">Le&oacute;n</option>
+                                <option value="mazda">Bohemia</option>
+                                <option value="mazda">Barrilito</option>
+                                <option value="mazda">P&aacute;cifico</option>
+                              </optgroup>
+                            </select>
+                            <div class="item-content">
+                              <div class="item-media"><i class="material-icons color-gray">local_drink</i></div>
+                              <div class="item-inner">
+                                <div class="item-title" hidden="hidden">Cerveza</div>
+                              </div>
+                            </div></a></li>
+                          
+                          
+                          
+                        <li><a href="#" class="item-link smart-select">
+                            <select name="car" multiple="multiple">
+                              <optgroup label="Ron">
+                                <option value="honda">Antilano</option>
+                                <option value="honda">Bacardi</option>
+                                <option value="lexus">Capitan Morgan</option>
+                                <option value="mazda">Matusalem</option>
+                                <option value="nissan">Appleton</option>
+                                <option value="nissan">Baraima</option>
+                                <option value="toyota">Flor de can&tilde;a</option>
+                                <option value="nissan">Zacapa</option>
+                                <option value="nissan">Carta Blanca</option>
+                                <option value="nissan">Kraken</option>
+                                <option value="nissan">Malibu</option>
+                                <option value="nissan">Abuelo</option>
+                              </optgroup>
+                              <optgroup label="Brandy">
+                                <option value="audi">Presidente</option>
+                                <option value="bmw">Torres</option>
+                                <option value="mercedes">Azteca de Oro</option>
+                                <option value="vw">Pedro Domecq</option>
+                                <option value="volvo">Don Pedro</option>
+                              </optgroup>
+                              <optgroup label="Vodka">
+                                <option value="cadillac">Absolut</option>
+                                <option value="chrysler">Zaverich</option>
+                                <option value="dodge">Smirnoff</option>
+                                <option value="ford">Sky</option>
+                                <option value="ford">Wyborowa</option>
+                                <option value="ford">Stolichnaya</option>
+                                <option value="ford">Grey Goose</option>
+                                <option value="ford">Oso Negro</option>
+                                <option value="ford">Gotland</option>
+                                <option value="ford">Karat</option>
+                                <option value="ford">Finlandia</option>
+                                <option value="ford">Gorloska</option>
+                                <option value="ford">Ketel</option>
+                                <option value="ford">Ciroc</option>
+                                <option value="ford">Tanqueray Sterling</option>
+                              </optgroup>
+                            </select>
+                            <div class="item-content">
+                            <div class="item-media"><i class="material-icons color-gray">local_bar</i></div>
+                              <div class="item-inner">
+                                <div class="item-title" hidden="hidden">Bebidas</div>
+                              </div>
+                            </div></a></li>
+                      
+                      </ul>
+                    </div> --> 
+                
+                </form>
+                      
+             
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      
+          
+     <div class="views">
+      <div class="view view-main">
+        <div class="pages navbar-fixed">
+          <div data-page="index" class="page">
+            <div class="navbar">
+              <div class="navbar-inner">
+                <div class="left"><a href="#" class="open-panel link icon-only"><i class="icon icon-bars"></i></a></div>
+                  <div class="center">
+                  <form data-search-list=".search-here" data-search-in=".item-title" class="searchbar searchbar-init">
+                        <div class="searchbar-input">
+                          <input type="search" placeholder=" Buscar"/><a href="#" class="searchbar-clear"></a>
+                        </div>
+                      </form>
+                  
+                  </div>
+                <div class="right">
+                    <a href="#" class="link icon-only" id="btnFlipMap"><i class="icon material-icons">view_list</i></a>
+                    <!--<a href="#" data-panel="right" class="open-panel link icon-only"><i class="icon material-icons">layers</i></a>-->
+                    <a href="#" data-panel="right" class="open-panel link icon-only"><i class="icon material-icons">tune</i></a></div>
+              </div>
+            </div>
+            <!--<a href="#" class="floating-button theme-deeppurple"><i class="icon material-icons">layers</i></a>  -->
+            <div class="page-content">
+                <div class="flip-container">
+                    <div class="flipper">
+                        <div class="front_">
+                            <!-- front content -->
+                            <div id="map"></div>
+                        </div>
+                        <div class="back_ center">
+                            <!-- back content -->
+                           <!--<div class="content-block-title"><i class="material-icons icon-only">arrow_back</i> Desliza para ver la magia<i class="material-icons icon-only">arrow_forward</i></div>-->
+                           <div class="list-block media-list left" style="overflow-y:auto; height: 90%; background-color: white;">
+                                  <ul id="ul_establecimientos">
+                                     <!-- <li class="swipeout">
+                                      <div class="swipeout-content"><a href="#" class="item-link item-content">
+                                          <div class="item-inner">
+                                            <div class="item-title-row">
+                                              <div class="item-title">LA CANTINA DE ANTAÑO</div>
+                                              <div class="item-after"><div class="circulo-categoria"><div class="icn_categoria"><i class="material-icons">audiotrack</i></div></div></div>
+                                            </div>
+                                            <div class="item-text">450 m</div>
+
+                                          </div></a></div>
+
+                                          <div class="swipeout-actions-left">
+                                          <a href="#" class="demo-mark bg-deeppurple"><i class="icon material-icons">favorite</i></a>
+                                          <a href="#" class="demo-mark bg-deeppurple"><i class="icon material-icons">place</i></a>
+                                          <a href="#" class="demo-mark bg-deeppurple"><i class="icon material-icons">details</i></a>
+                                      </div>
+                                    </li>-->
+
+                                </ul>
+                           </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+                
+                
+             <!-- <div class="content-block-title">Welcome To Framework7</div>
+              <div class="content-block"><a href="about.html" class="button button-raised">About Framework7</a></div>
+              <div class="content-block-title">Framework7 Kitchen Sink</div>-->
+              <!--<div class="list-block">
+                <ul>
+                  <li><a href="accordion.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Accordion</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="autocomplete.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Autocomplete</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="calendar.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Calendar / Datepicker</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="cards.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Cards</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="chips.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Chips</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="contacts.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Contacts List</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="floating-button.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Floating Action Button</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="forms.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Forms</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="grid.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Grid</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="icons.html" class="item-link"> 
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner"> 
+                          <div class="item-title">Icons</div>
+                          <div class="item-after"><span class="badge bg-green">932</span></div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="infinite-scroll.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Infinite Scroll</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="lazy-load.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Lazy Load Images</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="list-view.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">List View</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="login-screen.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Login Screen</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="media-lists.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Media Lists</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="messages.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Messages</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="modals.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Modals</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="bars.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Navbars And Toolbars</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="notifications.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Notifications</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="photo-browser.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Photo Browser</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="picker.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Picker</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="popover.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Popover</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="preloader.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Preloader</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="progressbar.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Progress Bar</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="pull-to-refresh.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Pull To Refresh</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="searchbar.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Search Bar</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="panels.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Side Panels</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="sortable-list.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Sortable List</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="swipe-delete.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Swipe To Delete</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="swiper.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Swiper Slider</div>
+                          <div class="item-after"><span class="badge bg-green">NEW</span></div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="tabs.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Tabs</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="timeline.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Timeline</div>
+                          <div class="item-after"><span class="badge bg-green">NEW</span></div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="virtual-list.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Virtual List</div>
+                        </div>
+                      </div></a></li>
+                </ul>
+              </div>
+              <div class="list-block">
+                <ul>
+                  <li><a href="animation.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Animation</div>
+                          <div class="item-after"><span class="badge bg-green">NEW</span></div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="color-themes.html" class="item-link">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Color Themes</div>
+                        </div>
+                      </div></a></li>
+                  <li><a href="#" class="item-link ks-generate-page">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Dynamically Generated Content</div>
+                        </div>
+                      </div></a></li>
+                </ul>
+              </div>
+              <div class="list-block">
+                <ul>
+                  <li><a href="core-features.html" class="item-link ks-generate-page">
+                      <div class="item-content">
+                        <div class="item-media"><i class="icon icon-f7"></i></div>
+                        <div class="item-inner">
+                          <div class="item-title">Core Features</div>
+                        </div>
+                      </div></a></li>
+                </ul>
+              </div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>      
+          
+        <div class="app">
+             <h1>Apache Cordova</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+            </div>
+            <!--<div id="geolocation">Aqui va la posicion</div>-->
+        </div>
+        
+        <div class="login-screen">
+      <div class="view">
+        <div class="page">
+          <div class="page-content login-screen-content">
+              <video src="img/giphy.mp4" id="vidLogin" autoplay muted loop autobuffer type="video/mp4" poster="img/welcome/0.jpg"></video>
+            <div class="login-screen-title"><i class="icon material-icons">lock</i></div>
+            <form>
+              <div class="list-block inputs-list">
+                <ul>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Usuario</div>
+                      <div class="item-input">
+                        <input type="text" name="username" placeholder="Usuario">
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Contrase&ntilde;a</div>
+                      <div class="item-input">
+                        <input type="password" name="password" placeholder="Contrase&ntilde;a">
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="content-block"><a href="#" class="button button-big button-big button-fill">Iniciar Sesi&oacute;n</a></div>
+              <div class="content-block">
+                <div class="list-block-label">¿No tienes cuenta? <a href="#">Crea una cuenta</a> o registrate utilizando tus redes sociales
+                    <p class="buttons-row">
+                        <a href="#" class="button button-big button-fill button-raised color-indigo"><i class="fa fa-facebook-f fa-4x fa-login" ></i></a>
+                        <a href="#" class="button button-big button-fill button-raised color-cyan"><i class="fa fa-twitter fa-4x fa-login" ></i></a>
+                        <a href="#" class="button button-big button-fill button-raised color-red"><i class="fa fa-google-plus fa-4x fa-login" ></i></a>
+                    </p>
+                  </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+        
+        <!-- commons y services -->
+        <script type="text/javascript" src="js/commons.js"></script>
+        <script type="text/javascript" src="js/services.js"></script>
+        
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        
+        <!-- scripts framework7-->
+        <script type="text/javascript" src="material/js/framework7.js"></script>
+        <script type="text/javascript" src="material/js/kitchen-sink.js"></script>
+        
+        
+        
+        <!-- scripts welcomescreen-->
+        <script src="js/welcomescreen.js"></script>
+         <!-- path Estados-->
+        <script src="js/pathEdos.js"></script>
+          <!-- script leaflet-->
+        <script src="bower_components/leaflet/leaflet.js"></script>
+        <script src="bower_components/leaflet/Leaflet.Control.Custom.js"></script>
+        <script src="bower_components/leaflet/pruneCluster/PruneCluster.js"></script>
+        <!--<script src="bower_components/leaflet/markercluster/leaflet.markercluster-src.js"></script>-->
+       
+        
+        <!-- turf (geoanalitics)-->
+        <script src='bower_components/turf/turf.min.js'></script>  
+        <!--firebase-->
+        <script src="bower_components/firebase/firebase.js"></script>
+        <!--moment-with-locales-->
+        <script src="bower_components/moment/moment-with-locales.min.js"></script>
+        <!--introjs-->
+        <script src="bower_components/introjs/intro.js"></script>
+        <!--countup-->
+        <script src="bower_components/countupjs/dist/countUp.min.js"></script>
+    </body>
+</html>
