@@ -1140,7 +1140,13 @@ myApp.onPageInit('animation', function (page) {
 
 $$('#btnFlipMap').on('click', function () {
     var icn = $$("#btnFlipMap>i").text();
-    (icn === 'map')?$$("#btnFlipMap>i").text('view_list'):$$("#btnFlipMap>i").text('map');
+    if (icn === 'map'){
+        $$("#btnFlipMap>i").text('view_list');
+        $$("#initFiltro").hide();
+    }else{
+        $$("#btnFlipMap>i").text('map');
+        if ( $$("#ul_establecimientos li").length>0){$$("#initFiltro").removeAttr("style");}
+    }
     document.querySelector(".flip-container").classList.toggle("flip");
 });
 
@@ -1172,4 +1178,6 @@ $$('.my-location').on('change', function(e){
 $$('input[type=checkbox][name=ks-giro]').on('change',function(){
     syncFiltros(this.value,this.checked);
 });
+
+
 

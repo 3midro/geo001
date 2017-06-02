@@ -17,7 +17,7 @@
  * under the License.
  */
 
-var watchID; var lat; var lon; var position; var frame;
+var watchID; var lat; var lon; var position; var frame; var ruta;
 
 var app = {
     // Application Constructor
@@ -231,7 +231,7 @@ function createMap(){
             dragging:true,
             zoomControl:true,
             maxZoom: 18,
-            minZoom: 14
+            //minZoom: 14
         }).setView([21.8782892, -102.3050335], 16); 
             L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
                 detectRetina: true
@@ -291,6 +291,20 @@ function createMap(){
                 }
             }).addTo(map);
         
+        // inicializa el routing
+        
+        ruta = L.Routing.control({
+         waypoints: [null],
+         show: false,
+         languaje: 'es',
+         draggableWaypoints:false,
+         lineOptions: {
+                styles: [{color: 'grey', opacity: 0.6, weight: 6}]
+            },
+         autoRoute: true
+        }).addTo(map);
+        
+        //
         //agrega los listen para los zoom y los dragend
         map.on('zoomend', function() { decluster();getDenue();});
         map.on('dragend', function() { getDenue();});
@@ -344,6 +358,9 @@ function setInitialView() {
         }
         console.log(error.code + '|' + error.message);
     }, { enableHighAccuracy: true, timeout: 3000  });
+    
+    
+        
 }
     
 function getDistance(to, from){
@@ -401,7 +418,8 @@ var syncFiltros = function (filtro, ch){
     }
     leafletView.ProcessView();
     //filtrar la lista por clase
-    (ch)?$$(".swipeout."+filtro).show():$$(".swipeout."+filtro).hide();
+    
+    (ch)?$$(".swipeout."+filtro).removeClass('hidden-by-searchbar'):$$(".swipeout."+filtro).addClass('hidden-by-searchbar');
 }
 
 var syncMyPos = function (filtro, ch){
@@ -476,17 +494,25 @@ function  drawUEPrune(geoJs){
            //marker.filtered = !(filters.include(parseInt(feature.properties.SCIAN)));
            leafletView.RegisterMarker(marker);
            createFicha(feature);
+            console.log(feature);
         }
     });
     map.addLayer(leafletView);
     leafletView.ProcessView(); 
+    if ( $$("#ul_establecimientos li").length>0 && $$("#btnFlipMap>i").text()==='map'){$$("#initFiltro").removeAttr("style");}
+    /* ========== lista de establecimientos ========= */
+        $$("#ul_establecimientos li").on("click", function(){
+            $$(".swipeout").removeClass('list-marked');
+            $$(this).addClass('list-marked');
+            //$$(this).toggleClass('list-marked')
+        });
 };
 
 function createFicha(feature){
    // console.log(feature);
     var scian = translateCategoria(feature.properties.SCIAN);
     var d = getDistance(feature);
-    var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'">'
+    var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+')">'
          + '<div class="swipeout-content"><a href="#" class="item-link item-content">'
         +      '<div class="item-inner">'
           +      '<div class="item-title-row">'
@@ -496,11 +522,12 @@ function createFicha(feature){
               +  '<div class="item-text"><span id="distancia_'+feature.properties.id+'">'+d+'</span> m</div>'
               +  '</div></a></div>'
             + '<div class="swipeout-actions-left">'
-            +  '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">favorite</i></a>'
-            +  '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">place</i></a>'
+            +  '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">favorite_border</i></a>'
+            +  '<a href="#" class="demo-mark bg-'+storage.color+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+')"><i class="icon material-icons">directions</i></a>'
             +  '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">details</i></a>'
         + ' </div>'
     +    '</li>';
+    $$(".searchbar-clear").click(); $$(".searchbar-overlay").click();
     $$("#ul_establecimientos").append(ficha);
     var options = {useEasing : true, useGrouping : true, separator : ',', decimal : '.',};
     var demo = new CountUp("distancia_"+feature.properties.id, 0, d, 0, 5.0, options);
@@ -555,21 +582,18 @@ function updDistancias(){
                     numAnim.start();    
                 }
             }
-            
-       
-        
-        
-        
-            
-          
-               // $$("#distancia_"+markers[i].data.id).html(d);
-                      
-            
-        
+        // $$("#distancia_"+markers[i].data.id).html(d);
     }else{
         console.log("no calcula distancias porque la vista lefleatView no esta disponible y no puede leer los puntos en ella");
     }
     
+}
+
+function drawRoute(desLat, desLng){
+    console.log(desLat + ' ' +desLng);
+    //ruta.setWaypoints(null) // limpia la ruta
+    $$("#btnFlipMap").click();
+    ruta.setWaypoints([[position._latlng.lat,position._latlng.lng],[desLat, desLng]])
 }
 
 

@@ -297,6 +297,7 @@ function createMap(){
          waypoints: [null],
          show: false,
          languaje: 'es',
+         draggableWaypoints:false,
          lineOptions: {
                 styles: [{color: 'grey', opacity: 0.6, weight: 6}]
             },
