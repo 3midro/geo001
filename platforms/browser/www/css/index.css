@@ -298,3 +298,33 @@ h1 {
 .list-marked{
     background-color: rgba(0,0,0,0.07)!important;
 }
+
+.leaflet-control-container .leaflet-routing-container-hide {
+    display: none;
+}
+
+.item-detail{
+    width: 75px;
+    margin: 0 auto;
+    margin-top: -40px;
+    position: relative;
+}
+.item-detail>.circulo-categoria{
+    border-radius: 50px;
+    width: 75px;
+    height: 75px;
+}
+
+.item-detail>.circulo-categoria>.icn_categoria{
+    color: white;
+    font-size: 25px;
+    width: 50px;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+
+
+.item-detail>.circulo-categoria>.icn_categoria>.material-icons {
+    font-size: 50px!important;
+    position: relative;
+}
