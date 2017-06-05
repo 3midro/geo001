@@ -1179,5 +1179,29 @@ $$('input[type=checkbox][name=ks-giro]').on('change',function(){
     syncFiltros(this.value,this.checked);
 });
 
+/* =========== STORE DETAIL =================*/
+var map_detail;
+myApp.onPageInit('detail', function (page) {
+  // "page" variable contains all required information about loaded and initialized page 
+    console.log(page.query);
+    $$("#nombreEstablecimiento").html(page.query.name);
+    $$(".item-detail>.circulo-categoria").addClass('bg-'+storage.color);
+    $$("#icn_detail").html(page.query.scian);
+     map_detail = L.map('map_detail',{
+            dragging:false,
+            zoomControl:false,
+            maxZoom: 16,
+            minZoom: 16
+        }).setView([parseFloat(page.query.lat), parseFloat(page.query.lng)], 16); 
+            L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+                detectRetina: true
+            }).addTo(map_detail);
+    
+    L.marker([parseFloat(page.query.lat), parseFloat(page.query.lng)]).addTo(map_detail)
+    .bindPopup(page.query.name)
+    .openPopup();
+});
+
+
 
 

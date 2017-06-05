@@ -512,7 +512,7 @@ function createFicha(feature){
    // console.log(feature);
     var scian = translateCategoria(feature.properties.SCIAN);
     var d = getDistance(feature);
-    var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'" >'
+    var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+',\'li\')" >'
          + '<div class="swipeout-content"><a href="#" class="item-link item-content">'
         +      '<div class="item-inner">'
           +      '<div class="item-title-row">'
@@ -589,7 +589,9 @@ function updDistancias(){
     
 }
 
-function drawRoute(desLat, desLng){
+function drawRoute(desLat, desLng, origen){
+    origen = (typeof origen !== 'li')? origen: 'li';
+    if(device.platform === "browser" && origen==='li')return;
     console.log(desLat + ' ' +desLng);
     //ruta.setWaypoints(null) // limpia la ruta
     $$("#btnFlipMap").click();
