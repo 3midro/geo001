@@ -522,9 +522,9 @@ function createFicha(feature){
               +  '<div class="item-text"><span id="distancia_'+feature.properties.id+'">'+d+'</span> m</div>'
               +  '</div></a></div>'
             + '<div class="swipeout-actions-left">'
-            +  '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">favorite_border</i></a>'
-            +  '<a href="#" class="demo-mark bg-'+storage.color+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+')"><i class="icon material-icons">directions</i></a>'
-            +  '<a href="detail.html?id='+feature.properties.id+'&d='+d+'&scian='+scian+'&lat='+feature.geometry.coordinates[1]+'&lng='+feature.geometry.coordinates[0]+'&name='+ feature.properties.nombre+'" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">details</i></a>'
+            +  '<a href="#" class="demo-mark bg-'+storage.color+' link"><i class="icon material-icons">favorite_border</i></a>'
+            +  '<a href="#" class="demo-mark bg-'+storage.color+' link" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+')"><i class="icon material-icons">directions</i></a>'
+            +  '<a href="detail.html?id='+feature.properties.id+'&d='+d+'&scian='+scian+'&lat='+feature.geometry.coordinates[1]+'&lng='+feature.geometry.coordinates[0]+'&name='+ feature.properties.nombre+'" class="demo-mark bg-'+storage.color+' link"><i class="icon material-icons">details</i></a>'
         + ' </div>'
     +    '</li>';
     $$(".searchbar-clear").click(); $$(".searchbar-overlay").click();
@@ -597,6 +597,8 @@ function drawRoute(desLat, desLng, origen){
     $$("#btnFlipMap").click();
     ruta.setWaypoints([[position._latlng.lat,position._latlng.lng],[desLat, desLng]])
 }
+
+
 
 
 

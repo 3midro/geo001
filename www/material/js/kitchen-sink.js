@@ -1200,6 +1200,26 @@ myApp.onPageInit('detail', function (page) {
     L.marker([parseFloat(page.query.lat), parseFloat(page.query.lng)]).addTo(map_detail)
     .bindPopup(page.query.name)
     .openPopup();
+    
+    config1 = liquidFillGaugeDefaultSettings();
+    config1.circleColor = "#757575";
+    config1.textColor = "#757575";
+    config1.waveTextColor = "#757575";
+    config1.waveColor = "#E0E0E0";
+    
+    config1.circleThickness = 0.1;
+    config1.circleFillGap = 0.1;
+    config1.waveHeight = 0.3;
+    
+    config1.minValue = 0;
+    config1.maxValue = 2000;
+    config1.displayPercent = false;
+    
+    config1.textVertPosition = 0.5;
+    config1.waveAnimateTime = 1000;
+    gauge1 = loadLiquidFillGauge("fillgauge1", page.query.d, config1);
+    
+    
 });
 
 
