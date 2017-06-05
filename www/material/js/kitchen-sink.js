@@ -1180,10 +1180,11 @@ $$('input[type=checkbox][name=ks-giro]').on('change',function(){
 });
 
 /* =========== STORE DETAIL =================*/
-var map_detail;
+var map_detail; var pagDetalle;
 myApp.onPageInit('detail', function (page) {
   // "page" variable contains all required information about loaded and initialized page 
     console.log(page.query);
+    pagDetalle = page.query.id;
     $$("#nombreEstablecimiento").html(page.query.name);
     $$(".item-detail>.circulo-categoria").addClass('bg-'+storage.color);
     $$("#icn_detail").html(page.query.scian);
@@ -1220,6 +1221,11 @@ myApp.onPageInit('detail', function (page) {
     gauge1 = loadLiquidFillGauge("fillgauge1", page.query.d, config1);
     
     
+});
+
+myApp.onPageBack('detail', function (page) {
+   pagDetalle = undefined;
+    console.log("cerro la pagina " + page.query.id);
 });
 
 

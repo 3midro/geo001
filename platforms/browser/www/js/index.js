@@ -452,7 +452,6 @@ var decluster = function(){
         leafletView.Cluster.Size  = (map.getZoom() >= 17)? -1 : 120;
         leafletView.ProcessView(); 
     }
-    console.log('zoom: ' + map.getZoom() + ' Cluster size: ' + leafletView.Cluster.Size);
 };
 
 var getDenue = function(){
@@ -512,7 +511,7 @@ function createFicha(feature){
    // console.log(feature);
     var scian = translateCategoria(feature.properties.SCIAN);
     var d = getDistance(feature);
-    var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+',\'li\')" >'
+    var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+',\'li\')" data-distancia="'+d+'" >'
          + '<div class="swipeout-content"><a href="#" class="item-link item-content">'
         +      '<div class="item-inner">'
           +      '<div class="item-title-row">'
@@ -580,6 +579,9 @@ function updDistancias(){
                if (anterior !== d){
                     var numAnim = new CountUp("distancia_"+markers[i].data.id, anterior, d, 0, t, options);
                     numAnim.start();    
+                }
+                if(typeof pagDetalle !== 'undefined' && pagDetalle == markers[i].data.id){
+                    gauge1.update(d);
                 }
             }
         // $$("#distancia_"+markers[i].data.id).html(d);
