@@ -195,7 +195,12 @@ function onPosSuccess(coord) {
     lat = coord.coords.latitude;
     lon = coord.coords.longitude;
     var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
-    position = (typeof position !== 'undefined')?position.setLatLng([coord.coords.latitude, coord.coords.longitude]).update():new L.marker([coord.coords.latitude, coord.coords.longitude], {icon: myIcon}).addTo(map);
+    position = (typeof position !== 'undefined')?position.setLatLng([coord.coords.latitude, coord.coords.longitude]).update():new L.marker([coord.coords.latitude, coord.coords.longitude], {icon: myIcon});
+    position.addTo(map);
+    if (typeof posDetail !== 'undefined'){
+        posDetail = posDetail.setLatLng([coord.coords.latitude, coord.coords.longitude]).update();
+        posDetail.addTo(map_detail);
+    } 
     // si auto refresh esta encendido baja los establecimientos
     if (!$$("#map_refresh").hasClass('color-gray')){
         getDenue();
@@ -456,22 +461,27 @@ var decluster = function(){
 
 var getDenue = function(){
     //if(map.getZoom()<=8){$$("#map_refresh").addClass('color-gray')}; //evita que siga recargando grandes cantidades de establecimientos
-    if (!map.getBounds().equals(frame)){
-        if (!$$("#map_refresh").hasClass("color-gray")){
-            frame = map.getBounds();
-            $$.getJSON(urlServices['serviceGetDenue'].url, {bbox:frame}, function (data, status, xhr) {
-               // console.log(data.geoUE);
-                //drawUE(data.geoUE);
-                 drawUEPrune(data.geoUE);
-            }, function(xhr, status){
-                console.log(status);
-            }); 
+    if (typeof map_detail === 'undefined'){
+        if (!map.getBounds().equals(frame)){
+            if (!$$("#map_refresh").hasClass("color-gray")){
+                frame = map.getBounds();
+                $$.getJSON(urlServices['serviceGetDenue'].url, {bbox:frame}, function (data, status, xhr) {
+                   // console.log(data.geoUE);
+                    //drawUE(data.geoUE);
+                     drawUEPrune(data.geoUE);
+                }, function(xhr, status){
+                    console.log(status);
+                }); 
+            }else{
+                console.log("No manda pedir nada Esta PANEANDO");
+            }
         }else{
-            console.log("No manda pedir nada Esta PANEANDO");
+            console.log("No manda pedir nada porque el frame es el mismo no necesita refrescar");
         }
     }else{
-        console.log("No manda pedir nada porque el frame es el mismo no necesita refrescar");
+        console.log("no manda pedir nada porque esta viendo el detalle");
     }
+    
 };
 
 var leafletView;
