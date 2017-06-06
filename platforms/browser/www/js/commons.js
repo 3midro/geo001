@@ -166,6 +166,28 @@ var welcomeScreen = function(){
         setColor();
     }
 };
+var bp;
+var beforePosition = function(){
+        var myapp_ = new Framework7();
+        var welcomescreen_slides = [{
+               id: '0',
+               picture: '<div class="img-back-02"></div>',
+               text: '<div class="tutorialicon"><i class="material-icons md-150">my_location</i></div><div class="content-block center"><h1>Tú lugar, tú espacio</h1><small>Estamos cargando la interfaz</small></div>'
+            }];
+
+        var options = {
+          'bgcolor': '#6A1B9A',
+          'fontcolor': '#fff',
+          'closeButtonText': '',
+          'onOpened':function(){
+              //statusbar color temporal to purple
+              StatusBar.backgroundColorByHexString(coloresStatusBar["purple"]);
+          }
+        }
+     bp = myapp_.welcomescreen(welcomescreen_slides, options); 
+        createMap();
+};
+
 var setColor = function(colprev){
     colprev = (typeof colprev !== 'undefined')?colprev:'deeppurple';
     var color = storage.getItem('color');
@@ -191,7 +213,8 @@ var setColor = function(colprev){
          }
         //statusbar color
         StatusBar.backgroundColorByHexString(coloresStatusBar[color]);
-        createMap();
+        beforePosition();
+        
     }else{
         // inicializa el color en purpura
         storage.setItem('color', 'deeppurple');
@@ -201,7 +224,48 @@ var setColor = function(colprev){
 
 var intro = function(){
     myApp.closePanel('left');
-    introJs().start();
+    var myApp_ = new Framework7({
+        pushState: true,
+        swipePanel: 'left'
+    });
+    var tourSteps = [
+    {
+        step: 0, 
+        header: '1st Tour Step', 
+        message: 'This is our first tour step.<br />Please click "next" or "back" to move forward and backwards respectively', 
+        lement: "body > div.views > div > div.toolbar > div > a:nth-child(1)", 
+        //element: "body > div.views > div.view > div.pages > div.page > div.page_content > div.flip-container > div.flipper > div.front_ > div.leaflet-container > div.leaflet-control-container > div.leaflet-bottom.leaflet-left ", 
+        action: function ()
+        {
+            console.log('Started guided tour');
+            console.log('Step 0');
+        }
+    }, 
+    {
+        step: 1, 
+        header: '2nd Tour Step', 
+        message: 'This is our seconds tour step.<br />You can use icons and images too! Wow!<br /><br /> F7 Icon:<br /> <i class="icon icon-back"></i><br /><br />Image:<br /> <div style="background-image: url(http://cdn.framework7.io/i/logo-new.png); width: 100px; height: 100px; background-size: cover; margin: 0 auto";></div><br />Please click "next" or "back" to move forward and backwards respectively', 
+        element: "body > div.views > div > div.navbar > div > div.right > a", 
+        action: function ()
+        {
+            console.log('Step 1');
+        }
+    }, 
+    {
+        step: 2, 
+        header: '3rd and Final Step', 
+        message: 'Congratulations! You have finished your Tour Guide tutorial. Enjoy it :D', 
+        element: "body > div.views > div > div.navbar > div > div.right > a", 
+        action: function ()
+        {
+            console.log('Step 2');
+            console.log('Last step on guided tour');
+        }
+    }];
+    var options = {previousButton: true};
+    var tourguide = myApp_.tourguide(tourSteps, options);
+    tourguide.showTour();
+    
 }
 
 

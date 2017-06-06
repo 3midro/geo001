@@ -515,6 +515,7 @@ function  drawUEPrune(geoJs){
             $$(this).addClass('list-marked');
             //$$(this).toggleClass('list-marked')
         });
+    bp.close(); //cierra el splash de la posicion inicial
 };
 
 function createFicha(feature){
