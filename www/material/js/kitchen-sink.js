@@ -1225,6 +1225,11 @@ myApp.onPageInit('detail', function (page) {
     config1.waveAnimateTime = 1000;
     gauge1 = loadLiquidFillGauge("fillgauge1", page.query.d, config1);
     
+    $$('.tab').on('tab:show', function (tab) {
+         $$('.subnavbar-detail').hide();
+         $$("." + tab.target.id).removeAttr('style');
+        console.log(tab.target.id);
+    });
     
 });
 
@@ -1234,6 +1239,7 @@ myApp.onPageBack('detail', function (page) {
     posDetail = undefined;
     console.log("cerro la pagina " + page.query.id);
 });
+
 
 
 
