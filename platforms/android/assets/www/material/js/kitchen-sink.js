@@ -1180,10 +1180,11 @@ $$('input[type=checkbox][name=ks-giro]').on('change',function(){
 });
 
 /* =========== STORE DETAIL =================*/
-var map_detail;
+var map_detail; var pagDetalle; var posDetail;
 myApp.onPageInit('detail', function (page) {
   // "page" variable contains all required information about loaded and initialized page 
     console.log(page.query);
+    pagDetalle = page.query.id;
     $$("#nombreEstablecimiento").html(page.query.name);
     $$(".item-detail>.circulo-categoria").addClass('bg-'+storage.color);
     $$("#icn_detail").html(page.query.scian);
@@ -1200,6 +1201,35 @@ myApp.onPageInit('detail', function (page) {
     L.marker([parseFloat(page.query.lat), parseFloat(page.query.lng)]).addTo(map_detail)
     .bindPopup(page.query.name)
     .openPopup();
+    var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
+    posDetail = new L.marker([position._latlng.lat, position._latlng.lng], {icon: myIcon}).addTo(map_detail);
+    
+    config1 = liquidFillGaugeDefaultSettings();
+    config1.circleColor = "#757575";
+    config1.textColor = "#757575";
+    config1.waveTextColor = "#757575";
+    config1.waveColor = "#E0E0E0";
+    
+    config1.circleThickness = 0.1;
+    config1.circleFillGap = 0.1;
+    config1.waveHeight = 0.3;
+    
+    config1.minValue = 0;
+    config1.maxValue = 2000;
+    config1.displayPercent = false;
+    
+    config1.textVertPosition = 0.5;
+    config1.waveAnimateTime = 1000;
+    gauge1 = loadLiquidFillGauge("fillgauge1", page.query.d, config1);
+    
+    
+});
+
+myApp.onPageBack('detail', function (page) {
+   pagDetalle = undefined;
+   map_detail = undefined;
+    posDetail = undefined;
+    console.log("cerro la pagina " + page.query.id);
 });
 
 

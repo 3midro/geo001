@@ -195,7 +195,12 @@ function onPosSuccess(coord) {
     lat = coord.coords.latitude;
     lon = coord.coords.longitude;
     var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
-    position = (typeof position !== 'undefined')?position.setLatLng([coord.coords.latitude, coord.coords.longitude]).update():new L.marker([coord.coords.latitude, coord.coords.longitude], {icon: myIcon}).addTo(map);
+    position = (typeof position !== 'undefined')?position.setLatLng([coord.coords.latitude, coord.coords.longitude]).update():new L.marker([coord.coords.latitude, coord.coords.longitude], {icon: myIcon});
+    position.addTo(map);
+    if (typeof posDetail !== 'undefined'){
+        posDetail = posDetail.setLatLng([coord.coords.latitude, coord.coords.longitude]).update();
+        posDetail.addTo(map_detail);
+    } 
     // si auto refresh esta encendido baja los establecimientos
     if (!$$("#map_refresh").hasClass('color-gray')){
         getDenue();
@@ -452,27 +457,31 @@ var decluster = function(){
         leafletView.Cluster.Size  = (map.getZoom() >= 17)? -1 : 120;
         leafletView.ProcessView(); 
     }
-    console.log('zoom: ' + map.getZoom() + ' Cluster size: ' + leafletView.Cluster.Size);
 };
 
 var getDenue = function(){
     //if(map.getZoom()<=8){$$("#map_refresh").addClass('color-gray')}; //evita que siga recargando grandes cantidades de establecimientos
-    if (!map.getBounds().equals(frame)){
-        if (!$$("#map_refresh").hasClass("color-gray")){
-            frame = map.getBounds();
-            $$.getJSON(urlServices['serviceGetDenue'].url, {bbox:frame}, function (data, status, xhr) {
-               // console.log(data.geoUE);
-                //drawUE(data.geoUE);
-                 drawUEPrune(data.geoUE);
-            }, function(xhr, status){
-                console.log(status);
-            }); 
+    if (typeof map_detail === 'undefined'){
+        if (!map.getBounds().equals(frame)){
+            if (!$$("#map_refresh").hasClass("color-gray")){
+                frame = map.getBounds();
+                $$.getJSON(urlServices['serviceGetDenue'].url, {bbox:frame}, function (data, status, xhr) {
+                   // console.log(data.geoUE);
+                    //drawUE(data.geoUE);
+                     drawUEPrune(data.geoUE);
+                }, function(xhr, status){
+                    console.log(status);
+                }); 
+            }else{
+                console.log("No manda pedir nada Esta PANEANDO");
+            }
         }else{
-            console.log("No manda pedir nada Esta PANEANDO");
+            console.log("No manda pedir nada porque el frame es el mismo no necesita refrescar");
         }
     }else{
-        console.log("No manda pedir nada porque el frame es el mismo no necesita refrescar");
+        console.log("no manda pedir nada porque esta viendo el detalle");
     }
+    
 };
 
 var leafletView;
@@ -506,13 +515,15 @@ function  drawUEPrune(geoJs){
             $$(this).addClass('list-marked');
             //$$(this).toggleClass('list-marked')
         });
+    bp.close(); //cierra el splash de la posicion inicial
+    StatusBar.backgroundColorByHexString(coloresStatusBar[storage.getItem('color')]);
 };
 
 function createFicha(feature){
    // console.log(feature);
     var scian = translateCategoria(feature.properties.SCIAN);
     var d = getDistance(feature);
-    var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+')" >'
+    var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+',\'li\')" data-distancia="'+d+'" >'
          + '<div class="swipeout-content"><a href="#" class="item-link item-content">'
         +      '<div class="item-inner">'
           +      '<div class="item-title-row">'
@@ -522,9 +533,9 @@ function createFicha(feature){
               +  '<div class="item-text"><span id="distancia_'+feature.properties.id+'">'+d+'</span> m</div>'
               +  '</div></a></div>'
             + '<div class="swipeout-actions-left">'
-            +  '<a href="#" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">favorite_border</i></a>'
-            +  '<a href="#" class="demo-mark bg-'+storage.color+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+')"><i class="icon material-icons">directions</i></a>'
-            +  '<a href="detail.html?id='+feature.properties.id+'&d='+d+'&scian='+scian+'&lat='+feature.geometry.coordinates[1]+'&lng='+feature.geometry.coordinates[0]+'&name='+ feature.properties.nombre+'" class="demo-mark bg-'+storage.color+'"><i class="icon material-icons">details</i></a>'
+            +  '<a href="#" class="demo-mark bg-'+storage.color+' link"><i class="icon material-icons">favorite_border</i></a>'
+            +  '<a href="#" class="demo-mark bg-'+storage.color+' link" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+')"><i class="icon material-icons">directions</i></a>'
+            +  '<a href="detail.html?id='+feature.properties.id+'&d='+d+'&scian='+scian+'&lat='+feature.geometry.coordinates[1]+'&lng='+feature.geometry.coordinates[0]+'&name='+ feature.properties.nombre+'" class="demo-mark bg-'+storage.color+' link"><i class="icon material-icons">details</i></a>'
         + ' </div>'
     +    '</li>';
     $$(".searchbar-clear").click(); $$(".searchbar-overlay").click();
@@ -581,6 +592,9 @@ function updDistancias(){
                     var numAnim = new CountUp("distancia_"+markers[i].data.id, anterior, d, 0, t, options);
                     numAnim.start();    
                 }
+                if(typeof pagDetalle !== 'undefined' && pagDetalle == markers[i].data.id){
+                    gauge1.update(d);
+                }
             }
         // $$("#distancia_"+markers[i].data.id).html(d);
     }else{
@@ -589,12 +603,16 @@ function updDistancias(){
     
 }
 
-function drawRoute(desLat, desLng){
+function drawRoute(desLat, desLng, origen){
+    origen = (typeof origen !== 'li')? origen: 'li';
+    if(device.platform === "browser" && origen==='li')return;
     console.log(desLat + ' ' +desLng);
     //ruta.setWaypoints(null) // limpia la ruta
     $$("#btnFlipMap").click();
     ruta.setWaypoints([[position._latlng.lat,position._latlng.lng],[desLat, desLng]])
 }
+
+
 
 
 
