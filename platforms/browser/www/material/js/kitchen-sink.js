@@ -1201,8 +1201,11 @@ myApp.onPageInit('detail', function (page) {
     L.marker([parseFloat(page.query.lat), parseFloat(page.query.lng)]).addTo(map_detail)
     .bindPopup(page.query.name)
     .openPopup();
-    var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
-    posDetail = new L.marker([position._latlng.lat, position._latlng.lng], {icon: myIcon}).addTo(map_detail);
+    
+    if (!$$("#map_my_location").hasClass('color-gray')){
+        var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
+        posDetail = new L.marker([position._latlng.lat, position._latlng.lng], {icon: myIcon}).addTo(map_detail);
+    }
     
     config1 = liquidFillGaugeDefaultSettings();
     config1.circleColor = "#757575";

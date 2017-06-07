@@ -516,6 +516,7 @@ function  drawUEPrune(geoJs){
             //$$(this).toggleClass('list-marked')
         });
     bp.close(); //cierra el splash de la posicion inicial
+    StatusBar.backgroundColorByHexString(coloresStatusBar[storage.getItem('color')]);
 };
 
 function createFicha(feature){
