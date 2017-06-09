@@ -1231,6 +1231,20 @@ myApp.onPageInit('detail', function (page) {
         console.log(tab.target.id);
     });
     
+     myApp.searchbar('.searchbar-precios', {
+        searchList: '.list-block-search-precios',
+        searchIn: '.item-title,.item-after',
+        found: '.searchbar-found-precios',
+        notFound: '.searchbar-not-found-precios'
+    }); 
+    
+    myApp.searchbar('.searchbar-promo', {
+        searchList: '.list-block-search-promos',
+        searchIn: '.item-title',
+        found: '.searchbar-found-promos',
+        notFound: '.searchbar-not-found-promos'
+    }); 
+    
 });
 
 myApp.onPageBack('detail', function (page) {
