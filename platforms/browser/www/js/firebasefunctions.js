@@ -54,6 +54,13 @@ var login = function (p){
     });
 };
 
+var logout = function (){
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+    }, function(error) {
+      // An error happened.
+    });
+};
 
 /*var loginFB = function (){
     firebase.auth().signInWithPopup(providerFB).then(function(result) {
