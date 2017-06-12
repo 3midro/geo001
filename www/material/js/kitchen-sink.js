@@ -420,19 +420,19 @@ myApp.onPageInit('notifications', function (page) {
 /* ===== Login screen page events ===== */
 myApp.onPageInit('login-screen-embedded', function (page) {
     $$(page.container).find('.button').on('click', function () {
-        var username = $$(page.container).find('input[name="username"]').val();
+        /*var username = $$(page.container).find('input[name="username"]').val();
         var password = $$(page.container).find('input[name="password"]').val();
         myApp.alert('Username: ' + username + ', password: ' + password, function () {
             mainView.router.back();
-        });
+        });*/
     });
 });
 $$('.login-screen').find('.button').on('click', function () {
-    var username = $$('.login-screen').find('input[name="username"]').val();
+    /*var username = $$('.login-screen').find('input[name="username"]').val();
     var password = $$('.login-screen').find('input[name="password"]').val();
     myApp.alert('Username: ' + username + ', password: ' + password, function () {
         myApp.closeModal('.login-screen');
-    });
+    });*/
 });
 
 /* ===== Demo Popover ===== */
@@ -1240,7 +1240,7 @@ myApp.onPageInit('detail', function (page) {
     
     myApp.searchbar('.searchbar-promo', {
         searchList: '.list-block-search-promos',
-        searchIn: '.item-title',
+        searchIn: '.item-title, .accordion-item-content,.item-after',
         found: '.searchbar-found-promos',
         notFound: '.searchbar-not-found-promos'
     }); 

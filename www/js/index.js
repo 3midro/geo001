@@ -44,6 +44,7 @@ var app = {
         //console.log('Received Event: ' + id);
         switch ( id ){
             case "deviceready":
+                    initFirebase();
                     payWithTweet();
                 break;
             case "pause":
@@ -73,28 +74,7 @@ var storage = window.localStorage;
 //storage.removeItem('color');
 app.initialize();
 
-var initFirebase =  function(){
-        // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyDrUJR4rbVPlr37C2Il8x-vSoSeBFxUqU4",
-        authDomain: "brindix-866ce.firebaseapp.com",
-        databaseURL: "https://brindix-866ce.firebaseio.com",
-        projectId: "brindix-866ce",
-        storageBucket: "brindix-866ce.appspot.com",
-        messagingSenderId: "54415741684"
-      };
-      firebase.initializeApp(config);
-      firebase.auth().onAuthStateChanged(function(user) {
-          console.log(user);
-          if (user) {
-             // usrObj = user.uid;
-              console.log(user.uid);
-             // $$("#chipUsuario").show();
-          }else{
-            //  $$("#chipUsuario").hide();
-          }
-      });
-}
+
 
 /*var dblocal = function(){
  
@@ -466,8 +446,6 @@ var getDenue = function(){
             if (!$$("#map_refresh").hasClass("color-gray")){
                 frame = map.getBounds();
                 $$.getJSON(urlServices['serviceGetDenue'].url, {bbox:frame}, function (data, status, xhr) {
-                   // console.log(data.geoUE);
-                    //drawUE(data.geoUE);
                      drawUEPrune(data.geoUE);
                 }, function(xhr, status){
                     console.log(status);
@@ -486,7 +464,6 @@ var getDenue = function(){
 
 var leafletView;
 function  drawUEPrune(geoJs){
-   // console.log(geoJs);
     (typeof leafletView === 'undefined')?leafletView = new PruneClusterForLeaflet():leafletView.RemoveMarkers();
     //obtener filtros activos
     var filters = getFiltrosActivos();
@@ -515,7 +492,7 @@ function  drawUEPrune(geoJs){
             $$(this).addClass('list-marked');
             //$$(this).toggleClass('list-marked')
         });
-    bp.close(); //cierra el splash de la posicion inicial
+   // bp.close(); //cierra el splash de la posicion inicial
     StatusBar.backgroundColorByHexString(coloresStatusBar[storage.getItem('color')]);
 };
 

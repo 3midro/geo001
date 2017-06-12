@@ -28,7 +28,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ws: 'unsafe-inline' data: gap: https://ssl.gstatic.com http://fonts.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' *.tile.osm.org data: *; script-src 'self' http://10.106.12.66/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval'; connect-src 'self' http://geopanda.com.mx http://geo001.geopanda.com.mx https://router.project-osrm.org 'unsafe-inline' 'unsafe-eval' ; frame-src 'self' 'unsafe-inline' ">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ws: 'unsafe-inline' data: gap: https://ssl.gstatic.com http://fonts.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' *.tile.osm.org data: *; script-src 'self' http://10.106.12.66/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval' https://apis.google.com/; connect-src 'self' http://geopanda.com.mx http://geo001.geopanda.com.mx https://router.project-osrm.org https://www.googleapis.com/ 'unsafe-inline' 'unsafe-eval' ; frame-src 'self' 'unsafe-inline' https://geo001-c7e20.firebaseapp.com/ ">
         <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' *.osm.org data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *">-->
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
@@ -67,7 +67,7 @@
         <!--font awsome -->
         <link rel="stylesheet" href="bower_components/font-awesome-4.7.0/css/font-awesome.min.css"/>
         <!--introjs-->
-        <link rel="stylesheet" href="bower_components/introjs/tourguide.css"/>
+        <!--<link rel="stylesheet" href="bower_components/introjs/tourguide.css"/>-->
         <!--<link rel="stylesheet" href="bower_components/introjs/introjs.css"/>-->
          <!--animatecss-->
         <link rel="stylesheet" href="css/animate.css"/>
@@ -186,26 +186,26 @@
                     </div>  -->
                     <div class="content-block" id="geolocation"></div>
                     
-                    <div class="content-block-title">Usuario</div>
-                    <div class="list-block">
+                    
+                    <!--<div class="list-block">
                         <ul>
                               
                           <li><a href="material/data-table.html" class="item-link"> 
                                   <div class="item-content">
                                     <div class="item-media"><i class="material-icons color-gray">local_pizza</i></div>
                                     <div class="item-inner"> 
-                                      <div class="item-title">Fiestas</div> <!-- mis fiestas-->
+                                      <div class="item-title">Fiestas</div> 
                                       <div class="item-after"><span class="badge theme-deeppurple">2</span></div>
                                     </div>
                                   </div></a></li>
-                            <!-- mi presupuesto-->
-                            <!--<li><a href="color-themes.html" class="item-link"> 
+                          
+                            <li><a href="color-themes.html" class="item-link"> 
                                   <div class="item-content">
                                     <div class="item-media"><i class="material-icons color-gray">account_balance_wallet</i></div>
                                     <div class="item-inner"> 
                                       <div class="item-title">Cartera </div> 
                                     </div>
-                                  </div></a></li>-->
+                                  </div></a></li>
                             <li><a href="color-themes.html" class="item-link">
                                       <div class="item-content">
                                         <div class="item-media"><i class="material-icons color-gray">card_giftcard</i></div>
@@ -215,23 +215,15 @@
                                         </div>
                                       </div></a>
                                 </li>
-                            <!--<li><a href="color-themes.html" class="item-link"> 
+                            <li><a href="color-themes.html" class="item-link"> 
                                   <div class="item-content">
                                     <div class="item-media"><i class="material-icons color-gray">pie_chart</i></div>
                                     <div class="item-inner"> 
                                       <div class="item-title">Reportes</div>
                                     </div>
-                                  </div></a></li>-->
-                                <!--usuario-->
-                             <!--<li><a href="color-themes.html" class="item-link"> 
-                                  <div class="item-content">
-                                    <div class="item-media"><i class="material-icons color-gray">headset_mic</i></div>
-                                    <div class="item-inner"> 
-                                      <div class="item-title">Gu&iacute;a</div>
-                                    </div>
-                                  </div></a></li> -->
+                                  </div></a></li>
                         </ul>
-                    </div>
+                    </div>-->
                 </div>
                 
                  <!--<div class="content-block">
@@ -351,10 +343,10 @@
                 </div>-->
                 
                 <div class="content-block">
-                    <div class="content-block-title">Herramientas Comunes</div>
+                    <div class="content-block-title">Herramientas</div>
                     <div class="list-block">
                         <ul>
-                              <li><a href="color-themes.html" class="item-link"> 
+                             <!-- <li><a href="color-themes.html" class="item-link"> 
                                   <div class="item-content">
                                     <div class="item-media"><i class="material-icons color-gray">question_answer</i></div>
                                     <div class="item-inner"> 
@@ -369,7 +361,7 @@
                                       <div class="item-title">Notificaciones</div>
                                       <div class="item-after"><span class="badge theme-deeppurple">4</span></div>
                                     </div>
-                                  </div></a></li>
+                                  </div></a></li>-->
                             
                         
                             <li><a href="color-themes.html" class="item-link"> 
@@ -416,7 +408,7 @@
                      <div class="content-block-title">Ayuda</div>
                     <div class="list-block">
                         <ul>
-                            <li><a href="guia-seguridad.html" class="item-link"> 
+                            <!--<li><a href="guia-seguridad.html" class="item-link"> 
                                   <div class="item-content">
                                     <div class="item-media"><i class="material-icons color-gray">security<sup>check</sup></i></div>
                                     <div class="item-inner"> 
@@ -436,17 +428,17 @@
                                     <div class="item-inner"> 
                                       <div class="item-title">FAQ</div>
                                     </div>
-                                  </div></a></li>
-                              <li onclick="javascript:intro();"><a href="javascript:void(0);" class="item-link"> 
+                                  </div></a></li>-->
+                              <!--<li onclick="javascript:intro();"><a href="javascript:void(0);" class="item-link"> 
                                   <div class="item-content">
                                     <div class="item-media"><i class="material-icons">touch_app</i></div>
                                     <div class="item-inner"> 
                                       <div class="item-title">Tutorial</div>
                                     </div>
-                                  </div></a></li>
+                                  </div></a></li>-->
                               <li><a href="#" class="item-link" onclick="javascript: storage.removeItem('welcome');welcomeScreen();"> 
                                   <div class="item-content">
-                                    <div class="item-media"><i class="material-icons  color-gray">screen_share<sup>check</sup></i></div>
+                                    <div class="item-media"><i class="material-icons  color-gray">screen_share</i></div>
                                     <div class="item-inner"> 
                                       <div class="item-title">Bienvenida</div>
                                     </div>
@@ -1127,23 +1119,22 @@
       </div>
     </div>      
           
-        <div class="app">
+       <!-- <div class="app">
              <h1>Apache Cordova</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
             </div>
-            <!--<div id="geolocation">Aqui va la posicion</div>-->
-        </div>
+        </div>-->
         
         <div class="login-screen">
       <div class="view">
         <div class="page">
           <div class="page-content login-screen-content">
-              <video src="img/giphy.mp4" id="vidLogin" autoplay muted loop autobuffer type="video/mp4" poster="img/welcome/0.jpg"></video>
-            <div class="login-screen-title"><i class="icon material-icons">lock</i></div>
+              <video src="img/login.gif" id="vidLogin" autoplay muted loop autobuffer type="video/mp4" poster="img/welcome/0.jpg"></video>
+            <div class="login-screen-title color-white"><i class="icon material-icons">lock</i></div>
             <form>
-              <div class="list-block inputs-list">
+              <!--<div class="list-block inputs-list">
                 <ul>
                   <li class="item-content">
                     <div class="item-inner">
@@ -1162,14 +1153,17 @@
                     </div>
                   </li>
                 </ul>
-              </div>
-              <div class="content-block"><a href="#" class="button button-big button-big button-fill">Iniciar Sesi&oacute;n</a></div>
+              </div>-->
+              <!--<div class="content-block"><a href="#" class="button button-big button-big button-fill">Iniciar Sesi&oacute;n</a></div>-->
               <div class="content-block">
-                <div class="list-block-label">¿No tienes cuenta? <a href="#">Crea una cuenta</a> o registrate utilizando tus redes sociales
+                <div class="list-block-label">
+                    <p>En brindix sabemos que no es muy chido recordar m&aacute;s contrase&ntilde;as</p>
+                    <p><i class="icon material-icons md-100">important_devices</i></p>
+                    <p>As&iacute; que puedes iniciar sesi&oacute;n utilizando tus redes sociales</p>
                     <p class="buttons-row">
-                        <a href="#" class="button button-big button-fill button-raised color-indigo"><i class="fa fa-facebook-f fa-4x fa-login" ></i></a>
-                        <a href="#" class="button button-big button-fill button-raised color-cyan"><i class="fa fa-twitter fa-4x fa-login" ></i></a>
-                        <a href="#" class="button button-big button-fill button-raised color-red"><i class="fa fa-google-plus fa-4x fa-login" ></i></a>
+                        <a href="#" onclick="login('f')" class="button button-big button-fill button-raised color-indigo"><i class="fa fa-facebook-f fa-4x fa-login" ></i></a>
+                        <a href="#" onclick="login('t')" class="button button-big button-fill button-raised color-cyan"><i class="fa fa-twitter fa-4x fa-login" ></i></a>
+                        <a href="#" onclick="login('g')" class="button button-big button-fill button-raised color-red"><i class="fa fa-google-plus fa-4x fa-login" ></i></a>
                     </p>
                   </div>
               </div>
@@ -1209,11 +1203,12 @@
         <script src='bower_components/turf/turf.min.js'></script>  
         <!--firebase-->
         <script src="bower_components/firebase/firebase.js"></script>
+        <script src="js/firebasefunctions.js"></script>
         <!--moment-with-locales-->
         <script src="bower_components/moment/moment-with-locales.min.js"></script>
         <!--introjs-->
         <!--<script src="bower_components/introjs/intro.js"></script>-->
-        <script src="bower_components/introjs/tourguide.js"></script>
+        <!--<script src="bower_components/introjs/tourguide.js"></script>-->
         <!--countup-->
         <script src="bower_components/countupjs/dist/countUp.min.js"></script>
         <!--wow-->

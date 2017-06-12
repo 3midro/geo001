@@ -140,11 +140,11 @@ var welcomeScreen = function(){
                 id: '2',
                 picture: '<div class="img-back-03"></div>',
                 text: '<div class="tutorialicon"><i class="material-icons md-150">local_pizza</i></div><div class="content-block center"><h1>Tú lugar, tú espacio</h1><small>Organiza tus eventos, invita a tus amigos y diviertete con nuestra app</small></div>'
-            },{
+            }/*,{
                 id: '3',
                 picture: '<div class="img-back-01"></div>',
                 text: '<div class="tutorialicon"><i class="material-icons md-150">timer</i></div><div class="content-block center"><h1>¿Qué estás esperando?</h1><small>Inicia sesión y registrate utilizando tus redes sociales</small><h1>¡Es gratis!</h1></div><ul class="flex-container"><li class="flex-item col-30"><a href="#" class="button button-big button-fill button-raised color-indigo close-welcomescreen" ><i class="fa fa-facebook-f fa-4x fa-login" ></i></a></li><li class="flex-item col-30" ><a href="#" class="button button-big button-fill button-raised color-cyan close-welcomescreen"><i class="fa fa-twitter fa-4x fa-login" ></i></a></li><li class="flex-item col-30" ><a href="#" class="button button-big button-fill button-raised color-red"><i class="fa fa-google-plus fa-4x fa-login" ></i></a></i></a></li></ul>'
-            }
+            }*/
             ];
 
         var options = {
@@ -166,7 +166,7 @@ var welcomeScreen = function(){
         setColor();
     }
 };
-var bp;
+/*var bp;
 var beforePosition = function(){
         var myapp_ = new Framework7();
         var welcomescreen_slides = [{
@@ -186,7 +186,7 @@ var beforePosition = function(){
         }
      bp = myapp_.welcomescreen(welcomescreen_slides, options); 
         createMap();
-};
+};*/ // NO EN USO
 
 var setColor = function(colprev){
     colprev = (typeof colprev !== 'undefined')?colprev:'deeppurple';
@@ -213,7 +213,8 @@ var setColor = function(colprev){
          }
         //statusbar color
         StatusBar.backgroundColorByHexString(coloresStatusBar[color]);
-        beforePosition();
+        //beforePosition();
+         createMap();
         
     }else{
         // inicializa el color en purpura
@@ -233,8 +234,9 @@ var intro = function(){
         step: 0, 
         header: '1st Tour Step', 
         message: 'This is our first tour step.<br />Please click "next" or "back" to move forward and backwards respectively', 
-        lement: "body > div.views > div > div.toolbar > div > a:nth-child(1)", 
+        //element: "body > div.views > div > div.toolbar > div > a:nth-child(1)", 
         //element: "body > div.views > div.view > div.pages > div.page > div.page_content > div.flip-container > div.flipper > div.front_ > div.leaflet-container > div.leaflet-control-container > div.leaflet-bottom.leaflet-left ", 
+        element: "body > div.views > div.view-main > div.pages > div.page > div.navbar", 
         action: function ()
         {
             console.log('Started guided tour');
@@ -245,7 +247,9 @@ var intro = function(){
         step: 1, 
         header: '2nd Tour Step', 
         message: 'This is our seconds tour step.<br />You can use icons and images too! Wow!<br /><br /> F7 Icon:<br /> <i class="icon icon-back"></i><br /><br />Image:<br /> <div style="background-image: url(http://cdn.framework7.io/i/logo-new.png); width: 100px; height: 100px; background-size: cover; margin: 0 auto";></div><br />Please click "next" or "back" to move forward and backwards respectively', 
-        element: "body > div.views > div > div.navbar > div > div.right > a", 
+       // element: "body > div.views > div > div.navbar > div > div.right > a", 
+         element: "body > div.views > div.view-main > div.pages > div.page > div.navbar", 
+
         action: function ()
         {
             console.log('Step 1');
@@ -255,7 +259,9 @@ var intro = function(){
         step: 2, 
         header: '3rd and Final Step', 
         message: 'Congratulations! You have finished your Tour Guide tutorial. Enjoy it :D', 
-        element: "body > div.views > div > div.navbar > div > div.right > a", 
+        //element: "body > div.views > div > div.navbar > div > div.right > a", 
+         element: "body > div.views > div.view-main > div.pages > div.page > div.navbar", 
+
         action: function ()
         {
             console.log('Step 2');
