@@ -11,36 +11,36 @@ var initFirebase =  function(){
     messagingSenderId: "62028111802"
   };
   firebase.initializeApp(config);
-      firebase.auth().onAuthStateChanged(function(user) {
-          console.log(user);
-          if (user) {
-             // usrObj = user.uid;
-              console.log(user.uid);
-             // $$("#chipUsuario").show();
-          }else{
-            //  $$("#chipUsuario").hide();
-          }
-      });
-    providerFB = new firebase.auth.FacebookAuthProvider();
-    providerFB.addScope('public_profile');
-    providerFB.addScope('user_birthday');
+  firebase.auth().onAuthStateChanged(function(user) {
+      console.log(user);
+      if (user) {
+          $$(".open-login-screen").hide();
+          $$("#chipUsuario>.chip-media").html('<img src="'+user.photoURL+'">');
+          $$("#chipUsuario>.chip-label").html(user.displayName);
+          $$("#chipUsuario").removeAttr("style");
+      }else{
+          $$("#chipUsuario").hide();
+          $$(".open-login-screen").removeAttr("style");
+          //manda a la pagina de login?
+           var p = storage.getItem('pay'); var w = storage.getItem('welcome');
+           if (w === "true" && p === "true"){$$(".open-login-screen").click();}
+      }
+    });
+    
+    providerFB = new firebase.auth.FacebookAuthProvider(); providerFB.addScope('public_profile');providerFB.addScope('user_birthday');
     providerTW = new firebase.auth.TwitterAuthProvider();
     providerGO = new firebase.auth.GoogleAuthProvider();
 }
 
 var login = function (p){
     var provider;
-    switch (p){
-        case "f": provider = providerFB; break;
-        case "t": provider = providerTW; break;
-        case "g": provider = providerGO; break;
-        default: return;
-    }
+    switch (p){case "f": provider = providerFB; break;case "t": provider = providerTW; break;case "g": provider = providerGO; break;default: return;}
     firebase.auth().signInWithPopup(provider).then(function(result) {
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
       var token = result.credential.accessToken;
       // The signed-in user info.
       var user = result.user;
+      myApp.closeModal('.login-screen');
       // ...
     }).catch(function(error) {
       // Handle Errors here.
@@ -62,62 +62,4 @@ var logout = function (){
     });
 };
 
-/*var loginFB = function (){
-    firebase.auth().signInWithPopup(providerFB).then(function(result) {
-      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-      var token = result.credential.accessToken;
-      // The signed-in user info.
-      var user = result.user;
-      // ...
-    }).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-      // ...
-    });
-};
 
-var loginTW = function(){
-    firebase.auth().signInWithPopup(providerTW).then(function(result) {
-      // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
-      // You can use these server side with your app's credentials to access the Twitter API.
-      var token = result.credential.accessToken;
-      var secret = result.credential.secret;
-      // The signed-in user info.
-      var user = result.user;
-      // ...
-    }).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-      // ...
-    });
-};
-
-var loginGO = function(){
-    firebase.auth().signInWithPopup(providerGO).then(function(result) {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      var token = result.credential.accessToken;
-      // The signed-in user info.
-      var user = result.user;
-      // ...
-    }).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-      // ...
-    });
-};*/
-//NOT IN USE

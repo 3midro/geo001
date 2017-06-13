@@ -44,7 +44,7 @@ var app = {
         //console.log('Received Event: ' + id);
         switch ( id ){
             case "deviceready":
-                    initFirebase();
+                   // initFirebase();
                     payWithTweet();
                 break;
             case "pause":

@@ -83,14 +83,21 @@
       <div class="view navbar-fixed view-left">
         <div class="pages">
           <div data-page="panel-left" class="page">
+             
+              
+              
             <div class="page-content">
+                 <div class="center">
+                      <div class="chip" id="chipUsuario" style="display:none">
+                        <div class="chip-media bg-deeppurple" id="chipUser"><i class="material-icons">person</i></div>
+                        <div class="chip-label">Edd Sarellano</div>
+                        <a href="#" onclick="logout()" class="chip-delete"></a>
+                      </div>
+                  </div>
                  
               <div class="content-block center">
-                  <div class="chip" id="chipUsuario" style="display:none">
-                    <div class="chip-media bg-deeppurple" id="chipUser"><i class="material-icons">person</i></div>
-                    <div class="chip-label">Edd Sarellano</div>
-                  </div>
-                  <p><a href="#" class="button button-raised open-login-screen button-big button-fill" >INICIAR SESI&Oacute;N</a></p>
+                  
+                  <p style="display:none"><a href="#" class="button button-raised open-login-screen button-big button-fill" >INICIAR SESI&Oacute;N</a></p>
                   <!--<p><a href="#" class="button button-big button-raised button-fill" onclick="testPHP();">TEST PHP</a></p>-->
             </div>
                 
@@ -1128,7 +1135,7 @@
         </div>-->
         
         <div class="login-screen">
-      <div class="view">
+      <div class="view view-login">
         <div class="page">
           <div class="page-content login-screen-content">
               <video src="img/login.gif" id="vidLogin" autoplay muted loop autobuffer type="video/mp4" poster="img/welcome/0.jpg"></video>
@@ -1195,7 +1202,7 @@
         <script src="bower_components/leaflet/Leaflet.Control.Custom.js"></script>
         <script src="bower_components/leaflet/pruneCluster/PruneCluster.js"></script>
         <script src="bower_components/leaflet/routingmachine/leaflet-routing-machine.min.js"></script>
-        <script src="bower_components/leaflet/route360/r360.js"></script>
+        <!--<script src="bower_components/leaflet/route360/r360.js"></script>-->
         <!--<script src="bower_components/leaflet/markercluster/leaflet.markercluster-src.js"></script>-->
        
         

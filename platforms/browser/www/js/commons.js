@@ -156,7 +156,8 @@ var welcomeScreen = function(){
               StatusBar.backgroundColorByHexString(coloresStatusBar["purple"]);
           },
           'onClosed': function(){
-               setColor();
+             setColor();
+             initFirebase(); 
           }
         }
         
@@ -164,6 +165,7 @@ var welcomeScreen = function(){
         storage.setItem('welcome', true);
     }else{
         setColor();
+        initFirebase(); 
     }
 };
 /*var bp;
