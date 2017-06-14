@@ -30,6 +30,24 @@ var initFirebase =  function(){
     providerFB = new firebase.auth.FacebookAuthProvider(); providerFB.addScope('public_profile');providerFB.addScope('user_birthday');
     providerTW = new firebase.auth.TwitterAuthProvider();
     providerGO = new firebase.auth.GoogleAuthProvider();
+    
+    //watcher de los establecimientos
+    var watcherFireBase = firebase.database().ref('denue/');
+    watcherFireBase.on('child_added', function(data) {
+        console.log(data.key, data.val());
+        console.log("child added");
+    });
+
+    watcherFireBase.on('child_changed', function(data) {
+        console.log(data.key, data.val());
+        console.log("child changed");
+    });
+
+    watcherFireBase.on('child_removed', function(data) {
+      console.log(data.key);
+        console.log("child removed");
+    });
+    
 }
 
 var login = function (p){
@@ -63,3 +81,57 @@ var logout = function (){
 };
 
 
+var createDenueDemo = function(id){
+    console.log(id);
+    firebase.database().ref('denue/' + id).set({
+        vistas: 0
+    });
+   /* firebase.database().ref('denue/' + id + '/precios/').set({
+        0:'Precios se crearán cuando empiece a subirlos desde xls, csv, xml o captura manual'
+    });
+    firebase.database().ref('denue/' + id + '/promos/').set({
+        0:'Promos se crearán cuando empiece a subirlos desde xls, csv, xml o captura manual'
+    });*/
+    firebase.database().ref('denue/' + id + '/horarios/').set({
+        1:'Descanso',2:'08:00 - 16:00',3:'16:00 - 22:30',4:'08:00 - 16:00, 21:00 - 21:30',5:'11:00 - 22:00',6:'09:00 - 21:00',7:'08:00 - 12:00, 14:00 - 22:00'
+    });
+    
+    //Nuevo precio
+    var precioData = {
+        idInterno: '', //id de su sistema
+        item: 'Caguama indio 500ml envase retornable',
+        precio: 45, //precio al publico
+        pMay: 40, //precio de mayoreo
+        cMay: 70, //cantidad de unidades necesarias para alcanzar el precio de mayoreo
+        pBrd: 43 //precio de brindix (este se lo ofreceremos en exclusivo a usuarios premium)
+      };
+    
+    //Nueva Promo
+    var promoData = {
+        idInterno: '', //id de su sistema
+        title:'Party pack', //titulo a mostrar en el listado
+        item: '8 5kg cervezas Indio + bolsa de hielo 5kg + sabritones', //descripcion que va en el cuerpo del acordion
+        precio: 190, //precio al publico
+        dias: {
+            1:true,
+            3:true
+        },// dias en que esta activa la promo (poner hasta arriba las del dia en curso)
+        restricciones:'Solo aplica en horario de 8 - 12', //aclaraciones para hacer valida la promocion, en caso de ser necesario
+        pBrd: ''//precio brindix (este se lo ofreceremos en exclusivo a usuarios premium)
+      };
+    
+    
+     // Get a key for a new Post.
+        var newPostKey = firebase.database().ref().child('denue/' + id + '/precios/').push().key;
+        var updates = {};
+        updates['denue/' + id + '/precios/' + newPostKey] = precioData;
+        updates['denue/' + id + '/promos/' + newPostKey] = promoData;
+        firebase.database().ref().update(updates);
+    
+};
+
+function PrepareDenue(){
+    for (i=1; i< 47770; i++){
+        createDenueDemo(i);
+    }
+}
