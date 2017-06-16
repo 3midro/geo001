@@ -1180,15 +1180,15 @@ $$('input[type=checkbox][name=ks-giro]').on('change',function(){
 });
 
 /* =========== STORE DETAIL =================*/
-var map_detail; var pagDetalle; var posDetail;
+var map_detail; var pagDetalle; var posDetail; var UEdetail;
 myApp.onPageInit('detail', function (page) {
   // "page" variable contains all required information about loaded and initialized page 
-    console.log(page.query);
+    //console.log(page.query);
     pagDetalle = page.query.id;
     $$("#nombreEstablecimiento").html(page.query.name);
     $$(".item-detail>.circulo-categoria").addClass('bg-'+storage.color);
     $$("#icn_detail").html(page.query.scian);
-     map_detail = L.map('map_detail',{
+    map_detail = L.map('map_detail',{
             dragging:false,
             zoomControl:false,
             maxZoom: 16,
@@ -1245,12 +1245,45 @@ myApp.onPageInit('detail', function (page) {
         notFound: '.searchbar-not-found-promos'
     }); 
     
+    //trae el detalle del elemento
+    UEdetail = firebase.database().ref('denue/' + pagDetalle).once('value').then(function(snapshot) {
+        //solo la primera vez llena la info  
+            var UE = snapshot.val();
+            console.log(UE);
+            var dia = moment().day();
+            if ( UE !== null){
+                $$("#horario").html(UE.horarios[dia]);
+                //var totalPrecios = UE.precios.numChildren();
+                $$("#totalPrecios").html('0').show();
+                $$("#totalPromos").html('0').show();
+            }else{
+                //no esta en la base de firebase (NO PAGA)
+                $$("#horario").html("Horario NO disponible");
+                $$("#totalPrecios").hide();
+                $$("#totalPromos").hide();
+            }
+        
+    });
+    /*UEdetail = firebase.database().ref('denue/' + pagDetalle);
+    UEdetail.on('child_changed', function(data) {
+        var UE = data.val();
+        var dia = moment().day();
+        if (UE !== null){
+            $$("#horario").html(UE.horarios[dia]);
+        }else{
+            //no esta en la base de firebase (NO PAGA)
+            $$("#horario").html("Horario NO registrado");
+        }
+        //console.log("DETALLE UE" + UE.id);
+    });*/
+    
 });
 
 myApp.onPageBack('detail', function (page) {
    pagDetalle = undefined;
    map_detail = undefined;
     posDetail = undefined;
+    //UEdetail.off();
     console.log("cerro la pagina " + page.query.id);
 });
 

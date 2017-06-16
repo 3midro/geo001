@@ -32,21 +32,27 @@ var initFirebase =  function(){
     providerGO = new firebase.auth.GoogleAuthProvider();
     
     //watcher de los establecimientos
-    var watcherFireBase = firebase.database().ref('denue/');
+    watcherFireBase = firebase.database().ref('denue');
+   /* watcherFireBase.orderByKey().equalTo("1").on("value", function(snapshot) {
+      console.log(snapshot.key);
+      console.log(snapshot.val());
+    });*/
+    
     /*watcherFireBase.on('child_added', function(data) {
         console.log(data.key, data.val());
         console.log("child added");
     });*/
+    // No se pone el chil_added porque de inicio agrega todo en la base de datos y eso carga demasiada informacion
 
-    watcherFireBase.on('child_changed', function(data) {
-        console.log(data.key, data.val());
+   /* watcherFireBase.on('child_changed', function(data) {
+       // console.log(data.key, data.val());
         console.log("child changed");
     });
 
     watcherFireBase.on('child_removed', function(data) {
-      console.log(data.key);
+      //console.log(data.key);
         console.log("child removed");
-    });
+    });*/
     
 }
 
@@ -82,7 +88,7 @@ var logout = function (){
 
 
 var createDenueDemo = function(id){
-    console.log(id);
+    //console.log(id);
     firebase.database().ref('denue/' + id).set({
         vistas: 0
     });
@@ -117,7 +123,9 @@ var createDenueDemo = function(id){
             3:true
         },// dias en que esta activa la promo (poner hasta arriba las del dia en curso)
         restricciones:'Solo aplica en horario de 8 - 12', //aclaraciones para hacer valida la promocion, en caso de ser necesario
-        pBrd: ''//precio brindix (este se lo ofreceremos en exclusivo a usuarios premium)
+        pBrd: '',//precio brindix (este se lo ofreceremos en exclusivo a usuarios premium)
+        iniPromo: moment().format("D/MM/YYYY"),
+        finPromo: moment().add(10, 'days').format("D/MM/YYYY")
       };
     
     
@@ -135,3 +143,19 @@ function PrepareDenue(){
         createDenueDemo(i);
     }
 }
+
+var watcherFireBase;
+var watcherDenueGlobal = function(id){
+    watcherFireBase = firebase.database().ref('denue');
+    watcherFireBase.orderByKey().equalTo(id).on("value", function(snapshot) {
+        var UE = snapshot.val();
+        //console.log(UE);
+        if (UE !== null){
+            if (pagDetalle === id){
+                console.log("actualiza el detalle from global to " + id);
+            }
+        }
+        // este solo sirve para detectar los nuevos UE cuando sean AGREGADOS EN TIEMPO REAL, creando el efecto de caida de chincheta ordenando la LISTA
+    });
+    
+};

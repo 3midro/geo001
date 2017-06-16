@@ -445,6 +445,9 @@ var getDenue = function(){
         if (!map.getBounds().equals(frame)){
             if (!$$("#map_refresh").hasClass("color-gray")){
                 frame = map.getBounds();
+                //limpio el watcher en cada  nuevo dibujo del mapa para que solo se monitorien los que se visualizan en el mapa
+                //console.log(watcherFireBase);    
+                watcherFireBase.off();
                 $$.getJSON(urlServices['serviceGetDenue'].url, {bbox:frame}, function (data, status, xhr) {
                      drawUEPrune(data.geoUE);
                 }, function(xhr, status){
@@ -469,6 +472,7 @@ function  drawUEPrune(geoJs){
     var filters = getFiltrosActivos();
    // console.log(filters);
     $$("#ul_establecimientos").html('');
+    
     var UE = L.geoJson(geoJs,{
         onEachFeature: function(feature, featureLayer){
            var marker = new PruneCluster.Marker(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
@@ -480,7 +484,10 @@ function  drawUEPrune(geoJs){
            //marker.filtered = !(filters.include(parseInt(feature.properties.SCIAN)));
            leafletView.RegisterMarker(marker);
            createFicha(feature);
-            console.log(feature);
+           // console.log(feature);
+            watcherDenueGlobal(feature.properties.id);
+            var r = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
+            if (r === 1)createDenueDemo(feature.properties.id) // temporal para que exista el elemento en firebase
         }
     });
     map.addLayer(leafletView);
@@ -507,7 +514,7 @@ function createFicha(feature){
            +       '<div class="item-title">'+ feature.properties.nombre+'</div>'
             +      '<div class="item-after"><div class="circulo-categoria"><div class="icn_categoria"><i class="material-icons">'+scian+'</i></div></div></div>'
              +   '</div>'
-              +  '<div class="item-text"><span id="distancia_'+feature.properties.id+'">'+d+'</span> m</div>'
+              +  '<div class="item-text"><span id="distancia_'+feature.properties.id+'">'+d+'</span> m <span style="float: right;">'+feature.properties.id+'</span></div>'
               +  '</div></a></div>'
             + '<div class="swipeout-actions-left">'
             +  '<a href="#" class="demo-mark bg-'+storage.color+' link"><i class="icon material-icons">favorite_border</i></a>'
