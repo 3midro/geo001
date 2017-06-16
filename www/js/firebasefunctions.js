@@ -33,10 +33,10 @@ var initFirebase =  function(){
     
     //watcher de los establecimientos
     var watcherFireBase = firebase.database().ref('denue/');
-    watcherFireBase.on('child_added', function(data) {
+    /*watcherFireBase.on('child_added', function(data) {
         console.log(data.key, data.val());
         console.log("child added");
-    });
+    });*/
 
     watcherFireBase.on('child_changed', function(data) {
         console.log(data.key, data.val());
@@ -53,7 +53,7 @@ var initFirebase =  function(){
 var login = function (p){
     var provider;
     switch (p){case "f": provider = providerFB; break;case "t": provider = providerTW; break;case "g": provider = providerGO; break;default: return;}
-    firebase.auth().signInWithPopup(provider).then(function(result) {
+    firebase.auth().signInWithRedirect(provider).then(function(result) {
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
       var token = result.credential.accessToken;
       // The signed-in user info.
