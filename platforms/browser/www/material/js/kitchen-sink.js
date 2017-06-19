@@ -1253,9 +1253,11 @@ myApp.onPageInit('detail', function (page) {
             var dia = moment().day();
             if ( UE !== null){
                 $$("#horario").html(UE.horarios[dia]);
-                //var totalPrecios = UE.precios.numChildren();
-                $$("#totalPrecios").html('0').show();
-                $$("#totalPromos").html('0').show();
+                var totalPrecios = (Object.keys(UE["precios"]) !== null)?Object.keys(UE["precios"]).length:0;
+                var totalPromos = (Object.keys(UE["promos"]) !== null)?Object.keys(UE["promos"]).length:0;
+                console.log(totalPrecios + ' ' + totalPromos);
+                $$("#totalPrecios").html(totalPrecios).show();
+                $$("#totalPromos").html(totalPromos).show();
             }else{
                 //no esta en la base de firebase (NO PAGA)
                 $$("#horario").html("Horario NO disponible");
