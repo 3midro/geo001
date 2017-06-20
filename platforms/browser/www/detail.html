@@ -3,7 +3,7 @@
   <div class="navbar">
     <div class="navbar-inner">
       <div class="left"><a href="index.html" class="back link icon-only"><i class="icon icon-back"></i></a></div>
-      <div class="center" id="nombreEstablecimiento">DETALLE</div>
+      <div class="center" >DETALLE</div>
       <!--<div class="right"><a href="#" class="link open-panel icon-only"><i class="icon icon-bars"></i></a></div>-->
     </div>
        <div class="subnavbar subnavbar-detail tab-precios" style="display:none">
@@ -28,9 +28,15 @@
   </div>
   <div class="toolbar tabbar toolbar-bottom">
       <div class="toolbar-inner">
-          <a href="#tab-info" class="tab-link active"><i class="icon material-icons">dashboard</i><span class="tabbar-label"><small>info</small></span></a>
-          <a href="#tab-precios" class="tab-link"><i class="icon material-icons">attach_money<sup><span class="badge">890</span></sup></i><span class="tabbar-label"><small>precios</small></span></a>
-          <a href="#tab-promos" class="tab-link"><i class="icon material-icons">local_offer<sup><span class="badge">6</span></sup></i><span class="tabbar-label"><small>promos</small></span></a>
+          <a href="#tab-info" class="tab-link active">
+              <i class="icon material-icons">dashboard</i>
+          </a>
+          <a href="#tab-precios" class="tab-link">
+              <i class="icon material-icons">attach_money<sup><span class="badge" id="totalPrecios" >0</span></sup></i>
+          </a>
+          <a href="#tab-promos" class="tab-link">
+              <i class="icon material-icons">local_offer<sup><span class="badge" id="totalPromos" >0</span></sup></i>
+          </a>
           <!--<a href="#tab-review" class="tab-link"><i class="icon material-icons">comment</i><span class="tabbar-label">Review</span></a>-->
       </div>
   </div>
@@ -42,17 +48,17 @@
         <div id="map_detail" style="height:60vw; overflow:hidden"></div>
         <div class="item-detail"><div class="circulo-categoria"><div class="icn_categoria"><i class="material-icons" id="icn_detail">audiotrack</i></div></div></div>
           <div class="content-block">
-            
-              <div class="row no-gutter">
+              <div class="col-100 item-title center color-gray" id="nombreEstablecimiento">NOMBRE DEL LUGAR</div>
+              <div class="row no-gutter" style="padding-top: 1em;">
                 <div class="col-50 color-gray center"> <svg id="fillgauge1" width="97%" height="90" onclick="gauge1.update(NewValue());"></svg><p><small>metros</small></p></div>
                 <div class="col-50 color-gray center" style="border-left-style: solid; border-left-width: 2px;">
                     <div class="row no-gutter">
                         <div class="col-100"><i class="material-icons md-36">account_balance_wallet</i></div>
-                        <div class="col-100"><small>$35 - $890</small> </div>
+                        <div class="col-100"><small id="detail_rangoPrecios">Sin info</small> </div>
                     </div>
                     <div class="row no-gutter">
                         <div class="col-100"><i class="material-icons md-36">access_time</i></div>
-                        <div class="col-100"><small>9:00 - 22:00</small> </div>
+                        <div class="col-100"><small id="horario">9:00 - 22:00</small> </div>
                     </div>
                 </div>
                 </div>
@@ -67,7 +73,7 @@
                   <p>No se encontraron coincidencias PRECIOS</p>
             </div>
                <div class="list-block list-block-search-precios searchbar-found searchbar-found-precios">
-            <ul>
+            <ul id="ul_detallePrecios">
                <li class="item-content">
                 <div class="item-inner">
                 <div class="item-title">Cerveza victoria 550 ml</div>
@@ -92,7 +98,7 @@
                   <p>No se encontraron coincidencias Promos</p>
             </div>
                <div class="list-block list-block-search-promos searchbar-found searchbar-found-promos">
-            <ul>
+            <ul id="ul_detallePromos">
                 <li class="accordion-item">
                     <a href="#" class="item-link item-content">
                         <div class="item-inner">
