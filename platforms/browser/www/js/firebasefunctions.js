@@ -111,6 +111,14 @@ var createDenueDemo = function(id){
         cMay: 70, //cantidad de unidades necesarias para alcanzar el precio de mayoreo
         pBrd: 43 //precio de brindix (este se lo ofreceremos en exclusivo a usuarios premium)
       };
+    var precioData2 = {
+        idInterno: '', //id de su sistema
+        item: 'Cerveza victoria 355ml',
+        precio: 15, //precio al publico
+        pMay: 12, //precio de mayoreo
+        cMay: 10, //cantidad de unidades necesarias para alcanzar el precio de mayoreo
+        pBrd: 12 //precio de brindix (este se lo ofreceremos en exclusivo a usuarios premium)
+      };
     
     //Nueva Promo
     var promoData = {
@@ -131,9 +139,11 @@ var createDenueDemo = function(id){
     
      // Get a key for a new Post.
         var newPostKey = firebase.database().ref().child('denue/' + id + '/precios/').push().key;
+     var newPostKey2 = firebase.database().ref().child('denue/' + id + '/precios/').push().key;
         var updates = {};
         updates['denue/' + id + '/precios/' + newPostKey] = precioData;
         updates['denue/' + id + '/promos/' + newPostKey] = promoData;
+        updates['denue/' + id + '/precios/' + newPostKey2] = precioData2;
         firebase.database().ref().update(updates);
     
 };

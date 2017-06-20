@@ -1252,15 +1252,60 @@ myApp.onPageInit('detail', function (page) {
             console.log(UE);
             var dia = moment().day();
             if ( UE !== null){
-                $$("#horario").html(UE.horarios[dia]);
-                var totalPrecios = (Object.keys(UE["precios"]) !== null)?Object.keys(UE["precios"]).length:0;
-                var totalPromos = (Object.keys(UE["promos"]) !== null)?Object.keys(UE["promos"]).length:0;
-                console.log(totalPrecios + ' ' + totalPromos);
+                var horario = (typeof UE.horarios[dia] !== 'undefined')?UE.horarios[dia]:'No disponible';
+                $$("#horario").html(horario);
+                //var totalPrecios = (typeof UE.precios !== 'undefined')?Object.keys(UE["precios"]).length:0;
+                
+                //var totalPromos = (typeof UE.promos !== 'undefined')?Object.keys(UE["promos"]).length:0;
+                
+                if (typeof UE.precios !== 'undefined'){
+                    var totalPrecios = Object.keys(UE["precios"]).length;
+                    var pmin =1000, pmax = 0; 
+                    // limpio el UL de items productos
+                    $$("#ul_detallePrecios").html('');
+                    //recorro el objeto y creo el item
+                    Object.keys(UE.precios).forEach(function(key) {
+                        $$("#ul_detallePrecios").append('<li class="item-content"><div class="item-inner"><div class="item-title">'+UE.precios[key].item+'</div> <div class="item-after">$'+UE.precios[key].precio+'</div></div></li>');
+                        pmin = (UE.precios[key].precio < pmin)?UE.precios[key].precio:pmin;
+                        pmax = (UE.precios[key].precio > pmax)?UE.precios[key].precio:pmax;
+                    });
+                    pmin ='$'+pmin+' - ';
+                    pmax ='$'+pmax;
+                }else{
+                    var totalPrecios = 0;
+                    var pmin = 'Sin ', pmax = 'info';  
+                }
+                 if (typeof UE.promos !== 'undefined'){
+                     var totalPromos = Object.keys(UE["promos"]).length;
+                     // limpio el UL de items productos
+                    $$("#ul_detallePromos").html('');
+                      Object.keys(UE.promos).forEach(function(key) {
+                          //si la promo ya caduco, no mostrarla, de preferencia mostrar hasta arriba las promos del dia de hoy
+                        $$("#ul_detallePromos").append('<li class="accordion-item">'
+                                +'<a href="#" class="item-link item-content">'
+                                    +'<div class="item-inner">'
+                                      +'<div class="item-title">'+UE.promos[key].title+'</div>'
+                                    +'<div class="item-after">$'+UE.promos[key].precio+'</div>'
+                                    +'</div>'
+                                +'</a>'
+                                +'<div class="accordion-item-content">'
+                                    +'<div class="content-block">'
+                                      +'<p>'+UE.promos[key].item+'</p>'
+                                    +'<p><small>'+UE.promos[key].restricciones+'</small></p>'
+                                    +'</div>'
+                                +'</div>'
+                            +'</li>');
+                    });
+                 }else{
+                     var totalPromos = 0;
+                 }
+                
                 $$("#totalPrecios").html(totalPrecios).show();
                 $$("#totalPromos").html(totalPromos).show();
+                $$("#detail_rangoPrecios").html(pmin+pmax);
             }else{
                 //no esta en la base de firebase (NO PAGA)
-                $$("#horario").html("Horario NO disponible");
+                $$("#horario").html("No Aplica");
                 $$("#totalPrecios").hide();
                 $$("#totalPromos").hide();
             }
