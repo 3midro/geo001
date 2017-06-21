@@ -1254,10 +1254,6 @@ myApp.onPageInit('detail', function (page) {
             if ( UE !== null){
                 var horario = (typeof UE.horarios[dia] !== 'undefined')?UE.horarios[dia]:'No disponible';
                 $$("#horario").html(horario);
-                //var totalPrecios = (typeof UE.precios !== 'undefined')?Object.keys(UE["precios"]).length:0;
-                
-                //var totalPromos = (typeof UE.promos !== 'undefined')?Object.keys(UE["promos"]).length:0;
-                
                 if (typeof UE.precios !== 'undefined'){
                     var totalPrecios = Object.keys(UE["precios"]).length;
                     var pmin =1000, pmax = 0; 
@@ -1308,6 +1304,8 @@ myApp.onPageInit('detail', function (page) {
                 $$("#horario").html("No Aplica");
                 $$("#totalPrecios").hide();
                 $$("#totalPromos").hide();
+                $$("#ul_detallePrecios").html('<div class="center"><i class="material-icons md-100 color-gray">mood_bad</i><br>Usuario sin membresia</div>');
+                $$("#ul_detallePromos").html('<div class="center"><i class="material-icons md-100 color-gray">mood_bad</i><br>Usuario sin membresia</div>');
             }
         
     });
