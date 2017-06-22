@@ -172,6 +172,13 @@ var watcherDenueGlobal = function(id){
     });
 };
 
+var checkExist = function (id){
+        firebase.database().ref('denue/' + id).once('value').then(function(snapshot) {
+        var UE = snapshot.val();
+        if (UE !== null) return 1; return 0;
+    });
+}
+
 var updDetalle = function(id, UE){
     var dia = moment().day();
     if ( UE !== null){

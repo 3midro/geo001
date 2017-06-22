@@ -20,7 +20,8 @@
 						"properties" => array(
 							"id" => $fila["id"],
 							"nombre" => utf8_encode($fila["nombre"]),
-                            "SCIAN" => $fila["SCIAN"]
+                            "SCIAN" => $fila["SCIAN"],
+                            "activo" => $fila["activo"]
 						)
 				);
                      array_push($e,$feature);

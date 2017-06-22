@@ -444,6 +444,10 @@ var getDenue = function(){
     if (typeof map_detail === 'undefined'){
         if (!map.getBounds().equals(frame)){
             if (!$$("#map_refresh").hasClass("color-gray")){
+                //antes de poner la nueva capa como va a actualizar quito la capa anterior para que no se reproduzca efecto extraño
+                if (typeof leafletView !== 'undefined'){
+                    leafletView.RemoveMarkers();leafletView.RedrawIcons();
+                }
                 frame = map.getBounds();
                 //limpio el watcher en cada  nuevo dibujo del mapa para que solo se monitorien los que se visualizan en el mapa
                 //console.log(watcherFireBase);    
@@ -477,17 +481,14 @@ function  drawUEPrune(geoJs){
         onEachFeature: function(feature, featureLayer){
            var marker = new PruneCluster.Marker(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
             marker.category = parseInt(feature.properties.SCIAN);
-            marker.data.icon = createIconNormal;
-          // console.log(filters.indexOf(parseInt(feature.properties.SCIAN)) > -1);
+            //marker.data.icon = createIconNormal;
             marker.filtered = !(filters.indexOf(parseInt(feature.properties.SCIAN)) > -1);
             marker.data.id = parseInt(feature.properties.id);
-           //marker.filtered = !(filters.include(parseInt(feature.properties.SCIAN)));
-           leafletView.RegisterMarker(marker);
-           createFicha(feature);
-           // console.log(feature);
+            marker.data.icon = (parseInt(feature.properties.activo)===1)?createIconMember:createIconNormal;
+            leafletView.RegisterMarker(marker);
+            createFicha(feature);
             watcherDenueGlobal(feature.properties.id);
-            var r = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
-            if (r === 1)createDenueDemo(feature.properties.id) // temporal para que exista el elemento en firebase
+          
         }
     });
     map.addLayer(leafletView);
@@ -504,7 +505,7 @@ function  drawUEPrune(geoJs){
 };
 
 function createFicha(feature){
-   // console.log(feature);
+    console.log(feature);
     var scian = translateCategoria(feature.properties.SCIAN);
     var d = getDistance(feature);
     var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+',\'li\')" data-distancia="'+d+'" >'
@@ -523,14 +524,19 @@ function createFicha(feature){
         + ' </div>'
     +    '</li>';
     $$(".searchbar-clear").click(); $$(".searchbar-overlay").click();
-    $$("#ul_establecimientos").append(ficha);
+    (feature.properties.activo == 1)?$$("#ul_establecimientos").prepend(ficha):$$("#ul_establecimientos").append(ficha);
     var options = {useEasing : true, useGrouping : true, separator : ',', decimal : '.',};
     var demo = new CountUp("distancia_"+feature.properties.id, 0, d, 0, 5.0, options);
     demo.start();
 };
 
-function createIconNormal(data, category) {
+
+function createIconNormal() {
     return L.divIcon({className: 'my-div-icon', html:'<div class="pin_normal"></div>'});
+}
+
+function createIconMember(){
+     return L.divIcon({className: 'my-div-icon', html:'<div class="pin"></div><div class="pulse"></div>'});
 }
 
 function getFiltrosActivos(){
