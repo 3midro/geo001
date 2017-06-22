@@ -99,7 +99,7 @@ var createDenueDemo = function(id){
         0:'Promos se crearán cuando empiece a subirlos desde xls, csv, xml o captura manual'
     });*/
     firebase.database().ref('denue/' + id + '/horarios/').set({
-        1:'Descanso',2:'08:00 - 16:00',3:'16:00 - 22:30',4:'08:00 - 16:00, 21:00 - 21:30',5:'11:00 - 22:00',6:'09:00 - 21:00',7:'08:00 - 12:00, 14:00 - 22:00'
+        1:'Descanso',2:'08:00 - 16:00',3:'16:00 - 22:30',4:'08:00 - 16:00<br>21:00 - 21:30',5:'11:00 - 22:00',6:'09:00 - 21:00',7:'08:00 - 12:00<br>14:00 - 22:00'
     });
     
     //Nuevo precio
@@ -171,6 +171,13 @@ var watcherDenueGlobal = function(id){
          updDetalle(snapshot.key, null);
     });
 };
+
+var checkExist = function (id){
+        firebase.database().ref('denue/' + id).once('value').then(function(snapshot) {
+        var UE = snapshot.val();
+        if (UE !== null) return 1; return 0;
+    });
+}
 
 var updDetalle = function(id, UE){
     var dia = moment().day();
