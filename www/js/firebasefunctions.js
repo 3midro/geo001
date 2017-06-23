@@ -21,9 +21,9 @@ var initFirebase =  function(){
       }else{
           $$("#chipUsuario").hide();
           $$(".open-login-screen").removeAttr("style");
-          //manda a la pagina de login?
-           var p = storage.getItem('pay'); var w = storage.getItem('welcome');
-           if (w === "true" && p === "true"){$$(".open-login-screen").click();}
+          //manda a la pagina de login? por el momento NO para que pueda seguir trabajando
+           //var p = storage.getItem('pay'); var w = storage.getItem('welcome');
+           //if (w === "true" && p === "true"){$$(".open-login-screen").click();}
       }
     });
     

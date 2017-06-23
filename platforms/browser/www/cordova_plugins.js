@@ -283,6 +283,45 @@ module.exports = [
         "id": "cordova-plugin-device.DeviceProxy",
         "pluginId": "cordova-plugin-device",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-buildinfo/www/buildinfo.js",
+        "id": "cordova-plugin-buildinfo.BuildInfo",
+        "pluginId": "cordova-plugin-buildinfo",
+        "clobbers": [
+            "BuildInfo"
+        ]
+    },
+    {
+        "file": "plugins/cordova-universal-links-plugin/www/universal_links.js",
+        "id": "cordova-universal-links-plugin.universalLinks",
+        "pluginId": "cordova-universal-links-plugin",
+        "clobbers": [
+            "universalLinks"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-browsertab/www/browsertab.js",
+        "id": "cordova-plugin-browsertab.BrowserTab",
+        "pluginId": "cordova-plugin-browsertab",
+        "clobbers": [
+            "cordova.plugins.browsertab"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+        "id": "cordova-plugin-inappbrowser.inappbrowser",
+        "pluginId": "cordova-plugin-inappbrowser",
+        "clobbers": [
+            "cordova.InAppBrowser.open",
+            "window.open"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-inappbrowser/src/browser/InAppBrowserProxy.js",
+        "id": "cordova-plugin-inappbrowser.InAppBrowserProxy",
+        "pluginId": "cordova-plugin-inappbrowser",
+        "runs": true
     }
 ];
 module.exports.metadata = 
@@ -301,7 +340,11 @@ module.exports.metadata =
     "nl.x-services.plugins.socialsharing": "5.1.1",
     "cl.rmd.cordova.dialoggps": "0.0.2",
     "cordova.plugins.diagnostic": "3.6.0",
-    "cordova-plugin-device": "1.1.6"
+    "cordova-plugin-device": "1.1.6",
+    "cordova-plugin-buildinfo": "1.1.0",
+    "cordova-universal-links-plugin": "1.2.1",
+    "cordova-plugin-browsertab": "0.2.0",
+    "cordova-plugin-inappbrowser": "1.7.1"
 }
 // BOTTOM OF METADATA
 });

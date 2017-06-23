@@ -420,19 +420,19 @@ myApp.onPageInit('notifications', function (page) {
 /* ===== Login screen page events ===== */
 myApp.onPageInit('login-screen-embedded', function (page) {
     $$(page.container).find('.button').on('click', function () {
-        var username = $$(page.container).find('input[name="username"]').val();
+        /*var username = $$(page.container).find('input[name="username"]').val();
         var password = $$(page.container).find('input[name="password"]').val();
         myApp.alert('Username: ' + username + ', password: ' + password, function () {
             mainView.router.back();
-        });
+        });*/
     });
 });
 $$('.login-screen').find('.button').on('click', function () {
-    var username = $$('.login-screen').find('input[name="username"]').val();
+    /*var username = $$('.login-screen').find('input[name="username"]').val();
     var password = $$('.login-screen').find('input[name="password"]').val();
     myApp.alert('Username: ' + username + ', password: ' + password, function () {
         myApp.closeModal('.login-screen');
-    });
+    });*/
 });
 
 /* ===== Demo Popover ===== */
@@ -1180,29 +1180,32 @@ $$('input[type=checkbox][name=ks-giro]').on('change',function(){
 });
 
 /* =========== STORE DETAIL =================*/
-var map_detail; var pagDetalle; var posDetail;
+var map_detail; var pagDetalle; var posDetail; var UEdetail;
 myApp.onPageInit('detail', function (page) {
   // "page" variable contains all required information about loaded and initialized page 
-    console.log(page.query);
+    //console.log(page.query);
     pagDetalle = page.query.id;
     $$("#nombreEstablecimiento").html(page.query.name);
     $$(".item-detail>.circulo-categoria").addClass('bg-'+storage.color);
     $$("#icn_detail").html(page.query.scian);
-     map_detail = L.map('map_detail',{
+    map_detail = L.map('map_detail',{
             dragging:false,
             zoomControl:false,
             maxZoom: 16,
             minZoom: 16
         }).setView([parseFloat(page.query.lat), parseFloat(page.query.lng)], 16); 
-            L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 detectRetina: true
             }).addTo(map_detail);
     
     L.marker([parseFloat(page.query.lat), parseFloat(page.query.lng)]).addTo(map_detail)
     .bindPopup(page.query.name)
     .openPopup();
-    var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
-    posDetail = new L.marker([position._latlng.lat, position._latlng.lng], {icon: myIcon}).addTo(map_detail);
+    
+    if (!$$("#map_my_location").hasClass('color-gray')){
+        var myIcon = L.divIcon({className: 'my-div-icon', html:'<div class="pulse-me"></div>'});
+        posDetail = new L.marker([position._latlng.lat, position._latlng.lng], {icon: myIcon}).addTo(map_detail);
+    }
     
     config1 = liquidFillGaugeDefaultSettings();
     config1.circleColor = "#757575";
@@ -1222,15 +1225,42 @@ myApp.onPageInit('detail', function (page) {
     config1.waveAnimateTime = 1000;
     gauge1 = loadLiquidFillGauge("fillgauge1", page.query.d, config1);
     
+    $$('.tab').on('tab:show', function (tab) {
+         $$('.subnavbar-detail').hide();
+         $$("." + tab.target.id).removeAttr('style');
+        console.log(tab.target.id);
+    });
     
+     myApp.searchbar('.searchbar-precios', {
+        searchList: '.list-block-search-precios',
+        searchIn: '.item-title,.item-after',
+        found: '.searchbar-found-precios',
+        notFound: '.searchbar-not-found-precios'
+    }); 
+    
+    myApp.searchbar('.searchbar-promo', {
+        searchList: '.list-block-search-promos',
+        searchIn: '.item-title, .accordion-item-content,.item-after',
+        found: '.searchbar-found-promos',
+        notFound: '.searchbar-not-found-promos'
+    }); 
+    
+    //trae el detalle del elemento
+    UEdetail = firebase.database().ref('denue/' + pagDetalle).once('value').then(function(snapshot) {
+            var UE = snapshot.val();
+            console.log(UE);
+            updDetalle(pagDetalle, UE);
+    });
 });
 
 myApp.onPageBack('detail', function (page) {
    pagDetalle = undefined;
    map_detail = undefined;
     posDetail = undefined;
+    //UEdetail.off();
     console.log("cerro la pagina " + page.query.id);
 });
+
 
 
 
