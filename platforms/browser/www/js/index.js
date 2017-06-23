@@ -18,7 +18,6 @@
  */
 
 var watchID; var lat; var lon; var position; var frame; var ruta;
-
 var app = {
     // Application Constructor
     initialize: function() {
@@ -218,7 +217,8 @@ function createMap(){
             maxZoom: 18,
             //minZoom: 14
         }).setView([21.8782892, -102.3050335], 16); 
-            L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+          L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            //L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
                 detectRetina: true
             }).addTo(map);
             /*FILTROS*/
@@ -505,10 +505,10 @@ function  drawUEPrune(geoJs){
 };
 
 function createFicha(feature){
-    console.log(feature);
+   // console.log(feature);
     var scian = translateCategoria(feature.properties.SCIAN);
     var d = getDistance(feature);
-    var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+',\'li\')" data-distancia="'+d+'" >'
+    var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+',\'li\')" data-distancia="'+d+'" ><canvas id="canvas_'+feature.properties.id+'"  style="position: absolute; width: 100%;" ></canvas>'
          + '<div class="swipeout-content"><a href="#" class="item-link item-content">'
         +      '<div class="item-inner">'
           +      '<div class="item-title-row">'
@@ -524,7 +524,12 @@ function createFicha(feature){
         + ' </div>'
     +    '</li>';
     $$(".searchbar-clear").click(); $$(".searchbar-overlay").click();
-    (feature.properties.activo == 1)?$$("#ul_establecimientos").prepend(ficha):$$("#ul_establecimientos").append(ficha);
+    if (feature.properties.activo == 1){
+        $$("#ul_establecimientos").prepend(ficha);
+        patternPremium.canvas(document.getElementById('canvas_'+feature.properties.id));
+    }else{
+        $$("#ul_establecimientos").append(ficha);
+    }
     var options = {useEasing : true, useGrouping : true, separator : ',', decimal : '.',};
     var demo = new CountUp("distancia_"+feature.properties.id, 0, d, 0, 5.0, options);
     demo.start();

@@ -1194,7 +1194,7 @@ myApp.onPageInit('detail', function (page) {
             maxZoom: 16,
             minZoom: 16
         }).setView([parseFloat(page.query.lat), parseFloat(page.query.lng)], 16); 
-            L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 detectRetina: true
             }).addTo(map_detail);
     

@@ -278,7 +278,7 @@ h1 {
     border-radius:50px;
     width:23px;
     height:23px;
-     background-color:gainsboro;
+     background-color:#EEEEEE;
    /* margin-top: 20px;*/
 }
 
@@ -329,6 +329,9 @@ h1 {
     position: relative;
 }
 
-
+.backPremium{
+    position: relative;
+    width: 100%;
+}
 
 
