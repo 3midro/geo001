@@ -18,7 +18,6 @@
  */
 
 var watchID; var lat; var lon; var position; var frame; var ruta;
-
 var app = {
     // Application Constructor
     initialize: function() {
@@ -44,6 +43,7 @@ var app = {
         //console.log('Received Event: ' + id);
         switch ( id ){
             case "deviceready":
+                   // initFirebase();
                     payWithTweet();
                 break;
             case "pause":
@@ -73,28 +73,7 @@ var storage = window.localStorage;
 //storage.removeItem('color');
 app.initialize();
 
-var initFirebase =  function(){
-        // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyDrUJR4rbVPlr37C2Il8x-vSoSeBFxUqU4",
-        authDomain: "brindix-866ce.firebaseapp.com",
-        databaseURL: "https://brindix-866ce.firebaseio.com",
-        projectId: "brindix-866ce",
-        storageBucket: "brindix-866ce.appspot.com",
-        messagingSenderId: "54415741684"
-      };
-      firebase.initializeApp(config);
-      firebase.auth().onAuthStateChanged(function(user) {
-          console.log(user);
-          if (user) {
-             // usrObj = user.uid;
-              console.log(user.uid);
-             // $$("#chipUsuario").show();
-          }else{
-            //  $$("#chipUsuario").hide();
-          }
-      });
-}
+
 
 /*var dblocal = function(){
  
@@ -238,7 +217,8 @@ function createMap(){
             maxZoom: 18,
             //minZoom: 14
         }).setView([21.8782892, -102.3050335], 16); 
-            L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+          L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            //L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
                 detectRetina: true
             }).addTo(map);
             /*FILTROS*/
@@ -464,10 +444,15 @@ var getDenue = function(){
     if (typeof map_detail === 'undefined'){
         if (!map.getBounds().equals(frame)){
             if (!$$("#map_refresh").hasClass("color-gray")){
+                //antes de poner la nueva capa como va a actualizar quito la capa anterior para que no se reproduzca efecto extraño
+                if (typeof leafletView !== 'undefined'){
+                    leafletView.RemoveMarkers();leafletView.RedrawIcons();
+                }
                 frame = map.getBounds();
+                //limpio el watcher en cada  nuevo dibujo del mapa para que solo se monitorien los que se visualizan en el mapa
+                //console.log(watcherFireBase);    
+                watcherFireBase.off();
                 $$.getJSON(urlServices['serviceGetDenue'].url, {bbox:frame}, function (data, status, xhr) {
-                   // console.log(data.geoUE);
-                    //drawUE(data.geoUE);
                      drawUEPrune(data.geoUE);
                 }, function(xhr, status){
                     console.log(status);
@@ -486,24 +471,24 @@ var getDenue = function(){
 
 var leafletView;
 function  drawUEPrune(geoJs){
-   // console.log(geoJs);
     (typeof leafletView === 'undefined')?leafletView = new PruneClusterForLeaflet():leafletView.RemoveMarkers();
     //obtener filtros activos
     var filters = getFiltrosActivos();
    // console.log(filters);
     $$("#ul_establecimientos").html('');
+    
     var UE = L.geoJson(geoJs,{
         onEachFeature: function(feature, featureLayer){
            var marker = new PruneCluster.Marker(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
             marker.category = parseInt(feature.properties.SCIAN);
-            marker.data.icon = createIconNormal;
-          // console.log(filters.indexOf(parseInt(feature.properties.SCIAN)) > -1);
+            //marker.data.icon = createIconNormal;
             marker.filtered = !(filters.indexOf(parseInt(feature.properties.SCIAN)) > -1);
             marker.data.id = parseInt(feature.properties.id);
-           //marker.filtered = !(filters.include(parseInt(feature.properties.SCIAN)));
-           leafletView.RegisterMarker(marker);
-           createFicha(feature);
-            console.log(feature);
+            marker.data.icon = (parseInt(feature.properties.activo)===1)?createIconMember:createIconNormal;
+            leafletView.RegisterMarker(marker);
+            createFicha(feature);
+            watcherDenueGlobal(feature.properties.id);
+          
         }
     });
     map.addLayer(leafletView);
@@ -515,7 +500,7 @@ function  drawUEPrune(geoJs){
             $$(this).addClass('list-marked');
             //$$(this).toggleClass('list-marked')
         });
-    bp.close(); //cierra el splash de la posicion inicial
+   // bp.close(); //cierra el splash de la posicion inicial
     StatusBar.backgroundColorByHexString(coloresStatusBar[storage.getItem('color')]);
 };
 
@@ -523,14 +508,14 @@ function createFicha(feature){
    // console.log(feature);
     var scian = translateCategoria(feature.properties.SCIAN);
     var d = getDistance(feature);
-    var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+',\'li\')" data-distancia="'+d+'" >'
+    var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+',\'li\')" data-distancia="'+d+'" ><canvas id="canvas_'+feature.properties.id+'"  style="position: absolute; width: 100%;" ></canvas>'
          + '<div class="swipeout-content"><a href="#" class="item-link item-content">'
         +      '<div class="item-inner">'
           +      '<div class="item-title-row">'
            +       '<div class="item-title">'+ feature.properties.nombre+'</div>'
             +      '<div class="item-after"><div class="circulo-categoria"><div class="icn_categoria"><i class="material-icons">'+scian+'</i></div></div></div>'
              +   '</div>'
-              +  '<div class="item-text"><span id="distancia_'+feature.properties.id+'">'+d+'</span> m</div>'
+              +  '<div class="item-text"><span id="distancia_'+feature.properties.id+'">'+d+'</span> m <span style="float: right;">'+feature.properties.id+'</span></div>'
               +  '</div></a></div>'
             + '<div class="swipeout-actions-left">'
             +  '<a href="#" class="demo-mark bg-'+storage.color+' link"><i class="icon material-icons">favorite_border</i></a>'
@@ -539,14 +524,24 @@ function createFicha(feature){
         + ' </div>'
     +    '</li>';
     $$(".searchbar-clear").click(); $$(".searchbar-overlay").click();
-    $$("#ul_establecimientos").append(ficha);
+    if (feature.properties.activo == 1){
+        $$("#ul_establecimientos").prepend(ficha);
+        patternPremium.canvas(document.getElementById('canvas_'+feature.properties.id));
+    }else{
+        $$("#ul_establecimientos").append(ficha);
+    }
     var options = {useEasing : true, useGrouping : true, separator : ',', decimal : '.',};
     var demo = new CountUp("distancia_"+feature.properties.id, 0, d, 0, 5.0, options);
     demo.start();
 };
 
-function createIconNormal(data, category) {
+
+function createIconNormal() {
     return L.divIcon({className: 'my-div-icon', html:'<div class="pin_normal"></div>'});
+}
+
+function createIconMember(){
+     return L.divIcon({className: 'my-div-icon', html:'<div class="pin"></div><div class="pulse"></div>'});
 }
 
 function getFiltrosActivos(){

@@ -217,7 +217,7 @@ function createMap(){
             maxZoom: 18,
             //minZoom: 14
         }).setView([21.8782892, -102.3050335], 16); 
-          L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
             //L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
                 detectRetina: true
             }).addTo(map);
@@ -518,7 +518,7 @@ function createFicha(feature){
               +  '<div class="item-text"><span id="distancia_'+feature.properties.id+'">'+d+'</span> m <span style="float: right;">'+feature.properties.id+'</span></div>'
               +  '</div></a></div>'
             + '<div class="swipeout-actions-left">'
-            +  '<a href="#" class="demo-mark bg-'+storage.color+' link"><i class="icon material-icons">favorite_border</i></a>'
+            +  '<a href="#" class="demo-mark bg-'+storage.color+' link" onclick="SetFav('+feature.properties.id+')"><i class="icon material-icons" id="fvIcn_'+feature.properties.id+'">favorite_border</i></a>'
             +  '<a href="#" class="demo-mark bg-'+storage.color+' link" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+')"><i class="icon material-icons">directions</i></a>'
             +  '<a href="detail.html?id='+feature.properties.id+'&d='+d+'&scian='+scian+'&lat='+feature.geometry.coordinates[1]+'&lng='+feature.geometry.coordinates[0]+'&name='+ feature.properties.nombre+'" class="demo-mark bg-'+storage.color+' link"><i class="icon material-icons">details</i></a>'
         + ' </div>'
@@ -605,6 +605,16 @@ function drawRoute(desLat, desLng, origen){
     //ruta.setWaypoints(null) // limpia la ruta
     $$("#btnFlipMap").click();
     ruta.setWaypoints([[position._latlng.lat,position._latlng.lng],[desLat, desLng]])
+}
+
+function SetFav(id){
+    //console.log($$("#fvIcn_"+id).text());
+    if ($$("#fvIcn_"+id).text() === 'favorite_border'){
+        $$("#fvIcn_"+id).text('favorite');
+    }else{
+        $$("#fvIcn_"+id).text('favorite_border');
+    }
+    
 }
 
 
