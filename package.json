@@ -7,11 +7,19 @@
             "browser"
         ],
         "plugins": {
-            "cordova-plugin-whitelist": {}
+            "cordova-plugin-whitelist": {},
+            "cordova-plugin-browsertab": {},
+            "cordova-plugin-buildinfo": {},
+            "cordova-plugin-inappbrowser": {},
+            "cordova-universal-links-plugin": {}
         }
     },
     "dependencies": {
         "cordova-browser": "~4.1.0",
-        "cordova-plugin-whitelist": "1"
+        "cordova-plugin-whitelist": "1",
+        "cordova-plugin-browsertab": "~0.2.0",
+        "cordova-plugin-buildinfo": "~1.1.0",
+        "cordova-plugin-inappbrowser": "~1.7.1",
+        "cordova-universal-links-plugin": "~1.2.1"
     }
 }

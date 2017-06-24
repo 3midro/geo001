@@ -18,12 +18,13 @@ var initFirebase =  function(){
           $$("#chipUsuario>.chip-media").html('<img src="'+user.photoURL+'">');
           $$("#chipUsuario>.chip-label").html(user.displayName);
           $$("#chipUsuario").removeAttr("style");
+          myApp.closeModal('.login-screen');
       }else{
           $$("#chipUsuario").hide();
           $$(".open-login-screen").removeAttr("style");
-          //manda a la pagina de login?
-           var p = storage.getItem('pay'); var w = storage.getItem('welcome');
-           if (w === "true" && p === "true"){$$(".open-login-screen").click();}
+          //manda a la pagina de login? por el momento NO para que pueda seguir trabajando
+           //var p = storage.getItem('pay'); var w = storage.getItem('welcome');
+           //if (w === "true" && p === "true"){$$(".open-login-screen").click();}
       }
     });
     

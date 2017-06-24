@@ -18,6 +18,7 @@ var initFirebase =  function(){
           $$("#chipUsuario>.chip-media").html('<img src="'+user.photoURL+'">');
           $$("#chipUsuario>.chip-label").html(user.displayName);
           $$("#chipUsuario").removeAttr("style");
+          myApp.closeModal('.login-screen');
       }else{
           $$("#chipUsuario").hide();
           $$(".open-login-screen").removeAttr("style");
