@@ -535,6 +535,11 @@ function createFicha(feature){
     demo.start();
 };
 
+$$('.ul_establecimientos li.swipeout').on('taphold', function () {
+  console.log('Tap hold fired!');
+    //llamar un menu contextual que diga "activar-demo" solo si l acuenta logueada es mia
+});
+
 
 function createIconNormal() {
     return L.divIcon({className: 'my-div-icon', html:'<div class="pin_normal"></div>'});

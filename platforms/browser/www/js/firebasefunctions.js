@@ -18,6 +18,7 @@ var initFirebase =  function(){
           $$("#chipUsuario>.chip-media").html('<img src="'+user.photoURL+'">');
           $$("#chipUsuario>.chip-label").html(user.displayName);
           $$("#chipUsuario").removeAttr("style");
+          myApp.closeModal('.login-screen');
       }else{
           $$("#chipUsuario").hide();
           $$(".open-login-screen").removeAttr("style");
@@ -239,3 +240,4 @@ var updDetalle = function(id, UE){
                 $$("#ul_detallePromos").html('<div class="center"><i class="material-icons md-100 color-gray">mood_bad</i><br>Usuario sin membresia</div>');
             }
 };
+
