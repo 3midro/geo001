@@ -535,9 +535,10 @@ function createFicha(feature){
     demo.start();
 };
 
-$$('.ul_establecimientos li.swipeout').on('taphold', function () {
+/*$$('#ul_establecimientos li.swipeout').on('taphold', function () {
   console.log('Tap hold fired!');
-});
+
+});*/
 
 
 function createIconNormal() {
@@ -612,12 +613,20 @@ function drawRoute(desLat, desLng, origen){
 }
 
 function SetFav(id){
+    var user = firebase.auth().currentUser;
+    $$.getJSON(urlServices['serviceSetFav'].url, {iuser:user,denue:id}, function (data, status, xhr) {
+         console.log(data);
+    }, function(xhr, status){
+        console.log(status);
+    }); 
+    
+    
     //console.log($$("#fvIcn_"+id).text());
-    if ($$("#fvIcn_"+id).text() === 'favorite_border'){
+   /* if ($$("#fvIcn_"+id).text() === 'favorite_border'){
         $$("#fvIcn_"+id).text('favorite');
     }else{
         $$("#fvIcn_"+id).text('favorite_border');
-    }
+    }*/
     
 }
 
