@@ -3,6 +3,7 @@ var myApp = new Framework7({
     modalTitle: 'Framework7',
     // Enable Material theme
     material: true,
+    tapHold: true //enable tap hold events
 });
 
 // Expose Internal DOM library
@@ -1260,7 +1261,6 @@ myApp.onPageBack('detail', function (page) {
     //UEdetail.off();
     console.log("cerro la pagina " + page.query.id);
 });
-
 
 
 

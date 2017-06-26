@@ -240,3 +240,4 @@ var updDetalle = function(id, UE){
                 $$("#ul_detallePromos").html('<div class="center"><i class="material-icons md-100 color-gray">mood_bad</i><br>Usuario sin membresia</div>');
             }
 };
+
