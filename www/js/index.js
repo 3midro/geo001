@@ -261,6 +261,7 @@ function createMap(){
                 position: 'topright',
                 content: '<div class="btn-group-vertical">'
                          +'<a href="#" class="button button-raised bg-white" id="map_my_location"><i class="icon material-icons" >my_location</i></a>'
+                         +'<a href="#" class="button button-raised bg-white color-gray" id="map_navigation"><i class="icon material-icons" >navigation</i></a>'
                          +'<a href="#" class="button button-raised bg-white" id="map_refresh"><i class="icon material-icons">refresh</i></a>'
                          +'</div>',
 
@@ -286,7 +287,9 @@ function createMap(){
          lineOptions: {
                 styles: [{color: 'grey', opacity: 0.6, weight: 6}]
             },
-         autoRoute: true
+         autoRoute: true,
+        createMarker: function() { return null; } 
+           //createMarker: createIconNormal
         }).addTo(map);
         
         //
@@ -410,9 +413,28 @@ var syncFiltros = function (filtro, ch){
 var syncMyPos = function (filtro, ch){
     //console.log(filtro +'|'+ch);
     $$('#map_'+filtro+'').toggleClass('color-gray');
-    if (filtro === 'my_location'){
-        if(ch){$$(".pulse-me").show();map.panTo(position._latlng);startWatcher();}
-        else{$$(".pulse-me").hide();navigator.geolocation.clearWatch(watchID);}}
+    switch (filtro){
+        case "my_location":
+            if(ch){
+                $$(".pulse-me").show();
+                map.panTo(position._latlng);
+                startWatcher();
+            }else{
+                $$(".pulse-me").hide();
+                navigator.geolocation.clearWatch(watchID);
+            }
+            break;
+        case "refresh":
+            break;
+        case "navigation":
+            //limpia la ruta
+            ruta.setWaypoints([]);
+            //la pone en gris siempre
+              if (!$$("#map_navigation").hasClass("color-gray"))$$('#map_navigation').toggleClass('color-gray');
+            break;
+        default:
+            break;
+    }
 }
 
 
@@ -613,7 +635,8 @@ function drawRoute(desLat, desLng, origen){
     console.log(desLat + ' ' +desLng);
     //ruta.setWaypoints(null) // limpia la ruta
     $$("#btnFlipMap").click();
-    ruta.setWaypoints([[position._latlng.lat,position._latlng.lng],[desLat, desLng]])
+    ruta.setWaypoints([[position._latlng.lat,position._latlng.lng],[desLat, desLng]]);
+    $$('#map_navigation').toggleClass('color-gray');
 }
 
 function SetFav(id){
