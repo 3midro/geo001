@@ -636,7 +636,7 @@ function drawRoute(desLat, desLng, origen){
     //ruta.setWaypoints(null) // limpia la ruta
     $$("#btnFlipMap").click();
     ruta.setWaypoints([[position._latlng.lat,position._latlng.lng],[desLat, desLng]]);
-    $$('#map_navigation').toggleClass('color-gray');
+    if ($$("#map_navigation").hasClass("color-gray"))$$('#map_navigation').toggleClass('color-gray');
 }
 
 function SetFav(id){
