@@ -614,19 +614,15 @@ function drawRoute(desLat, desLng, origen){
 
 function SetFav(id){
     var user = firebase.auth().currentUser;
-    $$.getJSON(urlServices['serviceSetFav'].url, {iuser:user,denue:id}, function (data, status, xhr) {
+    $$.getJSON(urlServices['serviceSetFav'].url, {iuser:user.uid,denue:id}, function (data, status, xhr) {
          console.log(data);
+        if (data.code === 200){
+               $$("#fvIcn_"+id).text(data.icono);
+        }
     }, function(xhr, status){
+        //error
         console.log(status);
     }); 
-    
-    
-    //console.log($$("#fvIcn_"+id).text());
-   /* if ($$("#fvIcn_"+id).text() === 'favorite_border'){
-        $$("#fvIcn_"+id).text('favorite');
-    }else{
-        $$("#fvIcn_"+id).text('favorite_border');
-    }*/
     
 }
 

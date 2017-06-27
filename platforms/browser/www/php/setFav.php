@@ -5,12 +5,12 @@ function __autoload($classname) {
     include_once($filename);
 }
 //recibe variables
-$iuser= $_GET["isuer"];
+$iuser= $_GET["iuser"];
 $denue= $_GET["denue"];
 $f = new favoritos();
 $conmay = new maysql();
 $conmay->conecta_vinom();
-$resp = $f->manageFav($iuser, $denue);
+$resp = $f->manageFav($iuser, $denue, $conmay);
 $conmay->cierra_conexion();
 $resp=json_encode($resp);
 echo $resp;
