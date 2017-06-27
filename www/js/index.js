@@ -261,7 +261,7 @@ function createMap(){
                 position: 'topright',
                 content: '<div class="btn-group-vertical">'
                          +'<a href="#" class="button button-raised bg-white" id="map_my_location"><i class="icon material-icons" >my_location</i></a>'
-                         +'<a href="#" class="button button-raised bg-white color-gray" id="map_navigation"><i class="icon material-icons" >navigation</i></a>'
+                         +'<a href="#" class="button button-raised bg-white color-gray" id="map_directions"><i class="icon material-icons" >directions</i></a>'
                          +'<a href="#" class="button button-raised bg-white" id="map_refresh"><i class="icon material-icons">refresh</i></a>'
                          +'</div>',
 
@@ -426,11 +426,11 @@ var syncMyPos = function (filtro, ch){
             break;
         case "refresh":
             break;
-        case "navigation":
+        case "directions":
             //limpia la ruta
             ruta.setWaypoints([]);
             //la pone en gris siempre
-              if (!$$("#map_navigation").hasClass("color-gray"))$$('#map_navigation').toggleClass('color-gray');
+              if (!$$("#map_directions").hasClass("color-gray"))$$('#map_directions').toggleClass('color-gray');
             break;
         default:
             break;
@@ -636,7 +636,7 @@ function drawRoute(desLat, desLng, origen){
     //ruta.setWaypoints(null) // limpia la ruta
     $$("#btnFlipMap").click();
     ruta.setWaypoints([[position._latlng.lat,position._latlng.lng],[desLat, desLng]]);
-    if ($$("#map_navigation").hasClass("color-gray"))$$('#map_navigation').toggleClass('color-gray');
+    if ($$("#map_directions").hasClass("color-gray"))$$('#map_directions').toggleClass('color-gray');
 }
 
 function SetFav(id){
