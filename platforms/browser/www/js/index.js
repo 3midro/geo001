@@ -449,11 +449,14 @@ var getDenue = function(){
                     leafletView.RemoveMarkers();leafletView.RedrawIcons();
                 }
                 frame = map.getBounds();
+                console.log(frame);
                 //limpio el watcher en cada  nuevo dibujo del mapa para que solo se monitorien los que se visualizan en el mapa
                 //console.log(watcherFireBase);    
                 watcherFireBase.off();
-                $$.getJSON(urlServices['serviceGetDenue'].url, {bbox:frame}, function (data, status, xhr) {
-                     drawUEPrune(data.geoUE);
+                var user = (firebase.auth().currentUser === null)?null:firebase.auth().currentUser.uid;
+                console.log(user);
+                $$.getJSON(urlServices['serviceGetDenue'].url, {bbox:frame, iuser: user}, function (data, status, xhr) {
+                    drawUEPrune(data.geoUE);
                 }, function(xhr, status){
                     console.log(status);
                 }); 
@@ -508,6 +511,7 @@ function createFicha(feature){
    // console.log(feature);
     var scian = translateCategoria(feature.properties.SCIAN);
     var d = getDistance(feature);
+    var f = (feature.properties.isfav == 0)?'favorite_border':'favorite';
     var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+',\'li\')" data-distancia="'+d+'" ><canvas id="canvas_'+feature.properties.id+'"  style="position: absolute; width: 100%;" ></canvas>'
          + '<div class="swipeout-content"><a href="#" class="item-link item-content">'
         +      '<div class="item-inner">'
@@ -518,7 +522,7 @@ function createFicha(feature){
               +  '<div class="item-text"><span id="distancia_'+feature.properties.id+'">'+d+'</span> m <span style="float: right;">'+feature.properties.id+'</span></div>'
               +  '</div></a></div>'
             + '<div class="swipeout-actions-left">'
-            +  '<a href="#" class="demo-mark bg-'+storage.color+' link" onclick="SetFav('+feature.properties.id+')"><i class="icon material-icons" id="fvIcn_'+feature.properties.id+'">favorite_border</i></a>'
+            +  '<a href="#" class="demo-mark bg-'+storage.color+' link" onclick="SetFav('+feature.properties.id+')"><i class="icon material-icons" id="fvIcn_'+feature.properties.id+'">'+f+'</i></a>'
             +  '<a href="#" class="demo-mark bg-'+storage.color+' link" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+')"><i class="icon material-icons">directions</i></a>'
             +  '<a href="detail.html?id='+feature.properties.id+'&d='+d+'&scian='+scian+'&lat='+feature.geometry.coordinates[1]+'&lng='+feature.geometry.coordinates[0]+'&name='+ feature.properties.nombre+'" class="demo-mark bg-'+storage.color+' link"><i class="icon material-icons">details</i></a>'
         + ' </div>'
@@ -614,23 +618,21 @@ function drawRoute(desLat, desLng, origen){
 
 function SetFav(id){
     var user = firebase.auth().currentUser;
-    $$.getJSON(urlServices['serviceSetFav'].url, {iuser:user.uid,denue:id}, function (data, status, xhr) {
-         console.log(data);
-        if (data.code === 200){
-               $$("#fvIcn_"+id).text(data.icono);
-        }
-    }, function(xhr, status){
-        //error
-        console.log(status);
-    }); 
-    
-    
-    //console.log($$("#fvIcn_"+id).text());
-   /* if ($$("#fvIcn_"+id).text() === 'favorite_border'){
-        $$("#fvIcn_"+id).text('favorite');
+    if (user !== null){
+        $$.getJSON(urlServices['serviceSetFav'].url, {iuser:user.uid,denue:id}, function (data, status, xhr) {
+            console.log(data);
+            if (data.code === 200){$$("#fvIcn_"+id).text(data.icono);}
+        }, function(xhr, status){
+            //error
+            console.log(status);
+        });    
     }else{
-        $$("#fvIcn_"+id).text('favorite_border');
-    }*/
+        //envia un mensaje de que inicie sesion antes de agregar 
+        myApp.alert('Esta función solo esta disponible para usuarios con sesión activa, inicia sesión y sigue tus lugares favoritos','Oops', function(){
+            $$(".open-login-screen").click();
+        });
+    }
+     
     
 }
 
