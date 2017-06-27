@@ -438,7 +438,7 @@ $$('.login-screen').find('.button').on('click', function () {
 
 /* ===== Demo Popover ===== */
 $$('.popover a').on('click', function () {
-    myApp.closeModal('.popover');
+   // myApp.closeModal('.popover');
 });
 
 
@@ -1245,13 +1245,19 @@ myApp.onPageInit('detail', function (page) {
         found: '.searchbar-found-promos',
         notFound: '.searchbar-not-found-promos'
     }); 
+    var user = firebase.auth().currentUser;
+    if (user !== null){
+        //trae el detalle del elemento
+        UEdetail = firebase.database().ref('denue/' + pagDetalle).once('value').then(function(snapshot) {
+                var UE = snapshot.val();
+                console.log(UE);
+                updDetalle(pagDetalle, UE);
+        });    
+    }else{
+        // No trae el detalle del elemento
+        console.log("No trae el detalle del elemento porque no esta logueado");
+    }
     
-    //trae el detalle del elemento
-    UEdetail = firebase.database().ref('denue/' + pagDetalle).once('value').then(function(snapshot) {
-            var UE = snapshot.val();
-            console.log(UE);
-            updDetalle(pagDetalle, UE);
-    });
 });
 
 myApp.onPageBack('detail', function (page) {

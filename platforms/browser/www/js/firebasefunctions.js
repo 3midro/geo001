@@ -22,6 +22,9 @@ var initFirebase =  function(){
       }else{
           $$("#chipUsuario").hide();
           $$(".open-login-screen").removeAttr("style");
+          //$$(".open-login-screen").click();
+           // pone todos los items favoritos de la lista en favorite_border
+            synchFavs();
           //manda a la pagina de login? por el momento NO para que pueda seguir trabajando
            //var p = storage.getItem('pay'); var w = storage.getItem('welcome');
            //if (w === "true" && p === "true"){$$(".open-login-screen").click();}
@@ -65,7 +68,7 @@ var login = function (p){
       var token = result.credential.accessToken;
       // The signed-in user info.
       var user = result.user;
-      myApp.closeModal('.login-screen');
+      //myApp.closeModal('.login-screen');
       // ...
     }).catch(function(error) {
       // Handle Errors here.
@@ -241,3 +244,15 @@ var updDetalle = function(id, UE){
             }
 };
 
+function synchFavs(){
+    console.log("syn favs")
+    // setea todos los elementos de la lista en NO favs
+    var ul = document.getElementById("ul_establecimientos");
+    var items = ul.getElementsByTagName("li");
+    for (var i = 0; i < items.length; ++i) {
+      // do something with items[i], which is a <li> element
+        var idi = items[i].id;
+        idi = idi.replace('ficha','fvIcn');
+        $$("#"+idi).text('favorite_border');
+    }
+}
