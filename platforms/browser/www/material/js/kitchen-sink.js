@@ -3,6 +3,7 @@ var myApp = new Framework7({
     modalTitle: 'Framework7',
     // Enable Material theme
     material: true,
+    tapHold: true //enable tap hold events
 });
 
 // Expose Internal DOM library
@@ -437,7 +438,7 @@ $$('.login-screen').find('.button').on('click', function () {
 
 /* ===== Demo Popover ===== */
 $$('.popover a').on('click', function () {
-    myApp.closeModal('.popover');
+   // myApp.closeModal('.popover');
 });
 
 
@@ -1194,7 +1195,7 @@ myApp.onPageInit('detail', function (page) {
             maxZoom: 16,
             minZoom: 16
         }).setView([parseFloat(page.query.lat), parseFloat(page.query.lng)], 16); 
-            L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 detectRetina: true
             }).addTo(map_detail);
     
@@ -1244,83 +1245,18 @@ myApp.onPageInit('detail', function (page) {
         found: '.searchbar-found-promos',
         notFound: '.searchbar-not-found-promos'
     }); 
-    
-    //trae el detalle del elemento
-    UEdetail = firebase.database().ref('denue/' + pagDetalle).once('value').then(function(snapshot) {
-        //solo la primera vez llena la info  
-            var UE = snapshot.val();
-            console.log(UE);
-            var dia = moment().day();
-            if ( UE !== null){
-                var horario = (typeof UE.horarios[dia] !== 'undefined')?UE.horarios[dia]:'No disponible';
-                $$("#horario").html(horario);
-                if (typeof UE.precios !== 'undefined'){
-                    var totalPrecios = Object.keys(UE["precios"]).length;
-                    var pmin =1000, pmax = 0; 
-                    // limpio el UL de items productos
-                    $$("#ul_detallePrecios").html('');
-                    //recorro el objeto y creo el item
-                    Object.keys(UE.precios).forEach(function(key) {
-                        $$("#ul_detallePrecios").append('<li class="item-content"><div class="item-inner"><div class="item-title">'+UE.precios[key].item+'</div> <div class="item-after">$'+UE.precios[key].precio+'</div></div></li>');
-                        pmin = (UE.precios[key].precio < pmin)?UE.precios[key].precio:pmin;
-                        pmax = (UE.precios[key].precio > pmax)?UE.precios[key].precio:pmax;
-                    });
-                    pmin ='$'+pmin+' - ';
-                    pmax ='$'+pmax;
-                }else{
-                    var totalPrecios = 0;
-                    var pmin = 'Sin ', pmax = 'info';  
-                }
-                 if (typeof UE.promos !== 'undefined'){
-                     var totalPromos = Object.keys(UE["promos"]).length;
-                     // limpio el UL de items productos
-                    $$("#ul_detallePromos").html('');
-                      Object.keys(UE.promos).forEach(function(key) {
-                          //si la promo ya caduco, no mostrarla, de preferencia mostrar hasta arriba las promos del dia de hoy
-                        $$("#ul_detallePromos").append('<li class="accordion-item">'
-                                +'<a href="#" class="item-link item-content">'
-                                    +'<div class="item-inner">'
-                                      +'<div class="item-title">'+UE.promos[key].title+'</div>'
-                                    +'<div class="item-after">$'+UE.promos[key].precio+'</div>'
-                                    +'</div>'
-                                +'</a>'
-                                +'<div class="accordion-item-content">'
-                                    +'<div class="content-block">'
-                                      +'<p>'+UE.promos[key].item+'</p>'
-                                    +'<p><small>'+UE.promos[key].restricciones+'</small></p>'
-                                    +'</div>'
-                                +'</div>'
-                            +'</li>');
-                    });
-                 }else{
-                     var totalPromos = 0;
-                 }
-                
-                $$("#totalPrecios").html(totalPrecios).show();
-                $$("#totalPromos").html(totalPromos).show();
-                $$("#detail_rangoPrecios").html(pmin+pmax);
-            }else{
-                //no esta en la base de firebase (NO PAGA)
-                $$("#horario").html("No Aplica");
-                $$("#totalPrecios").hide();
-                $$("#totalPromos").hide();
-                $$("#ul_detallePrecios").html('<div class="center"><i class="material-icons md-100 color-gray">mood_bad</i><br>Usuario sin membresia</div>');
-                $$("#ul_detallePromos").html('<div class="center"><i class="material-icons md-100 color-gray">mood_bad</i><br>Usuario sin membresia</div>');
-            }
-        
-    });
-    /*UEdetail = firebase.database().ref('denue/' + pagDetalle);
-    UEdetail.on('child_changed', function(data) {
-        var UE = data.val();
-        var dia = moment().day();
-        if (UE !== null){
-            $$("#horario").html(UE.horarios[dia]);
-        }else{
-            //no esta en la base de firebase (NO PAGA)
-            $$("#horario").html("Horario NO registrado");
-        }
-        //console.log("DETALLE UE" + UE.id);
-    });*/
+    var user = firebase.auth().currentUser;
+    if (user !== null){
+        //trae el detalle del elemento
+        UEdetail = firebase.database().ref('denue/' + pagDetalle).once('value').then(function(snapshot) {
+                var UE = snapshot.val();
+                console.log(UE);
+                updDetalle(pagDetalle, UE);
+        });    
+    }else{
+        // No trae el detalle del elemento
+        console.log("No trae el detalle del elemento porque no esta logueado");
+    }
     
 });
 
@@ -1331,7 +1267,6 @@ myApp.onPageBack('detail', function (page) {
     //UEdetail.off();
     console.log("cerro la pagina " + page.query.id);
 });
-
 
 
 

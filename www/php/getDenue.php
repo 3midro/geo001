@@ -6,10 +6,17 @@ function __autoload($classname) {
 }
 //recibe variables
 $bbox= $_GET["bbox"];
+$iuser= $_GET["iuser"];
 $b = new busqueda();
 $conmay = new maysql();
 $conmay->conecta_vinom();
-$resp = $b->find($bbox, $conmay);
+if (is_null($iuser)){
+    $resp = $b->find($bbox, $conmay);
+}else{
+    $resp = $b->findFavs($bbox, $iuser, $conmay);
+}
+
+
 $conmay->cierra_conexion();
 $resp=json_encode($resp);
 echo $resp;

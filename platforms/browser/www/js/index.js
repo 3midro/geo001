@@ -18,7 +18,6 @@
  */
 
 var watchID; var lat; var lon; var position; var frame; var ruta;
-
 var app = {
     // Application Constructor
     initialize: function() {
@@ -218,7 +217,8 @@ function createMap(){
             maxZoom: 18,
             //minZoom: 14
         }).setView([21.8782892, -102.3050335], 16); 
-            L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+          L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+            //L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
                 detectRetina: true
             }).addTo(map);
             /*FILTROS*/
@@ -261,6 +261,7 @@ function createMap(){
                 position: 'topright',
                 content: '<div class="btn-group-vertical">'
                          +'<a href="#" class="button button-raised bg-white" id="map_my_location"><i class="icon material-icons" >my_location</i></a>'
+                         +'<a href="#" class="button button-raised bg-white color-gray" id="map_directions"><i class="icon material-icons" >directions</i></a>'
                          +'<a href="#" class="button button-raised bg-white" id="map_refresh"><i class="icon material-icons">refresh</i></a>'
                          +'</div>',
 
@@ -286,7 +287,9 @@ function createMap(){
          lineOptions: {
                 styles: [{color: 'grey', opacity: 0.6, weight: 6}]
             },
-         autoRoute: true
+         autoRoute: true,
+        createMarker: function() { return null; } 
+           //createMarker: createIconNormal
         }).addTo(map);
         
         //
@@ -410,9 +413,28 @@ var syncFiltros = function (filtro, ch){
 var syncMyPos = function (filtro, ch){
     //console.log(filtro +'|'+ch);
     $$('#map_'+filtro+'').toggleClass('color-gray');
-    if (filtro === 'my_location'){
-        if(ch){$$(".pulse-me").show();map.panTo(position._latlng);startWatcher();}
-        else{$$(".pulse-me").hide();navigator.geolocation.clearWatch(watchID);}}
+    switch (filtro){
+        case "my_location":
+            if(ch){
+                $$(".pulse-me").show();
+                map.panTo(position._latlng);
+                startWatcher();
+            }else{
+                $$(".pulse-me").hide();
+                navigator.geolocation.clearWatch(watchID);
+            }
+            break;
+        case "refresh":
+            break;
+        case "directions":
+            //limpia la ruta
+            ruta.setWaypoints([]);
+            //la pone en gris siempre
+              if (!$$("#map_directions").hasClass("color-gray"))$$('#map_directions').toggleClass('color-gray');
+            break;
+        default:
+            break;
+    }
 }
 
 
@@ -444,12 +466,19 @@ var getDenue = function(){
     if (typeof map_detail === 'undefined'){
         if (!map.getBounds().equals(frame)){
             if (!$$("#map_refresh").hasClass("color-gray")){
+                //antes de poner la nueva capa como va a actualizar quito la capa anterior para que no se reproduzca efecto extraño
+                if (typeof leafletView !== 'undefined'){
+                    leafletView.RemoveMarkers();leafletView.RedrawIcons();
+                }
                 frame = map.getBounds();
+                console.log(frame);
                 //limpio el watcher en cada  nuevo dibujo del mapa para que solo se monitorien los que se visualizan en el mapa
                 //console.log(watcherFireBase);    
                 watcherFireBase.off();
-                $$.getJSON(urlServices['serviceGetDenue'].url, {bbox:frame}, function (data, status, xhr) {
-                     drawUEPrune(data.geoUE);
+                var user = (firebase.auth().currentUser === null)?null:firebase.auth().currentUser.uid;
+                console.log(user);
+                $$.getJSON(urlServices['serviceGetDenue'].url, {bbox:frame, iuser: user}, function (data, status, xhr) {
+                    drawUEPrune(data.geoUE);
                 }, function(xhr, status){
                     console.log(status);
                 }); 
@@ -477,17 +506,14 @@ function  drawUEPrune(geoJs){
         onEachFeature: function(feature, featureLayer){
            var marker = new PruneCluster.Marker(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
             marker.category = parseInt(feature.properties.SCIAN);
-            marker.data.icon = createIconNormal;
-          // console.log(filters.indexOf(parseInt(feature.properties.SCIAN)) > -1);
+            //marker.data.icon = createIconNormal;
             marker.filtered = !(filters.indexOf(parseInt(feature.properties.SCIAN)) > -1);
             marker.data.id = parseInt(feature.properties.id);
-           //marker.filtered = !(filters.include(parseInt(feature.properties.SCIAN)));
-           leafletView.RegisterMarker(marker);
-           createFicha(feature);
-           // console.log(feature);
+            marker.data.icon = (parseInt(feature.properties.activo)===1)?createIconMember:createIconNormal;
+            leafletView.RegisterMarker(marker);
+            createFicha(feature);
             watcherDenueGlobal(feature.properties.id);
-            var r = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
-            if (r === 1)createDenueDemo(feature.properties.id) // temporal para que exista el elemento en firebase
+          
         }
     });
     map.addLayer(leafletView);
@@ -507,7 +533,8 @@ function createFicha(feature){
    // console.log(feature);
     var scian = translateCategoria(feature.properties.SCIAN);
     var d = getDistance(feature);
-    var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+',\'li\')" data-distancia="'+d+'" >'
+    var f = (feature.properties.isfav == 0)?'favorite_border':'favorite';
+    var ficha = '<li class="swipeout '+scian+'" id="ficha_'+feature.properties.id+'" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+',\'li\')" data-distancia="'+d+'" ><canvas id="canvas_'+feature.properties.id+'"  style="position: absolute; width: 100%;" ></canvas>'
          + '<div class="swipeout-content"><a href="#" class="item-link item-content">'
         +      '<div class="item-inner">'
           +      '<div class="item-title-row">'
@@ -517,20 +544,35 @@ function createFicha(feature){
               +  '<div class="item-text"><span id="distancia_'+feature.properties.id+'">'+d+'</span> m <span style="float: right;">'+feature.properties.id+'</span></div>'
               +  '</div></a></div>'
             + '<div class="swipeout-actions-left">'
-            +  '<a href="#" class="demo-mark bg-'+storage.color+' link"><i class="icon material-icons">favorite_border</i></a>'
+            +  '<a href="#" class="demo-mark bg-'+storage.color+' link" onclick="SetFav('+feature.properties.id+')"><i class="icon material-icons" id="fvIcn_'+feature.properties.id+'">'+f+'</i></a>'
             +  '<a href="#" class="demo-mark bg-'+storage.color+' link" onclick="drawRoute('+feature.geometry.coordinates[1]+','+feature.geometry.coordinates[0]+')"><i class="icon material-icons">directions</i></a>'
             +  '<a href="detail.html?id='+feature.properties.id+'&d='+d+'&scian='+scian+'&lat='+feature.geometry.coordinates[1]+'&lng='+feature.geometry.coordinates[0]+'&name='+ feature.properties.nombre+'" class="demo-mark bg-'+storage.color+' link"><i class="icon material-icons">details</i></a>'
         + ' </div>'
     +    '</li>';
     $$(".searchbar-clear").click(); $$(".searchbar-overlay").click();
-    $$("#ul_establecimientos").append(ficha);
+    if (feature.properties.activo == 1){
+        $$("#ul_establecimientos").prepend(ficha);
+        patternPremium.canvas(document.getElementById('canvas_'+feature.properties.id));
+    }else{
+        $$("#ul_establecimientos").append(ficha);
+    }
     var options = {useEasing : true, useGrouping : true, separator : ',', decimal : '.',};
     var demo = new CountUp("distancia_"+feature.properties.id, 0, d, 0, 5.0, options);
     demo.start();
 };
 
-function createIconNormal(data, category) {
+/*$$('#ul_establecimientos li.swipeout').on('taphold', function () {
+  console.log('Tap hold fired!');
+
+});*/
+
+
+function createIconNormal() {
     return L.divIcon({className: 'my-div-icon', html:'<div class="pin_normal"></div>'});
+}
+
+function createIconMember(){
+     return L.divIcon({className: 'my-div-icon', html:'<div class="pin"></div><div class="pulse"></div>'});
 }
 
 function getFiltrosActivos(){
@@ -593,7 +635,28 @@ function drawRoute(desLat, desLng, origen){
     console.log(desLat + ' ' +desLng);
     //ruta.setWaypoints(null) // limpia la ruta
     $$("#btnFlipMap").click();
-    ruta.setWaypoints([[position._latlng.lat,position._latlng.lng],[desLat, desLng]])
+    ruta.setWaypoints([[position._latlng.lat,position._latlng.lng],[desLat, desLng]]);
+    if ($$("#map_directions").hasClass("color-gray"))$$('#map_directions').toggleClass('color-gray');
+}
+
+function SetFav(id){
+    var user = firebase.auth().currentUser;
+    if (user !== null){
+        $$.getJSON(urlServices['serviceSetFav'].url, {iuser:user.uid,denue:id}, function (data, status, xhr) {
+            console.log(data);
+            if (data.code === 200){$$("#fvIcn_"+id).text(data.icono);}
+        }, function(xhr, status){
+            //error
+            console.log(status);
+        });    
+    }else{
+        //envia un mensaje de que inicie sesion antes de agregar 
+        myApp.alert('Esta función solo esta disponible para usuarios con sesión activa, inicia sesión y sigue tus lugares favoritos','Oops', function(){
+            $$(".open-login-screen").click();
+        });
+    }
+     
+    
 }
 
 

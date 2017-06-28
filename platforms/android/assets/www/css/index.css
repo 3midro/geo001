@@ -278,7 +278,7 @@ h1 {
     border-radius:50px;
     width:23px;
     height:23px;
-     background-color:gainsboro;
+     background-color:#EEEEEE;
    /* margin-top: 20px;*/
 }
 
@@ -327,6 +327,11 @@ h1 {
 .item-detail>.circulo-categoria>.icn_categoria>.material-icons {
     font-size: 50px!important;
     position: relative;
+}
+
+.backPremium{
+    position: relative;
+    width: 100%;
 }
 
 
