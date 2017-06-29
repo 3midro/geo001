@@ -334,4 +334,11 @@ h1 {
     width: 100%;
 }
 
-
+#canvas_usr{
+    position: absolute;
+    height: 24vh;
+    width: 100vw;
+    top: -40px;
+    background-color: aqua;
+    z-index: -1;
+}

@@ -541,7 +541,8 @@ function createFicha(feature){
            +       '<div class="item-title">'+ feature.properties.nombre+'</div>'
             +      '<div class="item-after"><div class="circulo-categoria"><div class="icn_categoria"><i class="material-icons">'+scian+'</i></div></div></div>'
              +   '</div>'
-              +  '<div class="item-text"><span id="distancia_'+feature.properties.id+'">'+d+'</span> m <span style="float: right;">'+feature.properties.id+'</span></div>'
+             // +  '<div class="item-text"><span id="distancia_'+feature.properties.id+'">'+d+'</span> m <span style="float: right;">'+feature.properties.id+'</span></div>'
+     +  '<div class="item-text"><span id="distancia_'+feature.properties.id+'">'+d+'</span> m</div>'
               +  '</div></a></div>'
             + '<div class="swipeout-actions-left">'
             +  '<a href="#" class="demo-mark bg-'+storage.color+' link" onclick="SetFav('+feature.properties.id+')"><i class="icon material-icons" id="fvIcn_'+feature.properties.id+'">'+f+'</i></a>'
@@ -658,6 +659,7 @@ function SetFav(id){
      
     
 }
+
 
 
 
