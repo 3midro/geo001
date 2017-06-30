@@ -336,9 +336,13 @@ h1 {
 
 #canvas_usr{
     position: absolute;
-    height: 24vh;
-    width: 100vw;
-    top: -40px;
-    background-color: aqua;
+    height: 40vh;
+    width: 75vw;
+    top: 0px;
     z-index: -1;
+}
+
+.chipUsuario{
+    margin-top: -22vh;
+    padding-bottom: 12vh;
 }
