@@ -12,7 +12,7 @@ var initFirebase =  function(){
   };
   firebase.initializeApp(config);
   firebase.auth().onAuthStateChanged(function(user) {
-      console.log(user);
+      //console.log(user);
       if (user) {
           $$(".open-login-screen").hide();
           $$("#chipUsuario>.chip-media").html('<img src="'+user.photoURL+'">');
@@ -245,7 +245,7 @@ var updDetalle = function(id, UE){
 };
 
 function synchFavs(){
-    console.log("syn favs")
+    //console.log("syn favs")
     // setea todos los elementos de la lista en NO favs
     var ul = document.getElementById("ul_establecimientos");
     var items = ul.getElementsByTagName("li");
