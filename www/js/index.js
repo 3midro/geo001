@@ -192,7 +192,7 @@ function onPosSuccess(coord) {
 
 
 function onPosError(error) {
-    console.log("No se pudo determinar la posicion " + error.message);
+   // console.log("No se pudo determinar la posicion " + error.message);
     if (lat !== '' && lon !== ''){
         navigator.geolocation.clearWatch(watchID);
         startWatcher();
@@ -209,6 +209,7 @@ function onPosError(error) {
 }*/ // not in use
 
 var map; 
+var tile = 'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png';
 function createMap(){
     if (typeof map === 'undefined'){
         map = L.map('map',{
@@ -217,7 +218,7 @@ function createMap(){
             maxZoom: 18,
             //minZoom: 14
         }).setView([21.8782892, -102.3050335], 16); 
-          L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+          L.tileLayer(tile, {
             //L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
                 detectRetina: true
             }).addTo(map);
@@ -471,12 +472,12 @@ var getDenue = function(){
                     leafletView.RemoveMarkers();leafletView.RedrawIcons();
                 }
                 frame = map.getBounds();
-                console.log(frame);
+                //console.log(frame);
                 //limpio el watcher en cada  nuevo dibujo del mapa para que solo se monitorien los que se visualizan en el mapa
                 //console.log(watcherFireBase);    
                 watcherFireBase.off();
                 var user = (firebase.auth().currentUser === null)?null:firebase.auth().currentUser.uid;
-                console.log(user);
+                //console.log(user);
                 $$.getJSON(urlServices['serviceGetDenue'].url, {bbox:frame, iuser: user}, function (data, status, xhr) {
                     drawUEPrune(data.geoUE);
                 }, function(xhr, status){
@@ -625,7 +626,7 @@ function updDistancias(){
             }
         // $$("#distancia_"+markers[i].data.id).html(d);
     }else{
-        console.log("no calcula distancias porque la vista lefleatView no esta disponible y no puede leer los puntos en ella");
+       // console.log("no calcula distancias porque la vista lefleatView no esta disponible y no puede leer los puntos en ella");
     }
     
 }
