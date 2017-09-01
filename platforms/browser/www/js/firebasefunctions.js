@@ -12,10 +12,10 @@ var initFirebase =  function(){
   };
   firebase.initializeApp(config);
   firebase.auth().onAuthStateChanged(function(user) {
-      //console.log(user);
+     // console.log(user);
       if (user) {
           $$(".open-login-screen").hide();
-          $$("#chipUsuario>.chip-media").html('<img src="'+user.photoURL+'">');
+          $$("#chipUsuario>.chip-media").html('<img src="'+user.providerData[0].photoURL+'">');
           $$("#chipUsuario>.chip-label").html(user.displayName);
           $$("#chipUsuario").removeAttr("style");
           myApp.closeModal('.login-screen');

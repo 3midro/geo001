@@ -28,7 +28,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ws: 'unsafe-inline' data: gap: https://ssl.gstatic.com http://fonts.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' *.tile.osm.org data: *; script-src 'self' http://10.106.12.66/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval' https://apis.google.com/ https://geo001-c7e20.firebaseio.com https://s-usc1c-nss-130.firebaseio.com; connect-src 'self' http://geopanda.com.mx http://geo001.geopanda.com.mx https://router.project-osrm.org https://www.googleapis.com/ 'unsafe-inline' 'unsafe-eval' https://securetoken.googleapis.com wss://s-usc1c-nss-130.firebaseio.com; frame-src 'self' 'unsafe-inline' https://geo001-c7e20.firebaseapp.com/ https://s-usc1c-nss-130.firebaseio.com ">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ws: 'unsafe-inline' data: gap: https://ssl.gstatic.com http://fonts.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' *.tile.osm.org data: *; script-src 'self' http://10.106.12.66/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval' https://apis.google.com/ https://geo001-c7e20.firebaseio.com https://s-usc1c-nss-219.firebaseio.com; connect-src 'self' http://geopanda.com.mx http://geo001.geopanda.com.mx https://router.project-osrm.org https://www.googleapis.com/ 'unsafe-inline' 'unsafe-eval' https://securetoken.googleapis.com  wss://s-usc1c-nss-219.firebaseio.com/; frame-src 'self' 'unsafe-inline' https://geo001-c7e20.firebaseapp.com/ https://s-usc1c-nss-219.firebaseio.com/">
         <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' *.osm.org data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *">-->
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
@@ -86,8 +86,12 @@
              
               
               
-            <div class="page-content">
-                 <div class="center">
+            <div class="page-content" style="padding-top:40vh">
+                <canvas id="canvas_usr"></canvas>
+                
+                
+                
+                 <div class="center chipUsuario">
                       <div class="chip" id="chipUsuario" style="display:none">
                         <div class="chip-media bg-deeppurple" id="chipUser"><i class="material-icons">person</i></div>
                         <div class="chip-label">Edd Sarellano</div>
@@ -101,10 +105,9 @@
                   <!--<p><a href="#" class="button button-big button-raised button-fill" onclick="testPHP();">TEST PHP</a></p>-->
             </div>
                 
-                <!--<div class="content-block-title">Ubicaci&oacute;n</div>
                  <div class="list-block">
                           <ul>
-                            <li><a href="#" id="location" class="item-link smart-select" data-back-on-select="true">
+                            <!--<li><a href="#" id="location" class="item-link smart-select" data-back-on-select="true">
                                 <select name="location" class="my-location">
                                     <option value="01" data-display-as="AGU">Aguascalientes</option>
                                     <option value="02" data-display-as="BCN">Baja California</option>
@@ -142,96 +145,86 @@
                                 <div class="item-content">
                               <div class="item-media"><i class="material-icons color-gray">my_location</i></div>
                               <div class="item-inner">
-                                <div class="item-title" hidden="hidden">Ubicaci&oacute;n</div>
+                                <div class="item-title" >Ubicaci&oacute;n</div>
                                   
                               </div>
-                            </div></a></li>
-                          </ul>
-                        </div>-->
-                
-                
-                <div class="content-block">
-                    
-                   
-                   <!-- 
-                    <div class="content-block-title">Ubicaci&oacute;n</div>
-                    <div class="list-block">
-                        <ul>
-                               <li><a href="#" class="item-link smart-select">
-                                <select name="mac-windows">
-                                  <option value="mac" selected="selected">Mac</option>
-                                  <option value="windows">Windows</option>
-                                </select>
-                                 <div class="item-content">
-                              <div class="item-media"><i class="material-icons color-gray">my_location</i></div>
-                              <div class="item-inner">
-                                <div class="item-title" hidden="hidden">Ubicaci&oacute;n</div>
-                              </div>
-                            </div></a></li>
-                        </ul>
-                    </div>
-                    
-                    
-                    
-                <div class="list-block">
-                      <ul>
-                           <li><a href="#" class="item-link smart-select">
-                            <select name="locationEdo" multiple="multiple">
-                              <optgroup label="Claras">
-                                <option value="honda">Aguascalientes</option>
-                                <option value="mazda">Baja California</option>  
-                                <option value="mazda">Baja California Sur</option>
-                              </optgroup>
-                            </select>
-                            <div class="item-content">
-                              <div class="item-media"><i class="material-icons color-gray">my_location</i></div>
-                              <div class="item-inner">
-                                <div class="item-title" hidden="hidden">Ubicaci&oacute;n</div>
-                              </div>
-                            </div></a></li>
-                      </ul>
-                    </div>  -->
-                    <div class="content-block" id="geolocation"></div>
-                    
-                    
-                    <!--<div class="list-block">
-                        <ul>
+                            </div></a></li>-->
+                                 <li><a href="regalos.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons color-gray">card_giftcard</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Regalos</div>
+                                      <div class="item-after"><span class="badge">0</span></div>    
+                                    </div>
+                                  </div></a></li>
+                              <li><a href="color-themes.html" class="item-link"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons color-gray">color_lens</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Temas</div>
+                                    </div>
+                                  </div></a></li>
+                               <li><a href="share.html" class="item-link close-panel" data-view=".view-main"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons color-gray">share</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Compartir</div>
+                                    </div>
+                                  </div></a></li>
                               
-                          <li><a href="material/data-table.html" class="item-link"> 
+                          </ul>
+                        </div>
+                
+                 <div class="content-block-title">Acerca de</div>
+                 <div class="list-block">
+                          <ul>
+                              <li><a href="negocios.html" class="item-link close-panel" data-view=".view-main"> 
                                   <div class="item-content">
-                                    <div class="item-media"><i class="material-icons color-gray">local_pizza</i></div>
+                                    <div class="item-media"><i class="material-icons color-gray">business</i></div>
                                     <div class="item-inner"> 
-                                      <div class="item-title">Fiestas</div> 
-                                      <div class="item-after"><span class="badge theme-deeppurple">2</span></div>
+                                      <div class="item-title">Negocios</div>
+                                      <div class="item-after"></div>    
                                     </div>
                                   </div></a></li>
-                          
-                            <li><a href="color-themes.html" class="item-link"> 
+                               <li><a href="contacto.html" class="item-link close-panel" data-view=".view-main"> 
                                   <div class="item-content">
-                                    <div class="item-media"><i class="material-icons color-gray">account_balance_wallet</i></div>
+                                    <div class="item-media"><i class="material-icons color-gray">headset_mic</i></div>
                                     <div class="item-inner"> 
-                                      <div class="item-title">Cartera </div> 
+                                      <div class="item-title">Contacto</div>
+                                    </div>
+                                  </div></a></li> 
+                               <!--<li><a href="legal.html" class="item-link close-panel" data-view=".view-main"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons color-gray">gavel</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Legal</div>
+                                    </div>
+                                  </div></a></li> -->
+                            <li><a href="privacidad.html" class="item-link close-panel" data-view=".view-main"> 
+                                  <div class="item-content">
+                                    <div class="item-media"><i class="material-icons color-gray">screen_lock_portrait</i></div>
+                                    <div class="item-inner"> 
+                                      <div class="item-title">Privacidad</div>
+                                        <div class="item-after"><span class="badge"><i class="fa fa-star"></i></span></div>
                                     </div>
                                   </div></a></li>
-                            <li><a href="color-themes.html" class="item-link">
-                                      <div class="item-content">
-                                        <div class="item-media"><i class="material-icons color-gray">card_giftcard</i></div>
-                                        <div class="item-inner">
-                                          <div class="item-title">Regalos</div>
-                                            <div class="item-after"><span class="badge theme-deeppurple">5</span></div>
-                                        </div>
-                                      </div></a>
-                                </li>
-                            <li><a href="color-themes.html" class="item-link"> 
+                              
+                            <li><a href="version.html" class="item-link close-panel" data-view=".view-main"> 
                                   <div class="item-content">
-                                    <div class="item-media"><i class="material-icons color-gray">pie_chart</i></div>
+                                    <div class="item-media"><i class="material-icons color-gray">phone_android</i></div>
                                     <div class="item-inner"> 
-                                      <div class="item-title">Reportes</div>
+                                      <div class="item-title">Versi&oacute;n</div>
+                                      <div class="item-after"></div>    
                                     </div>
-                                  </div></a></li>
-                        </ul>
-                    </div>-->
-                </div>
+                                  </div></a></li> 
+                          </ul>
+                        </div>
+                
+                
+              
+                
+                
+               
                 
                  <!--<div class="content-block">
                      <div class="content-block-title">Cliente</div>
@@ -349,11 +342,11 @@
                     </div>
                 </div>-->
                 
-                <div class="content-block">
+                <!--<div class="content-block">
                     <div class="content-block-title">Herramientas</div>
                     <div class="list-block">
                         <ul>
-                             <!-- <li><a href="color-themes.html" class="item-link"> 
+                              <li><a href="color-themes.html" class="item-link"> 
                                   <div class="item-content">
                                     <div class="item-media"><i class="material-icons color-gray">question_answer</i></div>
                                     <div class="item-inner"> 
@@ -368,7 +361,7 @@
                                       <div class="item-title">Notificaciones</div>
                                       <div class="item-after"><span class="badge theme-deeppurple">4</span></div>
                                     </div>
-                                  </div></a></li>-->
+                                  </div></a></li>
                             
                         
                             <li><a href="color-themes.html" class="item-link"> 
@@ -380,7 +373,7 @@
                                   </div></a></li>
                         </ul>
                     </div>
-                </div>
+                </div>-->
                 
                 <!--<div class="content-block">
                      <div class="content-block-title">Cuenta</div>
@@ -411,11 +404,11 @@
                     </div>
                 </div>-->
                 
-                 <div class="content-block">
+                 <!--<div class="content-block">
                      <div class="content-block-title">Ayuda</div>
                     <div class="list-block">
                         <ul>
-                            <!--<li><a href="guia-seguridad.html" class="item-link"> 
+                            <li><a href="guia-seguridad.html" class="item-link"> 
                                   <div class="item-content">
                                     <div class="item-media"><i class="material-icons color-gray">security<sup>check</sup></i></div>
                                     <div class="item-inner"> 
@@ -435,14 +428,14 @@
                                     <div class="item-inner"> 
                                       <div class="item-title">FAQ</div>
                                     </div>
-                                  </div></a></li>-->
-                              <!--<li onclick="javascript:intro();"><a href="javascript:void(0);" class="item-link"> 
+                                  </div></a></li>
+                              <li onclick="javascript:intro();"><a href="javascript:void(0);" class="item-link"> 
                                   <div class="item-content">
                                     <div class="item-media"><i class="material-icons">touch_app</i></div>
                                     <div class="item-inner"> 
                                       <div class="item-title">Tutorial</div>
                                     </div>
-                                  </div></a></li>-->
+                                  </div></a></li>
                               <li><a href="#" class="item-link" onclick="javascript: storage.removeItem('welcome');welcomeScreen();"> 
                                   <div class="item-content">
                                     <div class="item-media"><i class="material-icons  color-gray">screen_share</i></div>
@@ -452,9 +445,9 @@
                                   </div></a></li>
                         </ul>
                     </div>
-                </div>
+                </div>-->
                 
-                <div class="content-block">
+               <!-- <div class="content-block">
                     <div class="content-block-title">Informaci&oacute;n</div>
                     <div class="list-block">
                         <ul>
@@ -469,14 +462,14 @@
                                   <div class="item-content">
                                     <div class="item-media"><i class="material-icons color-gray">gavel</i></div>
                                     <div class="item-inner"> 
-                                      <div class="item-title">Legal</div><!-- condiciones de uso -->
+                                      <div class="item-title">Legal</div>
                                     </div>
                                   </div></a></li> 
                             <li><a href="privacidad.html" class="item-link close-panel" data-view=".view-main"> 
                                   <div class="item-content">
                                     <div class="item-media"><i class="material-icons color-gray">screen_lock_portrait</i></div>
                                     <div class="item-inner"> 
-                                      <div class="item-title">Privacidad</div><!--  aviso privacidad-->
+                                      <div class="item-title">Privacidad</div>
                                     </div>
                                   </div></a></li> 
                             <li><a href="share.html" class="item-link close-panel" data-view=".view-main"> 
@@ -495,7 +488,7 @@
                                   </div></a></li>
                         </ul>
                     </div>
-                </div>
+                </div>-->
                 
                 
                 
