@@ -334,4 +334,15 @@ h1 {
     width: 100%;
 }
 
+#canvas_usr{
+    position: absolute;
+    height: 40vh;
+    width: 75vw;
+    top: 0px;
+    z-index: -1;
+}
 
+.chipUsuario{
+    margin-top: -22vh;
+    padding-bottom: 12vh;
+}

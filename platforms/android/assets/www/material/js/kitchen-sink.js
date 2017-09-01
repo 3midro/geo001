@@ -3,6 +3,7 @@ var myApp = new Framework7({
     modalTitle: 'Framework7',
     // Enable Material theme
     material: true,
+    tapHold: true //enable tap hold events
 });
 
 // Expose Internal DOM library
@@ -437,7 +438,7 @@ $$('.login-screen').find('.button').on('click', function () {
 
 /* ===== Demo Popover ===== */
 $$('.popover a').on('click', function () {
-    myApp.closeModal('.popover');
+   // myApp.closeModal('.popover');
 });
 
 
@@ -1169,10 +1170,8 @@ $$('input[type="range"]').on('input change', function(){
 });
 
 $$('.my-location').on('change', function(e){
-     //var optionSelected = $$("option:selected", this);
      var valueSelected = this.value;
-    console.log("zoom a la entidad " + /*optionSelected + ' - ' +*/ valueSelected);
-    getDenue(valueSelected);
+     setEnt(valueSelected);
 });
 
 $$('input[type=checkbox][name=ks-giro]').on('change',function(){
@@ -1194,7 +1193,8 @@ myApp.onPageInit('detail', function (page) {
             maxZoom: 16,
             minZoom: 16
         }).setView([parseFloat(page.query.lat), parseFloat(page.query.lng)], 16); 
-            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            //L.tileLayer('http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+    L.tileLayer(tile, {
                 detectRetina: true
             }).addTo(map_detail);
     
@@ -1244,13 +1244,19 @@ myApp.onPageInit('detail', function (page) {
         found: '.searchbar-found-promos',
         notFound: '.searchbar-not-found-promos'
     }); 
+    var user = firebase.auth().currentUser;
+    if (user !== null){
+        //trae el detalle del elemento
+        UEdetail = firebase.database().ref('denue/' + pagDetalle).once('value').then(function(snapshot) {
+                var UE = snapshot.val();
+                console.log(UE);
+                updDetalle(pagDetalle, UE);
+        });    
+    }else{
+        // No trae el detalle del elemento
+        console.log("No trae el detalle del elemento porque no esta logueado");
+    }
     
-    //trae el detalle del elemento
-    UEdetail = firebase.database().ref('denue/' + pagDetalle).once('value').then(function(snapshot) {
-            var UE = snapshot.val();
-            console.log(UE);
-            updDetalle(pagDetalle, UE);
-    });
 });
 
 myApp.onPageBack('detail', function (page) {
@@ -1260,7 +1266,6 @@ myApp.onPageBack('detail', function (page) {
     //UEdetail.off();
     console.log("cerro la pagina " + page.query.id);
 });
-
 
 
 

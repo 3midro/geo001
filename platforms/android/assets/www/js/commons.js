@@ -168,6 +168,7 @@ var welcomeScreen = function(){
         initFirebase(); 
     }
 };
+
 /*var bp;
 var beforePosition = function(){
         var myapp_ = new Framework7();
@@ -217,6 +218,17 @@ var setColor = function(colprev){
         StatusBar.backgroundColorByHexString(coloresStatusBar[color]);
         //beforePosition();
          createMap();
+      //  var s = firebase.auth().currentUser;
+        //pone el background del usuario con triangify del color que tiene la interfaz
+        var patternUser = Trianglify({
+              height: 300,
+              width: 650,
+              cell_size: 150,
+              seed: 'invitado',
+              color_space: 'lab',
+              x_colors: ['#FFFFFF', coloresStatusBar[color]]                
+            });
+        patternUser.canvas(document.getElementById('canvas_usr'));
         
     }else{
         // inicializa el color en purpura
@@ -279,6 +291,9 @@ var intro = function(){
 
 
 
+var setEnt = function(ent){
+    console.log("zoom a la entidad " +  ent);
+}
 
 
 

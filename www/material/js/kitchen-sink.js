@@ -1146,7 +1146,20 @@ $$('#btnFlipMap').on('click', function () {
         $$("#initFiltro").hide();
     }else{
         $$("#btnFlipMap>i").text('map');
-        if ( $$("#ul_establecimientos li").length>0){$$("#initFiltro").removeAttr("style");}
+        if ( $$("#ul_establecimientos li").length>0){
+            $$("#initFiltro").removeAttr("style");
+        }else{
+            //no permite hacer flip si la lista esta vacia, para que el usuario no vea la pagina en blanco y crea que no sirve la app
+            $$("#btnFlipMap>i").text('view_list');
+            document.querySelector(".flip-container").classList.toggle("flip");
+            myApp.addNotification({
+                message: 'Mueve el mapa',
+                hold: 1500,
+                button: {
+                    text: 'Cerrar'
+                },
+            });
+        }
     }
     document.querySelector(".flip-container").classList.toggle("flip");
 });
