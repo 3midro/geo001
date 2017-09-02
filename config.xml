@@ -24,6 +24,7 @@
     </platform>
     <preference name="Orientation" value="portrait" />
     <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="ErrorUrl" value="ErrorPage.html" />
     <universal-links>
         <host name="https://yx23z.app.goo.gl/" scheme="https" />
         <host name="geo001-c7e20.firebaseapp.com" scheme="https">
