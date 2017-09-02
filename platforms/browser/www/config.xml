@@ -26,4 +26,5 @@
     </universal-links>
     <preference name="Orientation" value="portrait" />
     <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="ErrorUrl" value="ErrorPage.html" />
 </widget>
