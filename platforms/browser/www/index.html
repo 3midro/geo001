@@ -28,8 +28,8 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ws: 'unsafe-inline' data: gap: https://ssl.gstatic.com http://fonts.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' *.tile.osm.org data: *; script-src 'self' http://10.106.12.66/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval' https://apis.google.com/ https://geo001-c7e20.firebaseio.com https://s-usc1c-nss-219.firebaseio.com; connect-src 'self' http://geopanda.com.mx http://geo001.geopanda.com.mx https://router.project-osrm.org https://www.googleapis.com/ 'unsafe-inline' 'unsafe-eval' https://securetoken.googleapis.com  wss://s-usc1c-nss-219.firebaseio.com/; frame-src 'self' 'unsafe-inline' https://geo001-c7e20.firebaseapp.com/ https://s-usc1c-nss-219.firebaseio.com/">
-        <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' *.osm.org data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *">-->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ws: 'unsafe-inline' data: gap: https://ssl.gstatic.com http://fonts.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' *.tile.osm.org data: *; script-src 'self' http://10.106.12.66/geoapps/geo001/www/php/ 'unsafe-inline' 'unsafe-eval' https://apis.google.com/ https://geo001-c7e20.firebaseio.com https://*.firebaseio.com; connect-src 'self' http://geopanda.com.mx http://geo001.geopanda.com.mx https://router.project-osrm.org https://www.googleapis.com/ 'unsafe-inline' 'unsafe-eval' https://securetoken.googleapis.com  wss://*.firebaseio.com/; frame-src 'self' 'unsafe-inline' https://geo001-c7e20.firebaseapp.com/ https://*.firebaseio.com/">
+        <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' *.osm.org data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *">--> 
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -1161,9 +1161,9 @@
                     <p><i class="icon material-icons md-100">important_devices</i></p>
                     <p>As&iacute; que puedes iniciar sesi&oacute;n utilizando tus redes sociales</p>
                     <p class="buttons-row">
-                        <a href="#" onclick="login('f')" class="button button-big button-fill button-raised color-indigo"><i class="fa fa-facebook-f fa-4x fa-login" ></i></a>
-                        <a href="#" onclick="login('t')" class="button button-big button-fill button-raised color-cyan"><i class="fa fa-twitter fa-4x fa-login" ></i></a>
-                        <a href="#" onclick="login('g')" class="button button-big button-fill button-raised color-red"><i class="fa fa-google-plus fa-4x fa-login" ></i></a>
+                        <a href="#" onclick="login('f')" class="button button-big button-fill button-raised color-indigo"><i class="fa fa-facebook-f " ></i></a>
+                        <a href="#" onclick="login('t')" class="button button-big button-fill button-raised color-cyan"><i class="fa fa-twitter " ></i></a>
+                        <a href="#" onclick="login('g')" class="button button-big button-fill button-raised color-red"><i class="fa fa-google-plus " ></i></a>
                     </p>
                     <p class="button-row">
                          <a href="#" onclick="myApp.closeModal('.login-screen')" class="button button-big button-fill button-raised color-deeppurple">Regresar</a>
