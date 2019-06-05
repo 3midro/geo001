@@ -1,0 +1,13 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "Brindix Beta",
+  "short_name": "Brindix Beta",
+  "version": "io.geopanda.brindix",
+  "description": "Geodirectorio de bebidas alcoholicas más grande de México",
+  "author": "Geopanda Team",
+  "icons": [],
+  "orientation": "portrait",
+  "start_url": "index.html",
+  "theme_color": "#2196f3"
+}

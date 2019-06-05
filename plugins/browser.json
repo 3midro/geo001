@@ -1,67 +1,64 @@
 {
-    "prepare_queue": {
-        "installed": [],
-        "uninstalled": []
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cl.rmd.cordova.dialoggps": {
+      "PACKAGE_NAME": "io.geopanda.brindix"
     },
-    "config_munge": {
-        "files": {}
+    "cordova-plugin-browsertab": {
+      "PACKAGE_NAME": "io.geopanda.brindix"
     },
-    "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "cordova-plugin-geolocation": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "cordova-plugin-console": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "cordova-plugin-dialogs": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "cordova-plugin-file": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "cordova-plugin-network-information": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "nl.madebymark.share": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "nl.x-services.plugins.socialsharing": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "cl.rmd.cordova.dialoggps": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "cordova.plugins.diagnostic": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "cordova-plugin-device": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "cordova-plugin-buildinfo": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "cordova-universal-links-plugin": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "cordova-plugin-browsertab": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "cordova-plugin-inappbrowser": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        }
+    "cordova-plugin-buildinfo": {
+      "PACKAGE_NAME": "io.geopanda.brindix"
     },
-    "dependent_plugins": {
-        "cordova-plugin-compat": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        }
+    "cordova-plugin-console": {
+      "PACKAGE_NAME": "io.geopanda.brindix"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "io.geopanda.brindix"
+    },
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "io.geopanda.brindix"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "io.geopanda.brindix"
+    },
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "io.geopanda.brindix"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "io.geopanda.brindix"
+    },
+    "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "io.geopanda.brindix"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "io.geopanda.brindix"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "io.geopanda.brindix"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "io.geopanda.brindix"
+    },
+    "cordova-universal-links-plugin": {
+      "PACKAGE_NAME": "io.geopanda.brindix"
+    },
+    "cordova.plugins.diagnostic": {
+      "PACKAGE_NAME": "io.geopanda.brindix"
+    },
+    "nl.x-services.plugins.socialsharing": {
+      "PACKAGE_NAME": "io.geopanda.brindix"
     }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-compat": {
+      "PACKAGE_NAME": "io.geopanda.brindix"
+    }
+  }
 }

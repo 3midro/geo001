@@ -92,8 +92,8 @@ channel.onCordovaReady.subscribe(function () {
 			}
 		},
 		function (msg) {
-			console.error('BuildInfo init fail');
-			console.error(msg);
+			console.log('BuildInfo init fail');
+			console.log(msg);
 		},
 		'BuildInfo',
 		'init',
