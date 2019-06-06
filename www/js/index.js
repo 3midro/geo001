@@ -479,6 +479,7 @@ var getDenue = function(){
                 var user = (firebase.auth().currentUser === null)?null:firebase.auth().currentUser.uid;
                 //console.log(user);
                 $$.getJSON(urlServices['serviceGetDenue'].url, {bbox:frame, iuser: user}, function (data, status, xhr) {
+                    console.log(frame);
                     drawUEPrune(data.geoUE);
                 }, function(xhr, status){
                     console.log(status);
