@@ -19,7 +19,7 @@
         "cordova-plugin-whitelist": "1",
         "cordova-plugin-browsertab": "~0.2.0",
         "cordova-plugin-buildinfo": "~1.1.0",
-        "cordova-plugin-inappbrowser": "~1.7.1",
+        "cordova-plugin-inappbrowser": "~4.0.0",
         "cordova-universal-links-plugin": "~1.2.1"
     }
 }
